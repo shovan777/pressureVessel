@@ -28,12 +28,11 @@
     margin-right: 15px;
     margin-top: 5px;
 }
-
-.Label2 {
-    font-weight: bold;
+.Label3 {
+    font-size: 1.5rem;
     display: block;
-    margin-right: 15px;
     margin-top: 5px;
+    font-weight: bold;
 }
 
 .InputElement {

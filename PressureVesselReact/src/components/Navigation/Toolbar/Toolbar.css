@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #703B09;
+    background-color: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,3 +22,16 @@
         display: none;
     }
 }
+
+.wrapper {
+    /* display: -webkit-box;
+    display: -ms-flexbox; */
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-left: 10px;
+    /* margin-top: 20px;  */
+    width: 460px;
+    font-size: 1.6rem;
+  }

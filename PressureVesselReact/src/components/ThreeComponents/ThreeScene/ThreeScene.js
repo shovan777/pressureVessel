@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 
 class ThreeScene extends Component {
+
+  state = {
+    show1: false,
+    show2: false
+  }
   componentDidMount() {
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
@@ -35,11 +40,6 @@ class ThreeScene extends Component {
     this.directionalLight.position.set(0, -70, 100).normalize()
 
     //ADD GEOMETRY
-    this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
-    this.material = new THREE.MeshBasicMaterial({ color: '#999' });
-    this.sphere = new THREE.Mesh(this.geometry, this.material);
-    // this.sphere.translateY(0.93);
-    this.scene.add(this.sphere)
 
     // this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
     // this.material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
@@ -61,17 +61,26 @@ class ThreeScene extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log("ComponentWillReceiveProps ThreeScene ");
-    console.log(nextProps.length);
-    const l = nextProps.length;
-    if (l > 0 && nextProps.length !== this.props.length) {
-      console.log(" Inside ComponentWillReceiveProps ThreeScene ");
-      //this.stop()
+    if (nextProps.showE && !this.state.show1) {
+
+      this.setState({show1: true});
+      this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
+      this.material = new THREE.MeshBasicMaterial({ color: '#999' });
+      this.sphere = new THREE.Mesh(this.geometry, this.material);
+      this.sphere.translateY(0.93);
+      this.scene.add(this.sphere)
+      
+
+    }
+    if (nextProps.showC && !this.state.show2) {
+
+      this.setState({show2: true});
       this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
       this.material = new THREE.MeshBasicMaterial({ color: '#777' })
       this.cylinder = new THREE.Mesh(this.geometry, this.material)
       this.scene.add(this.cylinder)
-      this.sphere.translateY(0.93);
       this.start()
+
     }
   }
   start = () => {
@@ -102,7 +111,7 @@ class ThreeScene extends Component {
   render() {
     return (
       <div
-        style={{ width: '100%', height: '600px' }}
+        style={{ width: '100%', height: '700px' }}
         ref={(mount) => { this.mount = mount }}
       />
     )

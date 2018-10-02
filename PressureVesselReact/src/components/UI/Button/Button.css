@@ -2,9 +2,9 @@
     /* background-color: transparent;
     border: none; */
     width:100px;
-    background-color: #DAD735;
+    background-color: #888;
     cursor: pointer;
-    border: 1px solid #966909;
+    border: 1px solid #888;
     color: white;
     outline: none;
     font: inherit;
@@ -20,9 +20,9 @@
 } */
 
 .Success {
-    color: #5C9210;
+    color: #fff;
 }
 
 .Danger {
-    color: #944317;
+    color: #fff;
 }
