@@ -25,12 +25,13 @@ SECRET_KEY = '04ynd%4&6gsfiaz*!bpe#2n%*id&96_xs5ndqo^vw4jr6y8ls%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'cylinder.apps.CylinderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
