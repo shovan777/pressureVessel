@@ -4,4 +4,5 @@ from django.db import models
 class Parameter(models.Model):
     # thickness = models.IntegerField(default=0)
     name = models.CharField(max_length=255)
+    grade = models.CharField(max_length=50)
     strength = models.FloatField(default=1)

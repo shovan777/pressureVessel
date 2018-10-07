@@ -21,6 +21,8 @@ class VesselBuilder extends Component {
     showEllipsoid: false,
     cylinder: false,
     ellipsoid: false,
+    btn1: true,
+    btn2: true,
     params1: {
       material: "",
       ip: 0,
@@ -75,8 +77,9 @@ class VesselBuilder extends Component {
   //     this.setState({showParam: true});
   // }
 
+
   getRequest = () => {
-    axios.get("/api/cylinder/" + 506 + "/").then(response => {
+    axios.get("/api/cylinder/" + 513 + "/").then(response => {
       console.log(response);
     }).catch(error => {
       this.setState({error: true});
@@ -85,7 +88,10 @@ class VesselBuilder extends Component {
   }
 
   postRequest = () => {
-    axios.post("/api/data/", JSON.stringify({name: 'hero'})).then(response => {
+    const user = {
+        name: "hello"
+      };
+    axios.post("/api/data/", JSON.stringify(this.state.params1)).then(response => {
       console.log(response);
     });
   }
@@ -109,19 +115,19 @@ class VesselBuilder extends Component {
   }
 
   submitParamsHandler2 = (event) => {
-    this.setState({showParam: false});
-    this.setState({showParam1: true});
-    this.setState({params2: event});
-    this.setState({ellipsoid: true});
+    // this.setState({showParam: false});
+    // this.setState({showParam1: true});
+    this.setState({params2: event, btn1: false});
+    // this.setState({ellipsoid: true});
     // console.log(event)
   }
 
   submitParamsHandler3 = (event) => {
-    this.setState({showParam: false});
-    this.setState({showParam3: true});
-    this.setState({params4: event});
-    this.setState({cylinder: true});
-    console.log(this.state);
+    // this.setState({showParam: false});
+    // this.setState({showParam3: true});
+    this.setState({params4: event, btn2: false});
+    // this.setState({cylinder: true});
+    // console.log(this.state);
   }
 
   cancelParamsHandler = () => {
@@ -146,20 +152,36 @@ class VesselBuilder extends Component {
 
   }
 
+  finish1 = () => {
+    // this.getRequest();
+    this.setState({showParam: false},{btn1: true});
+    this.setState({showParam1: true});
+    this.setState({ellipsoid: true});
+    console.log("Inside finish1");
+  }
+
+  finish2 = () => {
+    // this.postRequest();
+    this.setState({showParam: false},{btn2: true});
+    this.setState({showParam3: true});
+    this.setState({cylinder: true});
+    console.log("Inside finish2");
+  }
+
   render() {
 
     // console.log("Rerendered");
     return (<Aux>
       <Modal show={this.state.showParam && this.state.showEllipsoid}>
         <Parameter1 label={"Ellipsoidal Head"} show={this.state.showParam1} submitParams={this.submitParamsHandler1} cancelParams={this.cancelParamsHandler}/>
-        <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625}/>
+        <Parameter2 label={"Ellipsoidal Head Dimensions"} show={!this.state.showParam1} btndisabled={this.state.btn1} finish1={this.finish1Handler} submitParams={this.submitParamsHandler2} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min1={0.3625} min2={0.3625}/>
       </Modal>
       <Modal1 show={this.state.showParam && this.state.showEllipsoid && !this.state.showParam1}>
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt}/>
       </Modal1>
       <Modal show={this.state.showParam && this.state.showCylinder}>
         <Parameter1 label={"Cylinder"} show={this.state.showParam3} submitParams={this.submitParamsHandler1} cancelParams={this.cancelParamsHandler}/>
-        <Parameter3 label={"Cylinder Dimensions"} show={!this.state.showParam3} submitParams={this.submitParamsHandler3} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min={0.3625}/>
+        <Parameter3 label={"Cylinder Dimensions"} show={!this.state.showParam3} btndisabled={this.state.btn2} finish2={this.finish2Handler} submitParams={this.submitParamsHandler3} cancelParams={this.cancelParamsHandler} previousParams={this.previousParamsHandler} min={0.3625}/>
       </Modal>
       <Modal1 show={this.state.showParam && this.state.showCylinder && !this.state.showParam3}>
         <Data map={this.state.params5.map} maep={this.state.params5.maep} mawp={this.state.params5.mawp} sfi={this.state.params5.sfi} sfo={this.state.params5.sfo} sfmap={this.state.params5.sfmap} sfmawp={this.state.params5.sfmaep} sfmaep={this.state.params5.sfmawp} mdmt={this.state.params5.mdmt}/>

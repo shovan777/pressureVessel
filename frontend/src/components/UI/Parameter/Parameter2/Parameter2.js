@@ -42,7 +42,7 @@ class Parameter1 extends Component {
                     <label className={classes.Label2}>{this.props.label}</label>
                     </div>
                     <form>
-                        
+
                         <div className={classes.Input}>
                             <label className={classes.Label}>Head Diameter</label>
                             <input name="hd" type="number" placeholder="0.0" className={classes.InputElement}
@@ -76,8 +76,9 @@ class Parameter1 extends Component {
                     </form>
                     <Button btnType="Success" clicked={this.props.previousParams}>Previous</Button>
                     <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>Submit</Button>
-                    <Button btnType="Danger" clicked={this.props.cancelParams}>Cancel</Button>
-                    
+                    <Button btnType="Success" disabled={this.props.btndisabled} clicked={this.props.finish1}>Finish</Button>
+                    <Button btnType="Danger" disabled={this.props.btndisabled} clicked={this.props.cancelParams}>Cancel</Button>
+
                 </div>
             );
         } else {

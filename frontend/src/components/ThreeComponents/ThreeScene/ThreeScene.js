@@ -44,7 +44,7 @@ class ThreeScene extends Component {
     // this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
     // this.material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
     // this.cube = new THREE.Mesh( this.geometry, this.material );
-    // this.scene.add( this.cube );  
+    // this.scene.add( this.cube );
 
     // this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32,32,true,0,6.3)
     // this.material = new THREE.MeshBasicMaterial({ color: '#777' })
@@ -65,18 +65,18 @@ class ThreeScene extends Component {
 
       this.setState({show1: true});
       this.geometry = new THREE.SphereGeometry(1, 64, 64, 0, 6.3, 0, 1.5);
-      this.material = new THREE.MeshBasicMaterial({ color: '#999' });
+      this.material = new THREE.MeshBasicMaterial({ color: '#296789' });
       this.sphere = new THREE.Mesh(this.geometry, this.material);
       this.sphere.translateY(0.93);
       this.scene.add(this.sphere)
-      
+
 
     }
     if (nextProps.showC && !this.state.show2) {
 
       this.setState({show2: true});
       this.geometry = new THREE.CylinderGeometry(1, 1, 2, 32, 32, true, 0, 6.3)
-      this.material = new THREE.MeshBasicMaterial({ color: '#777' })
+      this.material = new THREE.MeshBasicMaterial({ color: '#0b7dba' })
       this.cylinder = new THREE.Mesh(this.geometry, this.material)
       this.scene.add(this.cylinder)
       this.start()

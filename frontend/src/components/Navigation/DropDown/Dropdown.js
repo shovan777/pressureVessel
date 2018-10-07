@@ -37,7 +37,7 @@ class Dropdown extends Component{
     return(
       <div className={classes.ddwrapper}>
         <div className={classes.ddheader} onClick={this.toggleList}>
-          <div className={classes.ddheadertitle}>Attach</div>
+          <div className={classes.ddheadertitle}>Action</div>
           {listOpen
             ? <FontAwesome name="angle-up" size="2x"/>
             : <FontAwesome name="angle-down" size="2x"/>

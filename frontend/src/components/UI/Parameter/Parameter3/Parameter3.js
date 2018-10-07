@@ -6,7 +6,7 @@ const inputVar = [
     { label: 'Shell Diameter', type: 'number', id: 1 },
     { label: 'Length', type: 'number', id: 2 },
     { label: 'Thickness', type: 'number', id: 3 }
-    
+
 ]
 
 class Parameter3 extends Component {
@@ -59,8 +59,9 @@ class Parameter3 extends Component {
                     </form>
                     <Button btnType="Success" clicked={this.props.previousParams}>Previous</Button>
                     <Button btnType="Success" clicked={() => this.props.submitParams(this.state.params)}>Submit</Button>
-                    <Button btnType="Danger" clicked={this.props.cancelParams}>Cancel</Button>
-                    
+                    <Button btnType="Success" disabled={this.props.btndisabled} clicked={this.props.finish2}>Finish</Button>
+                    <Button btnType="Danger" disabled={!this.props.btndisabled} clicked={this.props.cancelParams}>Cancel</Button>
+
                 </div>
             );
         } else {
