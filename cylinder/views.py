@@ -21,7 +21,7 @@ def results(request, thickness):
     return HttpResponse(response % thickness)
 
 # @api_view(['GET', 'POST'])
-@require_http_methods(['POST', 'GET'])
+# @require_http_methods(['POST', 'GET'])
 @csrf_exempt
 def data(request):
     print('inside data')
@@ -32,7 +32,7 @@ def data(request):
         # print(request.body)
         print("I am calculating thickness")
         # thickness_calc.cylinder_t
-        print(thickness_calc.cylinder_t(D=5.8, S=60, P=30.8))
+        # print(thickness_calc.cylinder_t(D=5.8, S=60, P=30.8))
         return HttpResponse('I am posting')
         # return HttpResponse({"message": "Got some data!", "data": request.body})
     # return HttpResponse({"message": "Hello, world!"})
