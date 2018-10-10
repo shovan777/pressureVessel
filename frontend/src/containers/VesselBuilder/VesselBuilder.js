@@ -97,8 +97,8 @@ class VesselBuilder extends Component {
   }
 
   componentDidMount() {
-    this.getRequest();
-    this.postRequest();
+    //this.getRequest();
+    //this.postRequest();
     console.log("COmponentDidMount");
   }
   submitParamsHandler1 = (event) => {
@@ -115,19 +115,20 @@ class VesselBuilder extends Component {
   }
 
   submitParamsHandler2 = (event) => {
-    // this.setState({showParam: false});
-    // this.setState({showParam1: true});
-    this.setState({params2: event, btn1: false});
-    // this.setState({ellipsoid: true});
+    this.setState({showParam: false});
+    this.setState({showParam1: true});
+    this.setState({params2: event});
+    this.setState({ellipsoid: true});
     // console.log(event)
   }
 
   submitParamsHandler3 = (event) => {
-    // this.setState({showParam: false});
-    // this.setState({showParam3: true});
-    this.setState({params4: event, btn2: false});
-    // this.setState({cylinder: true});
+    this.setState({showParam: false});
+    this.setState({showParam3: true});
+    this.setState({params4: event});
+    this.setState({cylinder: true});
     // console.log(this.state);
+    this.postRequest();
   }
 
   cancelParamsHandler = () => {

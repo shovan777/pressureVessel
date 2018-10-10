@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from cylinder.utils.thickness_calc import cylinder_t
 from cylinder.models import Parameter
+import json
 # from rest_framework.response import Response
 
 # Create your views here.
@@ -22,35 +23,36 @@ def results(request, thickness):
     return HttpResponse(response % thickness)
 
 # @api_view(['GET', 'POST'])
-# @require_http_methods(['POST', 'GET'])
+@require_http_methods(['POST', 'GET'])
 @csrf_exempt
 def data(request):
     print('inside data')
-    print(request.method)
-    # print(request.body)
-    param = request.body
+    print(request)
+    print(request.body)
+    param_unicode = request.body.decode('utf-8')
+    param = json.loads(param_unicode)
+    print(param['material'])
+
     if request.method == 'POST':
         # get all attr for db query
-        spec_num, type_grade = param.name.split(' ')
-        temp = param.temp
-        row = Parameter.objects.filter(
+        spec_num, type_grade = param['material'].split(' ')
+        temp = param['temp1']
+        row_dict = Parameter.objects.filter(
             spec_num = spec_num
         ).filter(
             type_grade = type_grade
-        )
-        max_stress = row.max_stress_ + temp
+        ).values()[0]
+
         # get max_tensile_strength
+        max_stress = row_dict['max_stress_' + str(temp)]
 
         print("I am calculating thickness")
-        P = param.pressure
+        P = int(param['ip'])
         S = max_stress
-        R = param.r
-        CA = param.CA
-        if param.shape == cylinder:
-            thickness = cylinder_t(P, S, R, CA)
-        # thickness_calc.cylinder_t
-        # print(thickness_calc.cylinder_t(D=5.8, S=60, P=30.8))
+        D = int(param['sd'])
+        C_A = int(param['ic'])
+        thickness = cylinder_t(P, S, D, C_A)
+
         return HttpResponse(thickness)
-        # return HttpResponse({"message": "Got some data!", "data": request.body})
-    # return HttpResponse({"message": "Hello, world!"})
+
     return HttpResponse("give me a POST")
