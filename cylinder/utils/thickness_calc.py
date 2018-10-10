@@ -2,6 +2,27 @@
 from math import exp, atan, cos
 
 def cylinder_t(P, S, R, CA, E=1.0):
+    """Calculate thickness as per ASME DIV I
+
+    Parameters
+    ----------
+    P : float
+        Description of parameter `P`.
+    S : type
+        Description of parameter `S`.
+    R : type
+        Description of parameter `R`.
+    CA : type
+        Description of parameter `CA`.
+    E : type
+        Description of parameter `E`.
+
+    Returns
+    -------
+    float
+        Description of returned object.
+
+    """
     # return (D/2) * (exp(P / (S * E)) - 1
     t_wo_allowance = (P * R) / (S * E - 0.6 * P)
     t_w_allowance = t_wo_allowance + CA

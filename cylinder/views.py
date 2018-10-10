@@ -7,7 +7,8 @@ from rest_framework.decorators import api_view
 from cgi import parse_qs, escape
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from cylinder.utils import thickness_calc
+from cylinder.utils.thickness_calc import cylinder_t
+from cylinder.models import Parameter
 # from rest_framework.response import Response
 
 # Create your views here.
@@ -29,11 +30,27 @@ def data(request):
     # print(request.body)
     param = request.body
     if request.method == 'POST':
-        # print(request.body)
+        # get all attr for db query
+        spec_num, type_grade = param.name.split(' ')
+        temp = param.temp
+        row = Parameter.objects.filter(
+            spec_num = spec_num
+        ).filter(
+            type_grade = type_grade
+        )
+        max_stress = row.max_stress_ + temp
+        # get max_tensile_strength
+
         print("I am calculating thickness")
+        P = param.pressure
+        S = max_stress
+        R = param.r
+        CA = param.CA
+        if param.shape == cylinder:
+            thickness = cylinder_t(P, S, R, CA)
         # thickness_calc.cylinder_t
         # print(thickness_calc.cylinder_t(D=5.8, S=60, P=30.8))
-        return HttpResponse('I am posting')
+        return HttpResponse(thickness)
         # return HttpResponse({"message": "Got some data!", "data": request.body})
     # return HttpResponse({"message": "Hello, world!"})
-    return HttpResponse("i am getting")
+    return HttpResponse("give me a POST")
