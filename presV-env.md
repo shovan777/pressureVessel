@@ -7,7 +7,7 @@
 3.![give_path](./docImgs/3.png  "gcloud")
 4.![give_path](./docImgs/4.png  "gcloud")
 
-### Uploading files 
+### Uploading files
 - file
 ```bash
 gcloud compute scp  E:/index.js  prokura@development-server-ubuntu-16:/home/prokura/
@@ -17,8 +17,8 @@ gcloud compute scp  E:/index.js  prokura@development-server-ubuntu-16:/home/prok
 gcloud compute scp --recurse  E:/test  prokura@development-server-ubuntu-16:/home/prokura/
 ```
 
- 
-### Downloading files 
+
+### Downloading files
 - file
 ```bash
 gcloud compute scp   prokura@development-server-ubuntu-16:/home/prokura/test/index.js E:/test
