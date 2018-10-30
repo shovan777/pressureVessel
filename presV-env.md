@@ -43,3 +43,17 @@ conda | 4.4.10
 Packgae | Version
 ------------ | -------------
 react | 3.6.4
+
+## Database Essentials
+- install postgres-10
+### Exporting local db
+- export to a file in local
+```bash
+pg_dump -U nic vesseldb > dbexport.pgsql
+```
+- upload file to gcloud
+```
+gcloud compute scp  dbexport.pgsql prokura@development-server-ubuntu-16:/home/prokura/db_import
+```
+- enter password on prompt
+```prokura```
