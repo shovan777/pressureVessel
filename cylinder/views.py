@@ -53,6 +53,7 @@ def data(request):
         C_A = int(param['ic'])
         thickness = cylinder_t(P, S, D, C_A)
 
+
         return HttpResponse(thickness)
 
     return HttpResponse("give me a POST")

@@ -1,5 +1,6 @@
 """Calculate inner thickness."""
 from math import exp, atan, cos
+from django.db import connection
 
 def cylinder_t(P, S, D, C_A, E=1.0):
     """Calculate thickness as per ASME DIV I
@@ -24,10 +25,14 @@ def cylinder_t(P, S, D, C_A, E=1.0):
 
     """
     # return (D/2) * (exp(P / (S * E)) - 1
-    R = (D + 2.0 * C_A) / 2.0
-    t_wo_allowance = (P * R) / (S * 1000 * E - 0.6 * P)
-    t_w_allowance = t_wo_allowance + C_A
-    return t_w_allowance
+    # R = (D + 2.0 * C_A) / 2.0
+    # t_wo_allowance = (P * R) / (S * 1000 * E - 0.6 * P)
+    # t_w_allowance = t_wo_allowance + C_A
+    # return t_w_allowance
+    with connection.cursor() as cursor:
+        cursor.callproc('cylinder_t', [P, S, D, C_A, E])
+        return cursor.fetchall()[0][0]
+
 
 def conical_t(D, P, S, D_l, D_s, L_c, CA, E=1.0):
     D_l += 2 * CA
