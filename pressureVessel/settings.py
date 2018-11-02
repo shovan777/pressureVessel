@@ -55,8 +55,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'pressureVessel.urls'
-CSRF_TRUSTED_ORIGINS=['*']
-CORS_ORIGIN_ALLOW_ALL = True
+# handling CORS
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ['app.example.com']
+
+CSRF_TRUSTED_ORIGINS=['app.example.com']
+# CORS_ORIGIN_ALLOW_ALL = True
 CSRF_COOKIE_SECURE = False
 
 TEMPLATES = [
