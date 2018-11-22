@@ -40,3 +40,7 @@ class Parameter(models.Model):
     max_stress_900 = models.FloatField(default=0.0)
     max_stress_950 = models.FloatField(default=0.0)
     max_stress_1000 = models.FloatField(default=0.0)
+
+
+    def __str__(self):
+        return self.spec_num

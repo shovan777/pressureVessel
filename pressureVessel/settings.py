@@ -31,33 +31,58 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'cylinder.apps.CylinderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    # 'frontend.apps.FrontendConfig',
     'corsheaders',
+    # 'corscustomapp',
+    'rest_framework',
+    'cylinder.apps.CylinderConfig',
 ]
 
 MIDDLEWARE = [
+    # 'corsheaders.middleware.CorsMiddleware',
+    # 'corscustomapp.cors.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    # 'corscustomapp.cors.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'pressureVessel.urls'
-CSRF_TRUSTED_ORIGINS=['*']
-CORS_ORIGIN_ALLOW_ALL = True
+# CSRF_TRUSTED_ORIGINS=['*']
+# CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)
+# CORS_ORIGIN_REGEX_WHITELIST = (
+#     '192.168.1.124:3000',
+# )
+CORS_ALLOW_CREDENTIALS = True
+
+# handlind CORS
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_WHITELIST = ('192.168.1.124:3000',)
+
+# handling CSRF
+CSRF_TRUSTED_ORIGINS = ['localhost:3000']
+# CSRF_COOKIE_AGE = None
 CSRF_COOKIE_SECURE = False
+# # CSRF_COOKIE_NAME = "csrftoken"
+CSRF_COOKIE_HTTPONLY = True
+CSRF_USE_SESSIONS = True
+CSRF_HEADER_NAME = 'x-csrftoken'
+
+
 
 TEMPLATES = [
     {
