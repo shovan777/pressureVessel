@@ -40,7 +40,7 @@ def csrf(request):
 @ensure_csrf_cookie
 def ping(request):
     print(request)
-    return JsonResponse({'result': 'OK', }).set_cookie('csrftoken', get_token(request), 8600000)
+    return JsonResponse({'result': 'OK', })
 
 # @api_view(['GET', 'POST'])
 @require_http_methods(['POST', 'GET'])

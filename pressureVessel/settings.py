@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '04ynd%4&6gsfiaz*!bpe#2n%*id&96_xs5ndqo^vw4jr6y8ls%'
+#SECRET_KEY = '04ynd%4&6gsfiaz*!bpe#2n%*id&96_xs5ndqo^vw4jr6y8ls%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -61,26 +61,26 @@ ROOT_URLCONF = 'pressureVessel.urls'
 # CSRF_TRUSTED_ORIGINS=['*']
 # CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
-)
+#CORS_ORIGIN_WHITELIST = (
+ #   'localhost:3000',
+#)
 # CORS_ORIGIN_REGEX_WHITELIST = (
 #     '192.168.1.124:3000',
 # )
-CORS_ALLOW_CREDENTIALS = True
+#CORS_ALLOW_CREDENTIALS = True
 
 # handlind CORS
 # CORS_ALLOW_CREDENTIALS = True
 # CORS_ORIGIN_WHITELIST = ('192.168.1.124:3000',)
 
 # handling CSRF
-CSRF_TRUSTED_ORIGINS = ['localhost:3000']
+#CSRF_TRUSTED_ORIGINS = ['localhost:3000']
 # CSRF_COOKIE_AGE = None
-CSRF_COOKIE_SECURE = False
+#CSRF_COOKIE_SECURE = False
 # # CSRF_COOKIE_NAME = "csrftoken"
-CSRF_COOKIE_HTTPONLY = True
-CSRF_USE_SESSIONS = True
-CSRF_HEADER_NAME = 'x-csrftoken'
+#CSRF_COOKIE_HTTPONLY = True
+#CSRF_USE_SESSIONS = True
+#CSRF_HEADER_NAME = 'x-csrftoken'
 
 
 
@@ -106,16 +106,16 @@ WSGI_APPLICATION = 'pressureVessel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vesseldb',
-        'USER': 'nic',
-        'PASSWORD': 'shrestha',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'vesseldb',
+#        'USER': 'nic',
+#        'PASSWORD': 'shrestha',
+#        'HOST': '127.0.0.1',
+#        'PORT': '5432',
+#    }
+#}
 
 
 # Password validation
@@ -154,5 +154,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

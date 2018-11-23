@@ -7,3 +7,4 @@ db.sqlite3
 media
 frontend
 frontend/node_modules/
+.idea/
