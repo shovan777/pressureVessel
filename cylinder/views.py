@@ -8,6 +8,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt, csrf_protect, ensure_csrf_cookie
 from django.middleware.csrf import get_token
+from userAuth.serializers import UserSerializer, UserSerializerWithToken
 
 # userdefined modules
 from cylinder.models import Parameter
@@ -52,15 +53,16 @@ def data(request):
     param_unicode = request.body.decode('utf-8')
     param = json.loads(param_unicode)
     print(param['material'])
+    serializer = UserSerializer(request.data)
 
     if request.method == 'POST':
         # get all attr for db query
         spec_num, type_grade = param['material'].split(' ')
         temp = param['temp1']
         row_dict = Parameter.objects.filter(
-            spec_num = spec_num
+            spec_num=spec_num
         ).filter(
-            type_grade = type_grade
+            type_grade=type_grade
         ).values()[0]
 
         # get max_tensile_strength
@@ -72,7 +74,6 @@ def data(request):
         D = int(param['sd'])
         C_A = int(param['ic'])
         thickness = cylinder_t(P, S, D, C_A)
-
 
         return HttpResponse(thickness)
 
