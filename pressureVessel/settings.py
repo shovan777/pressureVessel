@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'cylinder.apps.CylinderConfig',
     'userAuth.apps.UserauthConfig',
+    'nozzle.apps.NozzleConfig',
 ]
 
 MIDDLEWARE = [
