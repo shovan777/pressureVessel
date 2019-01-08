@@ -57,3 +57,62 @@ gcloud compute scp  dbexport.pgsql prokura@development-server-ubuntu-16:/home/pr
 ```
 - enter password on prompt
 ```prokura```
+
+
+## Creating db
+- install postgres
+```bash
+sudo apt-get install postgresql postgresql-contrib
+```
+- switch over to postgres account
+```bash
+sudo -i -u postgres
+```
+- exit out
+```bash
+exit
+```
+- create new role
+```bash
+sudo -i -u postgres
+createuser --interactive
+```
+- type the username as ```calcgen```
+- create the db with dbname same as rolename
+```bash
+sudo -i -u postgres
+createdb calcgen
+```
+- add the user as linux user
+```bash
+sudo add user calcgen
+```
+- create db for project
+```bash
+sudo -i -u calcgen
+psql
+createdb vesseldb
+\q
+```
+- log into new db as ```calcgen```
+```bash
+psql -d vesseldb
+```
+- set the password for ```calcgen```
+```bash
+alter user username with encrypted password 'password';
+```
+
+- make migration 
+```bash
+python manage.py migrate
+```
+- export only table data from specific table
+```bash
+pg_dump --data-only -U username --table=tablename sourcedb > data.sql
+```
+
+- import table in database
+```bash
+psql -U username databasename < data.sql
+```
