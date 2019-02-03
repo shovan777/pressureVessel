@@ -21,7 +21,7 @@ urlpatterns = [
     # path('', include('frontend.urls')),
     path('reports/', include('reporter.urls')),
     path('user-auth/', include('userAuth.urls')),
-    path('api/', include('cylinder.urls')),
+    path('api/cylinder/', include('cylinder.urls')),
     path('admin/', admin.site.urls),
     path('token-auth/', obtain_jwt_token),
     path('refresh-token-auth/', refresh_jwt_token),

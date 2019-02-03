@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reporter/typography.css' %}">
     <meta charset="UTF-8">
     <title>{{ title }}</title>
 </head>
 <body>
-    <h2>Calcgen Report - PressureVessel</h2>
+    <img src="{% static 'reporter/images/pvessel.png' %}" alt="vessel image not found">
+    <h1>Calcgen Report - PressureVessel</h1>
     <h3>Table of contents</h3>
+    <ul>
+        <a href='#deficiency_summary'>
+            <li>Deficiency Summary</li>
+        </a>
+        <li>Nozzle Schedule</li>
+    </ul>
+    <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae, necessitatibus ad. Laboriosam, reprehenderit temporibus nihil eos quia quod aliquam vero. Necessitatibus porro perferendis laudantium velit itaque est assumenda doloremque natus!
+
+    </p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem eveniet officia voluptas incidunt architecto iusto enim consequatur excepturi similique voluptatum quod, totam obcaecati culpa nemo aliquam fugit saepe est repellendus!</p>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     
-     {{ material_spec_num }}
+    {{ material_spec_num }}
+    <h4 id='deficiency_summary'>Deficiency Summary</h4>
 </body>
 </html>

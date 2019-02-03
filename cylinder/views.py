@@ -1,48 +1,43 @@
-# python imports
-import json
-
-# django imports
-from django.http import HttpResponse, JsonResponse
-
-# userdefined modules
+# cylinder modules
 from cylinder.models import Parameter
+from cylinder.serializers import ParameterSerializer
 from cylinder.utils.thickness_calc import cylinder_t
 
-# pip imports
-from rest_framework.decorators import api_view
+
+# django modules
+from django.http import Http404, JsonResponse
+
+# django-rest modules
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status, permissions
 
 
-@api_view(['POST'])
-def data(request):
-    print('inside data')
-    print(request)
-    print(request.body)
-    param_unicode = request.body.decode('utf-8')
-    param = json.loads(param_unicode)
-    print(param['material'])
+class ThicknessData(APIView):
+    """
+    Determine thickness for provided cylinder params
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+    def post(self, request, format=None):
+        data = request.data.get('cylinderParam', {})
+        if data:
+            try:
+                row_dict = Parameter.objects.filter(
+                    spec_num=data['spec_num']
+                ).filter(
+                    type_grade=data['type_grade']
+                ).values()[0]
+            except:
+                raise Http404
+            temp = data['temp1']
+            max_stress = row_dict['max_stress_' + str(temp)]
+            P = int(data['ip'])
+            S = max_stress
+            D = int(data['sd'])
+            C_A = int(data['ic'])
+            thickness = cylinder_t(P, S, D, C_A)
 
-    if request.method == 'POST':
-        # get all attr for db query
-        spec_num, type_grade = param['material'].split(' ')
-        temp = param['temp1']
-        row_dict = Parameter.objects.filter(
-            spec_num=spec_num
-        ).filter(
-            type_grade=type_grade
-        ).values()[0]
-
-        # get max_tensile_strength
-        max_stress = row_dict['max_stress_' + str(temp)]
-
-        print("I am calculating thickness")
-        P = int(param['ip'])
-        S = max_stress
-        D = int(param['sd'])
-        C_A = int(param['ic'])
-        thickness = cylinder_t(P, S, D, C_A)
-        print(thickness)
-
-        return JsonResponse({'thickness': thickness})
-
-    return JsonResponse({'error': 'Request is not POST'})
+            return JsonResponse({'thickness': thickness})
+            # use something like
+            # return Response(data = {'thickness': thickness}, content_type='x-json')
+        return Response(status=status.HTTP_400_BAD_REQUEST)
