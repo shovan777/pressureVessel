@@ -29,12 +29,25 @@ class ThicknessData(APIView):
                 ).values()[0]
             except:
                 raise Http404
-            temp = data['temp1']
-            max_stress = row_dict['max_stress_' + str(temp)]
-            P = int(data['ip'])
-            S = max_stress
-            D = int(data['sd'])
-            C_A = int(data['ic'])
+            
+            try:
+                temp = data['temp1']
+                max_stress = row_dict['max_stress_' + str(temp)]
+                P = int(data['ip'])
+                S = max_stress
+                D = int(data['sd'])
+                C_A = int(data['ic'])
+            except:
+                data_format = {
+                                    "cylinderParam": {
+                                        "spec_num": "SA-516",
+                                        "type_grade": "70",
+                                        "temp1": "150",
+                                        "ip": "40",
+                                        "sd": "50"
+                                    }
+                                }
+                return Response(data = data_format, status=status.HTTP_400_BAD_REQUEST)
             thickness = cylinder_t(P, S, D, C_A)
 
             return JsonResponse({'thickness': thickness})

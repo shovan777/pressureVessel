@@ -25,12 +25,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    
     'rest_framework',
+
     'cylinder.apps.CylinderConfig',
-    'userAuth.apps.UserauthConfig',
+    'authenticationapp',
     'nozzle.apps.NozzleConfig',
     'reporter.apps.ReporterConfig',
+    'userapp',
+    'emailapp'
 ]
 
 MIDDLEWARE = [
@@ -44,19 +47,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = 'userapp.User'
+
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'exceptionapp.exceptions.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY':'error',
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'pressureVessel.utils.my_jwt_response_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'authenticationapp.utils.my_jwt_response_handler',
     'JWT_ALLOW_REFRESH': True,
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
@@ -68,7 +74,7 @@ ROOT_URLCONF = 'pressureVessel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'emailapp/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +124,17 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+APPEND_SLASH=False
+
+#email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'punksusil.khadka@gmail.com'
+EMAIL_HOST_PASSWORD = 'FishTankQP1239801847'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'punksusil.khadka@gmail.com'
+SERVER_EMAIL = 'punksusil.khadka@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']

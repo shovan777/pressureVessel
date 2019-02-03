@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi {{ username }},
+
+Please click on the link below to confirm your registration:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% comment %} http://{{ domain }}/activate/{{ uidb64 }}/{{ token }} {% endcomment %}
+{% endautoescape %} 
