@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token,verify_jwt_token
+from django.conf.urls import url
+from emailapp import funcs
+
 
 urlpatterns = [
     # path('', include('frontend.urls')),
-    path('user-auth/', include('userAuth.urls')),
+    path('user/', include('userapp.urls')),
     path('api/', include('cylinder.urls')),
     path('admin/', admin.site.urls),
-    path('token-auth/', obtain_jwt_token),
-    path('refresh-token-auth/', refresh_jwt_token),
-    path('verify-token-auth/', verify_jwt_token),
+    path('auth/', include('authenticationapp.urls')),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        funcs.activate, name='activate'),
 ]
