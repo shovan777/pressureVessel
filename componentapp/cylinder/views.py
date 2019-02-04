@@ -20,6 +20,7 @@ class ThicknessData(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def post(self, request, format=None):
         data = request.data.get('cylinderParam', {})
+        print(data)
         if data:
             try:
                 row_dict = Parameter.objects.filter(
@@ -50,7 +51,7 @@ class ThicknessData(APIView):
                 return Response(data = data_format, status=status.HTTP_400_BAD_REQUEST)
             thickness = cylinder_t(P, S, D, C_A)
 
-            return JsonResponse({'thickness': thickness})
+            return JsonResponse({"thickness": thickness})
             # use something like
             # return Response(data = {'thickness': thickness}, content_type='x-json')
         return Response(status=status.HTTP_400_BAD_REQUEST)
