@@ -21,7 +21,7 @@ from emailapp import funcs
 
 urlpatterns = [
     # path('', include('frontend.urls')),
-    path('reports/', include('reporter.urls')),
+    path('report/', include('reporter.urls')),
     path('api/cylinder/', include('componentapp.cylinder.urls')),
     path('user/', include('userapp.urls')),
     path('admin/', admin.site.urls),

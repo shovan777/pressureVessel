@@ -53,7 +53,7 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'exceptionapp.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY':'error',
     'DEFAULT_PERMISSION_CLASSES': (
-       # 'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
