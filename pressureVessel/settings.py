@@ -28,9 +28,9 @@ INSTALLED_APPS = [
     
     'rest_framework',
 
-    'cylinder.apps.CylinderConfig',
+    'componentapp.cylinder',
     'authenticationapp',
-    'nozzle.apps.NozzleConfig',
+    'componentapp.nozzle',
     'reporter.apps.ReporterConfig',
     'userapp',
     'emailapp'
@@ -130,11 +130,11 @@ APPEND_SLASH=False
 #email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'punksusil.khadka@gmail.com'
-EMAIL_HOST_PASSWORD = 'FishTankQP1239801847'
+EMAIL_HOST_USER = 'grunze1212@gmail.com'
+EMAIL_HOST_PASSWORD = 'Asdfghjkl1234567890'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'punksusil.khadka@gmail.com'
-SERVER_EMAIL = 'punksusil.khadka@gmail.com'
+DEFAULT_FROM_EMAIL = 'grunze1212@gmail.com'
+SERVER_EMAIL = 'grunze1212@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']

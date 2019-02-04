@@ -1,7 +1,7 @@
 # cylinder modules
-from cylinder.models import Parameter
-from cylinder.serializers import ParameterSerializer
-from cylinder.utils.thickness_calc import cylinder_t
+from .models import Parameter
+from .serializers import ParameterSerializer
+from .utils.thickness_calc import cylinder_t
 
 
 # django modules

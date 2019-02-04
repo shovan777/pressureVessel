@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from cylinder.models import Parameter
+from componentapp.cylinder.models import Parameter
 from weasyprint import HTML, CSS
 from weasyprint.fonts import FontConfiguration
 # def index(request):
