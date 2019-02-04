@@ -1,17 +1,26 @@
 from django.db import models
+from .utils.thickness_calc import cylinder_t
+
+
+class ParameterManager(models.Manager):
+    def get_thickness(self,data):
+        row_dict = self.filter(spec_num=data.get('spec_num')).filter(type_grade=data.get('type_grade')).values()[0]
+        temp = data.get('temp1')
+        max_stress = row_dict['max_stress_' + str(temp)]
+        P = int(data.get('ip'))
+        S = max_stress
+        D = int(data.get('sd'))
+        C_A = int(data.get('ic'))
+        thickness = cylinder_t(P, S, D, C_A)
+        return thickness
 
 # Create your models here.
 class Parameter(models.Model):
     spec_num = models.CharField(max_length=255)
-    nominal_composition = models.CharField(
-        max_length=50,
-        default='Carbon Steel'
-    )
+    nominal_composition = models.CharField(max_length=50,default='Carbon Steel')
     product_form = models.CharField(max_length=255)
     type_grade = models.CharField(max_length=50)
-    uns_num = models.CharField(
-        max_length=50,
-    )
+    uns_num = models.CharField(max_length=50,)
     class_temper = models.CharField(max_length=50)
     size_thickness = models.CharField(max_length=50)
     p_num = models.CharField(max_length=50, default='1')
@@ -41,6 +50,7 @@ class Parameter(models.Model):
     max_stress_950 = models.FloatField(default=0.0)
     max_stress_1000 = models.FloatField(default=0.0)
 
+    objects = ParameterManager()
 
     def __str__(self):
         return self.spec_num
