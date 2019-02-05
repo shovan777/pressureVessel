@@ -1,4 +1,12 @@
 from rest_framework.views import exception_handler
+from rest_framework.exceptions import APIException
+from rest_framework import status
+from django.utils.translation import ugettext_lazy as _
+
+class newError(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = _('You made biggest blunder')
+    default_code = 'new_error'
 
 def core_exception_handler(exc, context):
     # If an exception is thrown that we don't explicitly handle here, we want
@@ -8,7 +16,8 @@ def core_exception_handler(exc, context):
 
     response = exception_handler(exc, context)
     handlers = {
-        'ValidationError': _handle_generic_error
+        'ValidationError': _handle_generic_error,
+        'newError':_handle_generic_error
     }
     # This is how we identify the type of the current exception. We will use
     # this in a moment to see whether we should handle this exception or let
