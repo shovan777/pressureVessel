@@ -1,13 +1,7 @@
 from rest_framework import serializers
 from .models import Parameter
 
-class ParameterSerializer(serializers.Serializer):
-    spec_num = serializers.CharField(
-        max_length= 255,
-    )
-    type_grade = serializers.CharField(
-        max_length = 50,
-    )
+class ParameterSerializer(serializers.ModelSerializer):
     temp1 = serializers.CharField(
         max_length = 50,
     )
@@ -20,6 +14,7 @@ class ParameterSerializer(serializers.Serializer):
     ic = serializers.CharField(
         max_length = 50,
     )
+
     class Meta:
         model = Parameter
         fields = ['spec_num','type_grade','temp1','ip','sd','ic']

@@ -1,10 +1,17 @@
 from django.db import models
 from .utils.thickness_calc import cylinder_t
+from rest_framework.exceptions import ValidationError
+from exceptionapp.exceptions import newError
 
 
 class ParameterManager(models.Manager):
     def get_thickness(self,data):
-        row_dict = self.filter(spec_num=data.get('spec_num')).filter(type_grade=data.get('type_grade')).values()[0]
+        try:
+            row_dict = self.filter(spec_num=data.get('spec_num')).filter(type_grade=data.get('type_grade')).values()[0]
+        except:
+            raise newError({
+                "database":["Data cannot be found incorrect data"]
+                })
         temp = data.get('temp1')
         max_stress = row_dict['max_stress_' + str(temp)]
         P = int(data.get('ip'))
