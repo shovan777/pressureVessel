@@ -6,12 +6,12 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = '__all__'
 
-class CylinderStateSerializer(serializers.ModelSerializer):
+class CylinderStateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CylinderState
         fields = '__all__'
 
-class NozzleStateSerializer(serializers.ModelSerializer):
+class NozzleStateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = NozzleState
         fields = '__all__'

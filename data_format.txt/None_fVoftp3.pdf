@@ -1,0 +1,10 @@
+{
+	"cylinderParam": {
+		"spec_num": "SA-516",
+		"type_grade": "70",
+		"temp1": "150",
+		"ip": "40",
+		"sd": "50",
+		"ic": "60"
+	}
+}
