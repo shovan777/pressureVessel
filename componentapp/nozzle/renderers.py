@@ -3,7 +3,7 @@ import json
 from rest_framework.renderers import JSONRenderer
 
 
-class ParameterJSONRenderer(JSONRenderer):
+class NozzleJSONRenderer(JSONRenderer):
     charset = 'utf-8'
 
     def render(self, data, media_type=None, renderer_context=None):
@@ -12,10 +12,10 @@ class ParameterJSONRenderer(JSONRenderer):
         detail = data.get('detail',None)
 
         if detail is not None:
-            return super(ParameterJSONRenderer,self).render(data)
+            return super(NozzleJSONRenderer,self).render(data)
 
         if errors is not None:
-            return super(ParameterJSONRenderer,self).render(data)
+            return super(NozzleJSONRenderer,self).render(data)
         
         return json.dumps({
             'thickness':data['thickness'],

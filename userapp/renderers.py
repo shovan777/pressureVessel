@@ -9,6 +9,10 @@ class UserJSONRenderer(JSONRenderer):
     def render(self, data, media_type=None, renderer_context=None):
         
         errors = data.get('errors', None)
+        detail = data.get('detail',None)
+
+        if detail is not None:
+            return super(UserJSONRenderer,self).render(data)
 
         if errors is not None:
             return super(UserJSONRenderer,self).render(data)

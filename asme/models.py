@@ -38,3 +38,15 @@ class MaximumAllowableStress(models.Model):
 
     def __str__(self):
         return self.spec_num
+
+
+class PipingSchedule(models.Model):
+    pipe_size = models.FloatField(default=0.000)
+    od_inch = models.FloatField(default=0.000)
+    id_inch = models.FloatField(default=0.000)
+    schedules = models.CharField(max_length=255)
+    wall_inch = models.FloatField(default=0.000)
+    est_wt = models.FloatField(default=0.0000)
+
+    def __str__(self):
+        return self.schedules

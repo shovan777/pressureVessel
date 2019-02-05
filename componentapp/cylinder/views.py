@@ -30,7 +30,7 @@ class ThicknessData(APIView):
         except:
             raise newError({
                 "database":["Data cannot be found incorrect data"]
-                })
+            })
         temp = data1.get('temp1')
         max_stress = row_dict['max_stress_' + str(temp)]
         P = int(data1.get('ip'))
