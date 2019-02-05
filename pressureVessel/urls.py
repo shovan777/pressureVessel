@@ -22,9 +22,10 @@ from emailapp import funcs
 urlpatterns = [
     # path('', include('frontend.urls')),
     path('report/', include('reporter.urls')),
-    path('api/cylinder/', include('componentapp.cylinder.urls')),
+    path('api/', include('componentapp.cylinder.urls')),
+    path('api/', include('componentapp.head.urls')),
     path('user/', include('userapp.urls')),
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('auth/', include('authenticationapp.urls')),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         funcs.activate, name='activate'),

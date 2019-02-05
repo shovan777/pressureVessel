@@ -1,4 +1,5 @@
 from django.db import models
+from userapp.models import User
 
 def report_path(instance, location):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>

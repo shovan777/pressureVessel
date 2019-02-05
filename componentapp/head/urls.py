@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
-app_name = 'cylinder'
+app_name = 'head'
 urlpatterns = [
-    path('cylinder/data', views.ThicknessData.as_view(), name='data'),
+    path('head/data', views.ThicknessData.as_view()),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
