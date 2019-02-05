@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from asme.models import MaximumAllowableStress
 
-class ParameterSerializer(serializers.ModelSerializer):
+class HeadSerializer(serializers.ModelSerializer):
     temp1 = serializers.CharField(
         max_length = 50,
     )

@@ -33,7 +33,9 @@ INSTALLED_APPS = [
     'componentapp.nozzle',
     'reporter.apps.ReporterConfig',
     'userapp',
-    'emailapp'
+    'emailapp',
+    'componentapp.head',
+    'asme',
 ]
 
 MIDDLEWARE = [

@@ -9,7 +9,7 @@ from rest_framework import mixins
 from rest_framework import generics
 
 # component modules
-from componentapp.cylinder.models import Parameter
+from asme.models import MaximumAllowableStress
 
 # weasyprint = pdf gen library modules
 from weasyprint import HTML, CSS
@@ -28,7 +28,7 @@ from reporter.serializers import CylinderStateSerializer, NozzleStateSerializer,
 html_out = None
 # templating index page
 def index(request):
-    material_list = Parameter.objects.all()
+    material_list = MaximumAllowableStress.objects.all()
     template = loader.get_template('reporter/index.html')
     list_array = [p.spec_num for p in material_list]
     context = {
