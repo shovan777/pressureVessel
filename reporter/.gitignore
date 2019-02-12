@@ -1,0 +1,6 @@
+urls_classic.py
+urls_manual_bind.py
+views_class.py
+views_generics.py
+views_mixin.py
+models_classic.py

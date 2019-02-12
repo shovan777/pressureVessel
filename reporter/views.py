@@ -5,8 +5,9 @@ from django.template import loader
 # rest framework modules
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework import mixins
-from rest_framework import generics
+from rest_framework import permissions
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.reverse import reverse
 
 # component modules
 from asme.models import MaximumAllowableStress
@@ -19,7 +20,6 @@ from weasyprint.fonts import FontConfiguration
 from .models import CylinderState, NozzleState, Report
 from reporter.serializers import CylinderStateSerializer, NozzleStateSerializer, ReportSerializer
 
-
 # def index(request):
 #     # return HttpResponse("Hello, world. You're at the reporter index.")
 #     material_list = Parameter.objects.all()
@@ -27,6 +27,7 @@ from reporter.serializers import CylinderStateSerializer, NozzleStateSerializer,
 #     return HttpResponse(output)
 html_out = None
 # templating index page
+# @permission_classes(permissions.IsAuthenticatedOrReadOnly,)
 def index(request):
     material_list = MaximumAllowableStress.objects.all()
     template = loader.get_template('reporter/index.html')
@@ -34,6 +35,7 @@ def index(request):
     context = {
         'title': 'Calcgen Reports',
         'material_spec_num': list_array[0],
+        'author': request.user.username
     }
     html_out = template.render(context, request)
     css = CSS(filename='static/reporter/typography.css')
@@ -44,47 +46,24 @@ def index(request):
 
     return HttpResponse(html_out)
 
-# class ReportViewSet(viewsets.ModelViewSet):
-#     queryset = Report.objects.all()
-#     serializer_class = ReportSerializer
-
-# class CylinderStateViewSet(viewsets.ModelViewSet):
-#     queryset = CylinderState.objects.all()
-#     serializer_class = CylinderStateSerializer
-
-# class NozzleStateViewSet(viewsets.ModelViewSet):
-#     queryset = NozzleState.objects.all()
-#     serializer_class = NozzleStateSerializer
-class ReportList(mixins.ListModelMixin,
-                 mixins.CreateModelMixin,
-                 generics.GenericAPIView):
+class ReportViewSet(viewsets.ModelViewSet):
     """
-    List all report, or create a new report.
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
     """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+    # @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    #  use @action to handle custom endpoints of GET requests
+    #  use @method to handle custom endpoints of POST requests
+class CylinderStateViewSet(viewsets.ModelViewSet):
+    queryset = CylinderState.objects.all()
+    serializer_class = CylinderStateSerializer
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-class ReportDetail(mixins.RetrieveModelMixin,
-                   mixins.UpdateModelMixin,
-                   mixins.DestroyModelMixin,
-                   generics.GenericAPIView):
-    """
-    Retrieve, update or delete a report.
-    """
-    queryset = Report.objects.all()
-    serializer_class = ReportSerializer
-    
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+class NozzleStateViewSet(viewsets.ModelViewSet):
+    queryset = NozzleState.objects.all()
+    serializer_class = NozzleStateSerializer
