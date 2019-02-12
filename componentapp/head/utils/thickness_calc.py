@@ -1,6 +1,5 @@
 """Calculate inner thickness."""
 from math import exp, atan, cos
-from django.db import connection
 
 def head_t(P, S, D, C_A, E=1.0):
     """Calculate thickness as per ASME DIV I
@@ -8,31 +7,25 @@ def head_t(P, S, D, C_A, E=1.0):
     Parameters
     ----------
     P : float
-        Description of parameter `P`.
-    S : type
-        Description of parameter `S`.
-    R : type
-        Description of parameter `R`.
-    CA : type
-        Description of parameter `CA`.
-    E : type
-        Description of parameter `E`.
+        Design Pressure or max. allowable working pressure psi.
+    S : int
+        Stress value of material psi.
+    D : inch float
+        Inside diameter .
+    CA : float
+        Corrosion Allowance.
+    E : float max 1 
+        Joint efficiency.
 
     Returns
     -------
     float
-        Description of returned object.
+        thickness.
 
     """
-    # return (D/2) * (exp(P / (S * E)) - 1
-    # R = (D + 2.0 * C_A) / 2.0
-    # t_wo_allowance = (P * R) / (S * 1000 * E - 0.6 * P)
-    # t_w_allowance = t_wo_allowance + C_A
-    # return t_w_allowance
-    with connection.cursor() as cursor:
-        cursor.callproc('head_t', [P, S, D, C_A, E])
-        return cursor.fetchall()[0][0]
-
+    upper_part = float(P * D)
+    lower_part = float( (2 * S * E) - (0.2 * P) )
+    return (upper_part/lower_part) + float(C_A)
 
 def conical_t(D, P, S, D_l, D_s, L_c, CA, E=1.0):
     D_l += 2 * CA

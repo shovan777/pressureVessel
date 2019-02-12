@@ -32,11 +32,11 @@ class ThicknessData(APIView):
                 "database":["Data cannot be found incorrect data"]
             })
         temp = data1.get('temp1')
-        max_stress = row_dict['max_stress_' + str(temp)]
-        P = int(data1.get('ip'))
+        max_stress = row_dict['max_stress_' + str(int(temp))]
+        P = data1.get('ip')
         S = max_stress
-        D = int(data1.get('sd'))
-        C_A = int(data1.get('ic'))
+        D = data1.get('sd')
+        C_A = data1.get('ic')
         thickness = cylinder_t(P, S, D, C_A)
 
         newdict = {'thickness':thickness}

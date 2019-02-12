@@ -2,17 +2,25 @@ from rest_framework import serializers
 from asme.models import MaximumAllowableStress
 
 class ParameterSerializer(serializers.ModelSerializer):
-    temp1 = serializers.CharField(
-        max_length = 50,
+    temp1 = serializers.FloatField(
+        max_value = 250,
+        min_value = 2,
+        required = True,
     )
-    ip = serializers.CharField(
-        max_length = 50,
+    ip = serializers.FloatField(
+        max_value = 50,
+        min_value = 2,
+        required = True,
     )
-    sd = serializers.CharField(
-        max_length = 50,
+    sd = serializers.FloatField(
+        max_value = 50,
+        min_value = 2,
+        required = True,
     )
-    ic = serializers.CharField(
-        max_length = 50,
+    ic = serializers.FloatField(
+        max_value = 60,
+        min_value = 2,
+        required = True,
     )
 
     class Meta:
