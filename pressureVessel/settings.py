@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import datetime
 
+# del_me
+SECRET_KEY = 'l0f!#e!h3=($^iep0pshj1$scpt^yq$de_oskkz2$u233ifd_t'
+DEBUG = True
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
