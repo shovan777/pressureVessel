@@ -16,8 +16,8 @@ class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     report_type = models.CharField(max_length=50)
     location = models.FileField(upload_to=report_path)
-    # author = models.CharField(max_length=100, default='shovan')
-    author = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
+    author = models.CharField(max_length=100, default='shovan')
+    # author = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
     # created_at.
 
     class Meta:

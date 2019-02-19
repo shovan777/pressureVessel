@@ -51,12 +51,14 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+    # def perform_create(self, serializer):
+    #     # serializer.save(author=self.request.user)
+    #     serializer.save(author='calcgen')
+
     # @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     #  use @action to handle custom endpoints of GET requests
     #  use @method to handle custom endpoints of POST requests
