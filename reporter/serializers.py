@@ -9,7 +9,7 @@ class ReportSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     class Meta:
         model = Report
-        fields = '__all__'
+        fields = ('id', 'created_at', 'report_type')
 
 class CylinderStateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

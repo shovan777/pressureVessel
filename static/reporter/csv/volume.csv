@@ -1,0 +1,20 @@
+Volume,
+Abbreviation,Unit
+m³,cubic meter
+dm³,cubic decimeter
+cm³,cubic centimeter
+l,liter
+dl,deciliter
+cl,centiliter
+ml,milliliter
+fl oz(UK),fluid ounce(UK)
+fl oz(US),fluid ounce(US)
+in³,cubic inch
+ft³,cubic foot
+yd³,cubic yard
+gal(UK),gallon uk
+gal(US),gallon us
+bbl,petroleum barrel
+pt(Imp),pint(UK)
+pt(US fl),fluid pint(US)
+pt(US dry),dry pint(US)
