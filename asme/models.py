@@ -37,7 +37,7 @@ class MaximumAllowableStress(models.Model):
     max_stress_1000 = models.FloatField(default=0.0)
 
     def __str__(self):
-        return self.spec_num
+        return self.spec_num + "_" + self.type_grade
 
 
 class PipingSchedule(models.Model):
@@ -49,4 +49,4 @@ class PipingSchedule(models.Model):
     est_wt = models.FloatField(default=0.0000)
 
     def __str__(self):
-        return self.schedules
+        return str(self.pipe_size) + "_" + self.schedules
