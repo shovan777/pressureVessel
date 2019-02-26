@@ -1,8 +1,9 @@
 """Calculate inner thickness."""
 from math import exp, atan, cos
 from django.db import connection
+from reporter.models import CylinderState, Report
 
-def cylinder_t(P, S, D, C_A, E=1.0):
+def cylinder_t(P, S, D, C_A, report_id, E=1.0):
     """Calculate thickness as per ASME DIV I
 
     Parameters
@@ -34,9 +35,25 @@ def cylinder_t(P, S, D, C_A, E=1.0):
     # with connection.cursor() as cursor:
     #     cursor.callproc('cylinder_t', [P, S, D, C_A, E])
     #     return cursor.fetchall()[0][0]
-    upper_part = float(P * ( D/2 ) )
+    upper_part = float(P * ( D/2.0 ) )
     lower_part = float((S * E) - (0.6 * P))
-    return (upper_part/lower_part) + C_A
+    t_inter = upper_part/lower_part
+    t = t_inter + C_A
+    # think about how you can save the calculation steps later
+    calc_steps = CylinderState(
+        report = Report.objects.get(id=report_id),
+        P = P,
+        D = D,
+        C_A = C_A,
+        R = D/2.0,
+        S = S,
+        E = E,
+        t_inter = t_inter,
+        t = t
+    )
+    calc_steps.save()
+    return t
+    # return (upper_part/lower_part) + C_A
 
 def conical_t(D, P, S, D_l, D_s, L_c, CA, E=1.0):
     D_l += 2 * CA

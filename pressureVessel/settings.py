@@ -69,7 +69,7 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=87000)
 }
 
 ROOT_URLCONF = 'pressureVessel.urls'

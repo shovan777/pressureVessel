@@ -1,5 +1,5 @@
 @import url('https://themes.googleusercontent.com/fonts/css?kit=fpjTOVmNbO4Lz34iLyptLcWpXo_CmM6erK5IinBZ-8PVus-cM8ZA-pXCeyO7rfhH96xlbbE5D7Gw2o7jubnkMA');
-@page { size: A3; margin: 1cm }
+@page { size: letter; margin: auto }
 .lst-kix_list_2-1>li {
     counter-increment: lst-ctn-kix_list_2-1
 }
@@ -6521,10 +6521,10 @@ table th {
 }
 
 .c46 {
-    margin-left: -13.8pt;
+    margin-left: -40.0pt;
     border-spacing: 0;
     border-collapse: collapse;
-    margin-right: auto
+    margin-right: 0.0pt
 }
 
 .c57 {
@@ -6542,9 +6542,11 @@ table th {
 }
 
 .c15 {
+    /* text-align: center; */
     background-color: #ffffff;
     max-width: 531.9pt;
-    padding: 63.4pt 31.7pt 49.7pt 31.7pt
+    margin: auto;
+    padding: 63.4pt 31.5pt 49.5pt 45pt
 }
 
 .c14 {

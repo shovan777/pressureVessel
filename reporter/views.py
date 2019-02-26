@@ -43,9 +43,10 @@ def csv_loader(filename):
 def index(request):
     material_list = MaximumAllowableStress.objects.all()
     template = loader.get_template('reporter/vessel2.html')
+    # header_tempalate = loader.get_template('')
     list_array = [p.spec_num for p in material_list]
     info_table_path = 'static/reporter/csv/'
-    infoTables = {
+    info_tables = {
         'area': csv_loader(info_table_path + 'area.csv'),
         'temp': csv_loader(info_table_path + 'temp.csv'),
         'angle': csv_loader(info_table_path + 'angle.csv'),
@@ -58,14 +59,20 @@ def index(request):
         'speed': csv_loader(info_table_path + 'speed.csv'),
         'volume': csv_loader(info_table_path + 'volume.csv')
     }
-    print(infoTables['area'])
+    # get this variable from request ok
+    projectID = '87'
+    cylinder_params = CylinderState.objects.filter(report__id=87).values()
+    # print(infoTables['area'])
     context = {
         'title': 'Calcgen Reports',
         'material_spec_num': list_array[0],
         'author': request.user.username if request.user.username else 'Shovan Raj Shrestha',
+        # 'projectID': request.data['projectID'],
+        'projectID': projectID,
         # bring out createdat from report table
         'createdAt': '2019-02-21',
-        'infoTables': infoTables
+        'infoTables': info_tables,
+        'cylinderParams': cylinder_params
     }
     
     html_out = template.render(context, request)
@@ -84,14 +91,13 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    # def perform_create(self, serializer):
-    #     # serializer.save(author=self.request.user)
-    #     serializer.save(author='calcgen')
-
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user.username if self.request.user.username else 'Shovan Shrestha')
+        # serializer.save(author='calcgen')
     # @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     #  use @action to handle custom endpoints of GET requests
     #  use @method to handle custom endpoints of POST requests

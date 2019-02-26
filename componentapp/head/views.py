@@ -16,7 +16,7 @@ class ThicknessData(APIView):
     """
     Determine thickness for provided cylinder params
     """
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_classes = HeadSerializer
     renderer_classes = (HeadJSONRenderer,)
     def post(self, request, format=None):
