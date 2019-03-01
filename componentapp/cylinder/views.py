@@ -20,7 +20,7 @@ class ThicknessData(APIView):
     serializer_classes = ParameterSerializer
     renderer_classes = (ParameterJSONRenderer,)
     def post(self, request, format=None):
-
+        print(request.data)
         data = request.data.get('cylinderParam', {})
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
@@ -37,7 +37,8 @@ class ThicknessData(APIView):
         S = max_stress
         D = data1.get('sd')
         C_A = data1.get('ic')
-        thickness = cylinder_t(P, S, D, C_A)
+        projectID = request.data['projectID']
+        thickness = cylinder_t(P, S, D, C_A, projectID)
 
         newdict = {'thickness':thickness}
         newdict.update(serializer.data)

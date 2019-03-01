@@ -1,11 +1,18 @@
 //- img(style="width:400px; display:block; margin:0 auto;"
 //-   src="/home/calcgen2/pressureVessel/del_me/logo.png")
-img(src="/home/calcgen2/pressureVessel/del_me/logo.png" alt="Project Logo3")
-//- img(src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260")
+img(src="file:///{{ img }}" alt="Project Logo3")
 
-#sidebar I am the text in the sidebar.
+#sidebar Calcgen report on pressure vessel
 
 h1 {{ title }}
 
 .ui.piled.segment
   p Oh hi there ! I am some text in a cool box.
+
+h3 Our Data
+
+{{ pdf_tools.dataframe_to_html(dataframe) }}
+
+center
+  - var figure = dataframe.plot("Age", "Height (cm)")
+  img(src="{{ pdf_tools.figure_data(figure, (6, 4)) }}")
