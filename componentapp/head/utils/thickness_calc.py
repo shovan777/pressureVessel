@@ -23,8 +23,9 @@ def head_t(P, S, D, C_A, E=1.0):
         thickness.
 
     """
+    
     upper_part = float(P * D)
-    lower_part = float( (2 * S * E) - (0.2 * P) )
+    lower_part = float( (2 * S * 1000 * E) - (0.2 * P) )
     return (upper_part/lower_part) + float(C_A)
 
 def conical_t(D, P, S, D_l, D_s, L_c, CA, E=1.0):

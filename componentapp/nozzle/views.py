@@ -1,38 +1,4 @@
-# from django.shortcuts import render
-# from django.http import HttpResponse
-# from django.views.decorators.http import require_http_methods
-# from django.views.decorators.csrf import csrf_exempt
-
-# # Create your views here.
-# @require_http_methods(['POST', 'GET'])
-# @csrf_exempt
-# def data(request):
-#     """Calculate nozzle detail and weild sizing.
-
-#     Parameters
-#     ----------
-#     request : type
-#         Description of parameter `request`.
-
-#     Returns
-#     -------
-#     t_c: float
-#         minimum fillet weild throat dimension
-#     r_1: float
-#         minimum inside corner radius
-
-#     """
-#     if request.method == 'POST':
-#         # GET THE VALUES FROM swain
-#         cylinder_t = 0.625
-#         nozzle_d = 10
-#         nozzle_t = 0.5
-#         C_A = 0.125
-
-#         t_c = calculate_t_c(cylinder_t, nozzle_t, C_A)
-
-
-from asme.models import PipingSchedule
+from asme.models import NozzleData,PipingSchedule
 from .serializers import NozzleSerializer
 from .renderers import NozzleJSONRenderer
 from .utils.calc import calculate_t_c
@@ -46,9 +12,9 @@ from rest_framework.exceptions import APIException
 from exceptionapp.exceptions import newError
 
 
-class NozzleData(APIView):
+class NozzleAPIView(APIView):
 
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     renderer_classes = (NozzleJSONRenderer,)
     serializer_classes = NozzleSerializer
     
@@ -59,7 +25,10 @@ class NozzleData(APIView):
         data1 = serializer.data
 
         try:
-            row_dict = PipingSchedule.objects.filter(schedules=data1.get('schedules')).values()[0]
+            row_dict_nozzle = NozzleData.objects.filter(class_value=data1.get('class_value')).filter(type_name=data1.get('type_name')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
+            print(row_dict_nozzle)
+            row_dict_pipe = PipingSchedule.objects.filter(schedules=data1.get('schedules')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
+            print(row_dict_pipe)
         except:
             raise newError({
                 "database":["Data cannot be found incorrect data"]
@@ -67,7 +36,7 @@ class NozzleData(APIView):
 
         cylinder_t = 0.125
         nozzle_t = 0.125
-        C_A = int(data1.get('ic'))
+        C_A = 0.13
 
         thickness = calculate_t_c(cylinder_t,nozzle_t,C_A)
         print(thickness)

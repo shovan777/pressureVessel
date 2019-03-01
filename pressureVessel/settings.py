@@ -56,7 +56,7 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'exceptionapp.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY':'error',
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -69,7 +69,7 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000000)
 }
 
 ROOT_URLCONF = 'pressureVessel.urls'

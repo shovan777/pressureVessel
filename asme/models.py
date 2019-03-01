@@ -41,12 +41,29 @@ class MaximumAllowableStress(models.Model):
 
 
 class PipingSchedule(models.Model):
-    pipe_size = models.FloatField(default=0.000)
-    od_inch = models.FloatField(default=0.000)
-    id_inch = models.FloatField(default=0.000)
+    nominal_pipe_size = models.FloatField(default=0.000)
+    pipe_outer_diameter_inch = models.FloatField(default=0.000)
+    pipe_internal_diameter_inch = models.FloatField(default=0.000)
     schedules = models.CharField(max_length=255)
     wall_inch = models.FloatField(default=0.000)
     est_wt = models.FloatField(default=0.0000)
 
     def __str__(self):
-        return str(self.pipe_size) + "_" + self.schedules
+        return str(self.nominal_pipe_size) + "_" + self.schedules
+
+class NozzleData(models.Model):
+    class_value = models.IntegerField(default=150)
+    type_name =  models.CharField(max_length=10)
+    nominal_pipe_size = models.FloatField(default=0.00)
+
+    flange_outer_diameter = models.FloatField(default=0.00)
+    flange_thickness = models.FloatField(default=0.00)
+    raised_face_diameter = models.FloatField(default=0.00)
+    blot_hole_number = models.IntegerField(default=0)
+    blot_hole_size = models.FloatField(default=0.00)
+    blot_circle_diameter = models.FloatField(default=0.00)
+    bore = models.FloatField(default=0.00)
+    barrel_outer_diameter = models.FloatField(default=0.00)
+
+    def __str__(self):
+        return self.type_name + "_" +str(self.class_value)+ "_" + str(self.nominal_pipe_size)
