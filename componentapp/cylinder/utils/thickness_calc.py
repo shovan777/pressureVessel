@@ -35,8 +35,8 @@ def cylinder_t(P, S, D, C_A, report_id, E=1.0):
     # with connection.cursor() as cursor:
     #     cursor.callproc('cylinder_t', [P, S, D, C_A, E])
     #     return cursor.fetchall()[0][0]
-    upper_part = float(P * ( D/2.0 ) )
-    lower_part = float((S * E) - (0.6 * P))
+    upper_part = float(P * ( (D+2*C_A)/2.0 ) )
+    lower_part = float((S *1000* E) - (0.6 * P))
     t_inter = upper_part/lower_part
     t = t_inter + C_A
     # think about how you can save the calculation steps later

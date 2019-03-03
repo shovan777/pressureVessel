@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import url
 from emailapp import funcs
-
+# del these imports done for media url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # path('', include('frontend.urls')),
@@ -31,3 +33,5 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         funcs.activate, name='activate'),
 ]
+if settings.DEBUG is True:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
