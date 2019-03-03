@@ -25,18 +25,15 @@ def cylinder_t(P, S, D, C_A, report_id, E=1.0):
         Description of returned object.
 
     """
-    # return (D/2) * (exp(P / (S * E)) - 1
-    # R = (D + 2.0 * C_A) / 2.0
-    # t_wo_allowance = (P * R) / (S * 1000 * E - 0.6 * P)
-    # t_w_allowance = t_wo_allowance + C_A
-    # return t_w_allowance
 
     # Process to calculate using Postgres Procedure
     # with connection.cursor() as cursor:
     #     cursor.callproc('cylinder_t', [P, S, D, C_A, E])
     #     return cursor.fetchall()[0][0]
-    upper_part = float(P * ( (D+2*C_A)/2.0 ) )
-    lower_part = float((S *1000* E) - (0.6 * P))
+    
+    R = float((D+2*C_A)/2)
+    upper_part = float(P * R )
+    lower_part = float((S * 1000 * E) - (0.6 * P))
     t_inter = upper_part/lower_part
     t = t_inter + C_A
     # think about how you can save the calculation steps later

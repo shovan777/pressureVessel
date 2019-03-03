@@ -28,6 +28,13 @@ def calculate_t_c(cylinder_t, nozzle_t, C_A):
     t_c = min(0.7*t_min, 0.25)
     return t_c/0.7
 
+def calculate_t_min(D,tn,S,E,P,C_A):
+    # minimium nozzle thickness based on stress
+    R = float((D-2*tn)/2)
+    upper_part = float(P * R)
+    lower_part = float((S * 1000 * E) - (0.6 * P))
+    return (upper_part/lower_part) + C_A
+
 def calclate_r_1(cylinder_t):
     """Find inner radius"""
     t = nozzle_t - C_A
