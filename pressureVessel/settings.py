@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'rest_framework',
+    'corsheaders',
 
     'componentapp.cylinder',
     'authenticationapp',
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'emailapp',
     'componentapp.head',
     'asme',
+    'drawing',
 ]
 
 MIDDLEWARE = [
