@@ -24,15 +24,15 @@ class NozzleAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         data1 = serializer.data
 
-        try:
-            row_dict_nozzle = NozzleData.objects.filter(class_value=data1.get('class_value')).filter(type_name=data1.get('type_name')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
-            print(row_dict_nozzle)
-            row_dict_pipe = PipingSchedule.objects.filter(schedules=data1.get('schedules')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
-            print(row_dict_pipe)
-        except:
-            raise newError({
-                "database":["Data cannot be found incorrect data"]
-            })
+        # try:
+        #     row_dict_nozzle = NozzleData.objects.filter(class_value=data1.get('class_value')).filter(type_name=data1.get('type_name')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
+        #     print(row_dict_nozzle)
+        #     row_dict_pipe = PipingSchedule.objects.filter(schedules=data1.get('schedules')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
+        #     print(row_dict_pipe)
+        # except:
+        #     raise newError({
+        #         "database":["Data cannot be found incorrect data"]
+        #     })
 
         cylinder_t = 0.125
         nozzle_t = 0.125

@@ -34,10 +34,10 @@ class ThicknessData(APIView):
                 })
         temp = data1.get('temp1')
         max_stress = row_dict['max_stress_' + str(temp)]
-        P = int(data1.get('ip'))
+        P = float(data1.get('ip'))
         S = max_stress
-        D = int(data1.get('sd'))
-        C_A = int(data1.get('ic'))
+        D = float(data1.get('sd'))
+        C_A = float(data1.get('ic'))
         thickness = head_t(P, S, D, C_A)
 
         newdict = {'thickness':thickness}

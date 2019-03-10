@@ -1,7 +1,7 @@
 # django rest framework
 from rest_framework import serializers
 
-# models form reporter app
+# models form reporter app 
 from .models import Report, CylinderState, NozzleState
 
 class ReportSerializer(serializers.ModelSerializer):
