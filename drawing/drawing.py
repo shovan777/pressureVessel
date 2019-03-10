@@ -125,8 +125,8 @@ class PyGame(object):
 
         self.drawNozzle(starting_x+ellipse_minor/2+cylinder_length+position_nozzle1,starting_y+ellipse_major-overlappingValue,length_nozzle,breadth_nozzle,"N3",True)
 
-        pygame.image.save(self.screen,location+"pygame.bmp")
-        return location+"pygame.bmp"
+        pygame.image.save(self.screen,location+"pygame.png")
+        return location+"pygame.png"
         
 
 # if __name__ == "__main__":
