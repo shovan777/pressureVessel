@@ -18,5 +18,16 @@ class NozzleJSONRenderer(JSONRenderer):
             return super(NozzleJSONRenderer,self).render(data)
         
         return json.dumps({
-            'thickness':data['thickness'],
+            'flange_outer_diameter': data['flange_outer_diameter'],
+            'flange_thickness': data['flange_thickness'],
+            'raised_face_diameter': data['raised_face_diameter'],
+            'blot_hole_number': data['blot_hole_number'],
+            'blot_hole_size': data['blot_hole_size'],
+            'blot_circle_diameter': data['blot_circle_diameter'],
+            'bore': data['bore'],
+            'barrel_outer_diameter': data['barrel_outer_diameter'],
+            'pipe_outer_diameter_inch': data['pipe_outer_diameter_inch'],
+            'pipe_internal_diameter_inch': data['pipe_internal_diameter_inch'],
+            'wall_inch': data['wall_inch'],
+            'est_wt': data['est_wt']
         })

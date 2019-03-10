@@ -20,26 +20,27 @@ class NozzleAPIView(APIView):
     
     def post(self, request):
         data = request.data.get('nozzleParam',{})
+        data['projectID'] = request.data.get('projectID',None)
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
         data1 = serializer.data
 
         try:
             row_dict_nozzle = NozzleData.objects.filter(class_value=data1.get('class_value')).filter(type_name=data1.get('type_name')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
-            print(row_dict_nozzle)
             row_dict_pipe = PipingSchedule.objects.filter(schedules=data1.get('schedules')).filter(nominal_pipe_size=data1.get('nominal_pipe_size')).values()[0]
-            print(row_dict_pipe)
         except:
             raise newError({
                 "database":["Data cannot be found incorrect data"]
             })
 
-        cylinder_t = 0.125
-        nozzle_t = 0.125
-        C_A = 0.13
+        # cylinder_t = 0.125
+        # nozzle_t = 0.125
+        # C_A = 0.13
 
-        thickness = calculate_t_c(cylinder_t,nozzle_t,C_A)
-        print(thickness)
-        newdict = {'thickness':thickness}
+        # thickness = calculate_t_c(cylinder_t,nozzle_t,C_A)
+        # print(thickness)
+        newdict = {}
         newdict.update(serializer.data)
+        newdict.update(row_dict_nozzle)
+        newdict.update(row_dict_pipe)
         return Response(newdict,status=status.HTTP_200_OK)

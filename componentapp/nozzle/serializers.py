@@ -23,6 +23,11 @@ class NozzleSerializer(serializers.ModelSerializer):
         required = True,
     )
 
+    # projectID = serializers.IntegerField(
+    #     default = 1,
+    # )
+
     class Meta:
         model = NozzleData
+        # fields = ['nominal_pipe_size','type_name','class_value','schedules','projectID']
         fields = ['nominal_pipe_size','type_name','class_value','schedules']
