@@ -1,6 +1,19 @@
 import math as m
 
-def calculation_thick():
+def calculation_thick(
+    designPressure,
+    corrosionAllowance,
+    shellAllowableStress,
+    yieldStrength,
+    cylinderInsideDiameter,
+    cylinderThickness,
+    nozzleOutsideDiameter,
+    nozzleThickness,
+    externalNozzleProjection,
+    nozzleAllowableStress,
+    reinforcingElementAllowableStress,
+    weldJointEfficiency = 1.0
+    ):
     
     # Available datas 
     # Design Conditions = 356 psig@ 300 degree F
@@ -21,33 +34,44 @@ def calculation_thick():
     # The nozzle is inserted thorough the shell, i.e set-in type nozzle
 
     # variable meanings - 
-    CDi = 150.0 # inch
+    # CDi = 150.0 # inch
+    CDi = cylinderInsideDiameter
     # CDi = Cylinder inside Diameter.
-    C_A = 0.125
+    # C_A = 0.125
+    C_A = corrosionAllowance
     # C_A = corrosion Allowance
     # CRi = Cylinder inside Radius
-    Ct = 1.8125
+    # Ct = 1.8125
+    Ct = cylinderThickness
     # Ct = Cylinder Thickness
-    Nt = 4.75
+    # Nt = 4.75
+    Nt = nozzleThickness
     # Nt = Nozzle Thickness
     # Nr = Nozzle Radius
-    ND = 25.5
+    # ND = 25.5
+    ND = nozzleOutsideDiameter
     # ND = Nozzle Diameter
     # Nd = ---
     # Ctr = Cylinder Required Thickness
-    DP = 351
+    # DP = 351
+    DP = designPressure
     # DP = Design Pressure
-    SAS = 20000 
+    # SAS = 20000 
+    SAS = shellAllowableStress
     # SAS = Shell Allowable Stress
-    WJE = 1.0
+    # WJE = 1.0
+    WJE = weldJointEfficiency
     # WJE = Weild Joint Efficiency
     # Ntr = Nozzle Required Thickness
-    Sn = 20000
+    # Sn = 20000
+    Sn = nozzleAllowableStress
     # Sn = Nozzle Allowable Stress
-    Sv = 20000
+    # Sv = 20000
+    Sv = shellAllowableStress
     # Sv = Shell Allowable Stress
-    Sp = 20000
-    # Sp = Shell Allowable Stress
+    # Sp = 20000
+    Sp = reinforcingElementAllowableStress
+    # Sp = Reinforcing Element Allowable Stress
 
     # Establish the corroded dimensions
     CDi = CDi + 2 * (C_A) # Di
@@ -73,7 +97,7 @@ def calculation_thick():
     
     # 1) Reinforcing dimensions for an integrally reinforced nozzle per Fig. UG-40(e), UG-40(e-1), UG-40(e-2)
 
-    # tx = Radius of Pipe used (assumed using figure4.5.1)
+    # tx = thickness of Pipe used (assumed using figure4.5.1)
     tx = 4.75 
     # L = Length of pipe projecting outside (assumed using figure4.5.1)
     '''
@@ -100,12 +124,22 @@ def calculation_thick():
     # check condition
     if (L < 2.5*tx) :
         # use UG-40(e-1)
-        tn = 9.5 - 8.0 - C_A
-        te = (tx - 1.5 ) / m.tan(30)
-        Dp = 2 * (12.75)
+        # Net = Neck Thickness
+        Net = 9.5
+        # NIr = Nozzle Inside Radius
+        NIr = 8.0
+        # Theta = Angle 
+        Theta = 30
+        tn = Net - NIr - C_A
+        te = (tx - (Net - NIr)) / m.tan(Theta)
+        Dp = ND
+        # with reinforcing element A5 area
     else:
-        # Left to be done
-        print("need to do something")
+        # use UG-40(e-2)
+        tn = Net - NIr - C_A 
+        te = 0 
+        Dp = ND
+        # without reinforcing element no A5 area
 
     # 2) The limits of reinforcement, measured parallel to the vessel wall in the corroded condition:
     maxValue = max(Nd, (Nr + Nt + Ct))
@@ -186,12 +220,14 @@ def calculation_thick():
     '''
     From UG-37 Nomenclature (pg 40) (102)
     ti = nominal thickness of internal projection of nozzle wall
+    ti = Internal Nozzle Projection (Given by user or from database)
     '''
-    ti = 0 # ??? # Given in example
+    ti = 0 
     '''
     From UG-37 Nomenclature (pg 40) (102)
     h = distance nozzle projects beyond the inner surface of the vessel wall.
     (Extension of the nozzle beyond the inside surface of the vessel wall is not limited; however, for reinforcement calculations, credit shall not be taken for material outside the limits of reinforcement established by UG-40.)
+    h = Internal projected Nozzle height (Given by user)
     '''
     h = 0 # ??? 
     Cm1 = 5 * Ct * ti * fr2
@@ -214,13 +250,16 @@ def calculation_thick():
     # From UG-37 Nomenclature (pg 40) (102)
     # A41,A42,A43 = cross‐sectional area of various welds available for reinforcement (see Figure UG-37.1)
     A41 = m.pow(Onfwl,2) * fr3
-    A42 = m.pow(Oefwl,2) * fr4 # might be in example 0.0 given # 
+    if te :
+        A42 = m.pow(Oefwl,2) * fr4 # might be in example 0.0 given # 
+    else :
+        A42 = 0
     A43 = m.pow(Iefwl,2) * fr2 # might be in example 0.0 given
 
     # 6) Area Available in Element, A5:
     # From UG-37 Nomenclature (pg 40) (102)
     # A5 = cross‐sectional area of material added as reinforcement (see Figure UG-37.1)
-    A5 = (Dp - Nd - 2 * Nt) * te * fr4
+    A5 = (Dp - Nd - (2 * Nt)) * te * fr4
 
     # Note: The thickness of the reinforcing pad, te , exceed the outer vertical reinforcement zone limit. Therefore, the reinforcement area in the pad is limited to within the zone.
 
@@ -230,9 +269,13 @@ def calculation_thick():
     # STEP 4 - Nozzle reinforcement acceptance criterion:
     if Aavail > A :
         # Therefore, the nozzle is adequately reinforced
+        print(Aavail)
+        print(A)
         print('Therefore, the nozzle is adequately reinforced')
     else:
-        # need to be done something
-        print('Need to be done at last')
+        # need to be done something 
+        print(Aavail)
+        print(A)
+        print('Area needs to be increased')
 
          

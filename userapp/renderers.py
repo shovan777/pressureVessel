@@ -15,7 +15,16 @@ class UserJSONRenderer(JSONRenderer):
             return super(UserJSONRenderer,self).render(data)
 
         if errors is not None:
-            return super(UserJSONRenderer,self).render(data)
+            output = {
+                'errors' : {
+                    'error' : [
+                    ]
+                }
+            }
+            for x in errors:
+                output['errors']['error'].append(errors.get(x)[0])
+            
+            return super(UserJSONRenderer,self).render(output)
 
         return json.dumps({
             'detail':'please validate your account',
