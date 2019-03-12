@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'componentapp.head',
     'asme',
     'drawing',
+    'componentapp.skirt',
 ]
 
 MIDDLEWARE = [

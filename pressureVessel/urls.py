@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include('componentapp.cylinder.urls')),
     path('api/', include('componentapp.head.urls')),
     path('api/', include('componentapp.nozzle.urls')),
+    path('api/', include('componentapp.skirt.urls')),
     path('user/', include('userapp.urls')),
     path('admin', admin.site.urls),
     path('auth/', include('authenticationapp.urls')),
