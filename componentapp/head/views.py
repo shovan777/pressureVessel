@@ -2,7 +2,7 @@
 from asme.models import MaximumAllowableStress
 from .serializers import HeadSerializer
 from .renderers import HeadJSONRenderer
-from .utils.thickness_calc import head_t
+from .utils.thickness_calc import head_t,center_of_gravity
 
 # django-rest modules
 from rest_framework.views import APIView
@@ -39,8 +39,17 @@ class ThicknessData(APIView):
         S = max_stress
         D = float(data1.get('sd'))
         C_A = float(data1.get('ic'))
-        thickness = head_t(P, S, D, C_A)
+        density = row_dict['density']
+        projectID = data1.get('projectID')
+        
+        thickness = head_t(P, S, D, C_A,projectID)
 
-        newdict = {'thickness':thickness}
+        weightData = center_of_gravity(D,density,60,thickness-C_A)
+
+        newdict = {
+            'thickness':thickness,
+            'weight':weightData[1],
+            'weightTimesCG':weightData[0]
+        }
         newdict.update(serializer.data)
         return Response(newdict,status=status.HTTP_200_OK)
