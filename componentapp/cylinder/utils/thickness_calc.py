@@ -1,5 +1,5 @@
 """Calculate inner thickness."""
-from math import exp, atan, cos
+from math import exp, atan, cos, pi, pow
 from django.db import connection
 from reporter.models import CylinderState, Report
 
@@ -52,9 +52,22 @@ def cylinder_t(P, S, D, C_A, report_id, E=1.0):
     return t
     # return (upper_part/lower_part) + C_A
 
-def conical_t(D, P, S, D_l, D_s, L_c, CA, E=1.0):
+def conical_t(P, S, D_l, D_s, L_c, CA, report_id,E=1.0):
     D_l += 2 * CA
     D_s += 2 * CA
     alpha = atan(0.5 * (D_l - D_s) / L_c)
-    t_wo_allowance = (P * D) / (2 * cos(alpha) * (S * E * 1000 - 0.6 * P))
-    return t_wo_allowance
+    t_wo_allowance = (P * D_l) / (2 * cos(alpha) * (S * E * 1000 - 0.6 * P))
+    return t_wo_allowance +CA
+
+def center_of_gravity(cylinderDiameter,cylinderLength,density,skirtHeight,thicknessCylinder,Sf=2):
+    cylinderVolumeOuter = float((pi*pow((cylinderDiameter/2.0),2)*cylinderLength))
+    individualCG = cylinderLength/2.0
+    cgFromDatum = float(individualCG + Sf + skirtHeight)# sum of inidividual CG, S.F. of ellipsoidal head, height of skirt
+    cylinderVolumeInner = (pi*(pow(((float(cylinderDiameter)-float(thicknessCylinder))/2.0),2.0)*cylinderLength))
+
+    netVolumeOfCylinder = cylinderVolumeOuter-cylinderVolumeInner
+
+    newWeight = netVolumeOfCylinder*density
+    weightTimesCG = newWeight*cgFromDatum
+
+    return weightTimesCG,newWeight
