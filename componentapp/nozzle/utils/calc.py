@@ -35,7 +35,7 @@ def calculate_t_min(D,tn,S,E,P,C_A):
     lower_part = float((S * 1000 * E) - (0.6 * P))
     return (upper_part/lower_part) + C_A
 
-def calclate_r_1(cylinder_t):
+def calclate_r_1(nozzle_t,C_A):
     """Find inner radius"""
     t = nozzle_t - C_A
     return min(0.25*t, 1/8)

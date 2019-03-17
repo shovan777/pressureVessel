@@ -10,9 +10,11 @@ def calculation_thick(
     nozzleOutsideDiameter,
     nozzleThickness,
     externalNozzleProjection,
+    internalNozzleProjection,
     nozzleAllowableStress,
     reinforcingElementAllowableStress,
-    weldJointEfficiency = 1.0
+    weldJointEfficiency = 1.0,
+    
     ):
     
     # Available datas 
@@ -64,6 +66,7 @@ def calculation_thick(
     # WJE = Weild Joint Efficiency
     # Ntr = Nozzle Required Thickness
     # Sn = 20000
+    
     Sn = nozzleAllowableStress
     # Sn = Nozzle Allowable Stress
     # Sv = 20000
@@ -72,7 +75,6 @@ def calculation_thick(
     # Sp = 20000
     Sp = reinforcingElementAllowableStress
     # Sp = Reinforcing Element Allowable Stress
-
     # Establish the corroded dimensions
     CDi = CDi + 2 * (C_A) # Di
     CRi = (CDi/2.0) # R
@@ -269,13 +271,9 @@ def calculation_thick(
     # STEP 4 - Nozzle reinforcement acceptance criterion:
     if Aavail > A :
         # Therefore, the nozzle is adequately reinforced
-        print(Aavail)
-        print(A)
-        print('Therefore, the nozzle is adequately reinforced')
+        return(Aavail,A,'Therefore, the nozzle is adequately reinforced')
     else:
-        # need to be done something 
-        print(Aavail)
-        print(A)
-        print('Area needs to be increased')
+        # need to be done something
+        return(Aavail,A,'Area needs to be increased')
 
          
