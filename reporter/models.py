@@ -18,7 +18,7 @@ def report_path(instance, filename='report'):
 class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     report_type = models.CharField(max_length=50)
-    location = models.FilePathField(path=static_report_path, allow_folders=True)
+    location = models.FilePathField(path=static_report_path, allow_folders=True,max_length=255)
     author = models.CharField(max_length=100, default='shovan')
     
     def report_path(self, filename='report'):
