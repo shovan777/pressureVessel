@@ -17,17 +17,24 @@ class NozzleJSONRenderer(JSONRenderer):
         if errors is not None:
             return super(NozzleJSONRenderer,self).render(data)
         
-        return json.dumps({
-            'flange_outer_diameter': data['flange_outer_diameter'],
-            'flange_thickness': data['flange_thickness'],
-            'raised_face_diameter': data['raised_face_diameter'],
-            'blot_hole_number': data['blot_hole_number'],
-            'blot_hole_size': data['blot_hole_size'],
-            'blot_circle_diameter': data['blot_circle_diameter'],
-            'bore': data['bore'],
-            'barrel_outer_diameter': data['barrel_outer_diameter'],
-            'pipe_outer_diameter_inch': data['pipe_outer_diameter_inch'],
-            'pipe_internal_diameter_inch': data['pipe_internal_diameter_inch'],
-            'wall_inch': data['wall_inch'],
-            'est_wt': data['est_wt']
-        })
+        data.pop('id')
+        if data['type_name'] == 'LWN':
+            data.pop('nut_relief_diameter')
+            data.pop('nut_relief_length')
+        
+        data.pop('type_name')
+        data.pop('class_value')
+        data.pop('nominal_pipe_size')
+        data.pop('spec_num')
+        data.pop('type_grade')
+        data.pop('temp1')
+        data.pop('designPressure')
+        data.pop('cylinderDiameter')
+        data.pop('corrosionAllowance')
+        data.pop('cylinderThickness')
+        data.pop('nozzleDiameter')
+        data.pop('externalNozzleProjection')
+        data.pop('internalNozzleProjection')
+        data.pop('projectID')
+
+        return json.dumps(data)
