@@ -6,16 +6,14 @@ from django.conf.urls import url
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 
-# reporter modules
+# state modules
 from . import views
 
-
 router = routers.DefaultRouter()
-router.register(r'reports', views.ReportViewSet)
+
+router.register(r'cylinderstates', views.CylinderStateViewSet)
+router.register(r'nozzlestates', views.NozzleStateViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    path('generate', views.index, name='index'),
 ]
-
-# urlpatterns = format_suffix_patterns(urlpatterns)

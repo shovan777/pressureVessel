@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # path('', include('frontend.urls')),
+    path('api/', include('componentapp.component.urls')),
     path('report/', include('reporter.urls')),
     path('api/', include('componentapp.cylinder.urls')),
     path('api/', include('componentapp.head.urls')),

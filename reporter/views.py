@@ -25,8 +25,11 @@ import pandas as pd
 import io
 
 # reporter modules
-from .models import CylinderState, NozzleState, Report
-from reporter.serializers import CylinderStateSerializer, NozzleStateSerializer, ReportSerializer
+from .models import Report
+from reporter.serializers import ReportSerializer
+
+# state modules
+from state.models import CylinderState
 
 # drawing modules
 from drawing.drawing import PyGame
@@ -139,9 +142,10 @@ def index(request):
     # print(css)
     # print(request.build_absolute_uri())
     html = HTML(string=html_out, base_url=request.build_absolute_uri())
-    html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
-                   stylesheets=[google_css, typo_css])
-    # pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+    # html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
+    #                stylesheets=[google_css, typo_css])
+    pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+    
     # fs = FileSystemStorage(location=str(Report.objects.get(id=87))[:-10])
     # fs.save(content='hello', name='report.pdf')
     # with open(str(Report.objects.get(id=87)), 'w') as f:
@@ -165,12 +169,14 @@ def index(request):
     # return FileResponse(buffer, as_attachment=True, filename='report.pdf')
 
     # html.write_pdf()
-    # response = HttpResponse(pdf, content_type='application/blob')
-    # response['Content-Disposition'] = 'attachment;filename=report.pdf'
-    # return response
+    response = HttpResponse(pdf, content_type='application/blob')
+    response['Content-Disposition'] = 'attachment;filename=report.pdf'
+    return response
     # print(settings.MEDIA_URL)
-    report_url = settings.MEDIA_URL+'report3.pdf'
-    return HttpResponse(report_url)
+    '''chalne kura
+    # report_url = settings.MEDIA_URL+'report3.pdf'
+    # return HttpResponse(report_url)
+    '''
     # return HttpResponse(html_out)
 
 
@@ -179,7 +185,7 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
@@ -192,12 +198,3 @@ class ReportViewSet(viewsets.ModelViewSet):
     #  use @action to handle custom endpoints of GET requests
     #  use @method to handle custom endpoints of POST requests
 
-
-class CylinderStateViewSet(viewsets.ModelViewSet):
-    queryset = CylinderState.objects.all()
-    serializer_class = CylinderStateSerializer
-
-
-class NozzleStateViewSet(viewsets.ModelViewSet):
-    queryset = NozzleState.objects.all()
-    serializer_class = NozzleStateSerializer
