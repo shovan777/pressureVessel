@@ -22,6 +22,7 @@ class ThicknessData(APIView):
     def post(self, request, format=None):
         data = request.data.get('cylinderParam', {})
         data['projectID'] = request.data.get('projectID',None)
+        # data['componentID'] = request.data.get('componentID',None)
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
         data1 = serializer.data
@@ -39,7 +40,8 @@ class ThicknessData(APIView):
         C_A = data1.get('ic')
         density = row_dict['density']
         projectID = data1.get('projectID')
-        thickness = cylinder_t(P, S, D, C_A, projectID)
+        component_react_id = data1.get('componentID')
+        thickness = cylinder_t(P, S, D, C_A, projectID, component_react_id)
         weightOfCylinder = center_of_gravity(D,48,density,60,thickness-C_A)
         newdict = {
             'thickness':thickness,

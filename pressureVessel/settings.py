@@ -33,13 +33,16 @@ INSTALLED_APPS = [
     'componentapp.cylinder',
     'authenticationapp',
     'componentapp.nozzle',
-    'reporter.apps.ReporterConfig',
+    # 'reporter.apps.ReporterConfig',
+    'reporter',
     'userapp',
     'emailapp',
     'componentapp.head',
     'asme',
     'drawing',
     'componentapp.skirt',
+    'componentapp.component',
+    'state',
 ]
 
 MIDDLEWARE = [

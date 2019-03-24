@@ -1,9 +1,8 @@
 # django rest framework
 from rest_framework import serializers
 
-# models form reporter app 
-from .models import Report, CylinderState, NozzleState
-
+# models form reporter app
+from .models import Report
 class ReportSerializer(serializers.ModelSerializer):
     # get user automatically from request
     # author = serializers.ReadOnlyField(source='author.username')
@@ -17,12 +16,3 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = ('id', 'created_at', 'report_type','location', 'author')
 
-class CylinderStateSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = CylinderState
-        fields = '__all__'
-
-class NozzleStateSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = NozzleState
-        fields = '__all__'
