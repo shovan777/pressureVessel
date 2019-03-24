@@ -56,6 +56,7 @@ class CylinderState(models.Model):
     E = models.FloatField(default=0.0)
     t_inter = models.FloatField(default=0.0)
     t = models.FloatField(default=0.0)
+    # component_id = models.IntegerField()
 
     def __str__(self):
         # return self.id or something like that
