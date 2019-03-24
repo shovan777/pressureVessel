@@ -17,10 +17,10 @@ class ParameterSerializer(serializers.ModelSerializer):
     projectID = serializers.IntegerField(
         required = True,
     )
-    lengthOfSkirt = serializers.FloatField(
+    length = serializers.FloatField(
         required = True,
     )
 
     class Meta:
         model = MaximumAllowableStress
-        fields = ['spec_num','type_grade','temp1','sd','ic','thickness','lengthOfSkirt','projectID']
+        fields = ['spec_num','type_grade','temp1','sd','ic','thickness','length','projectID']

@@ -57,7 +57,7 @@ class ThicknessDataConical(APIView):
     serializer_classes = ParameterSerializerConical
     renderer_classes = (ParameterJSONRenderer,)
     def post(self, request, format=None):
-        data = request.data.get('cylinderParam', {})
+        data = request.data.get('conicalParam', {})
         data['projectID'] = request.data.get('projectID',None)
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
@@ -74,7 +74,7 @@ class ThicknessDataConical(APIView):
         S = max_stress
         D_l = data1.get('sd_l')
         D_s = data1.get('sd_s')
-        L_c = data1.get('lc')
+        L_c = data1.get('length')
         C_A = data1.get('ic')
         projectID = data1.get('projectID')
         thickness = conical_t(P,S,D_l,D_s,L_c,C_A,projectID)
