@@ -146,9 +146,9 @@ def index(request):
     # print(css)
     # print(request.build_absolute_uri())
     html = HTML(string=html_out, base_url=request.build_absolute_uri())
-    # html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
-    #                stylesheets=[google_css, typo_css])
-    pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+    html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
+                   stylesheets=[google_css, typo_css])
+    # pdf = html.write_pdf(stylesheets=[google_css, typo_css])
     
     # fs = FileSystemStorage(location=str(Report.objects.get(id=87))[:-10])
     # fs.save(content='hello', name='report.pdf')

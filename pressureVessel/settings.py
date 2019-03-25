@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drawing',
     'componentapp.skirt',
     'componentapp.component',
+    'componentapp.lifingLug',
     'state',
 ]
 
