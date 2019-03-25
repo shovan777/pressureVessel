@@ -173,14 +173,21 @@ def index(request):
     # return FileResponse(buffer, as_attachment=True, filename='report.pdf')
 
     # html.write_pdf()
-    response = HttpResponse(pdf, content_type='application/blob')
-    response['Content-Disposition'] = 'attachment;filename=report.pdf'
-    return response
+    # response = HttpResponse(pdf, content_type='application/blob')
+    # response['Content-Disposition'] = 'attachment;filename=report.pdf'
+    # return response
     # print(settings.MEDIA_URL)
-    '''chalne kura
+    '''
+    page viewed to solve problem
+    https://stackoverflow.com/questions/48287623/pythonconversion-of-pdf-to-blob-and-back-to-pdf-leads-to-corrupt
+    '''
+    with open(settings.MEDIA_URL+'report3.pdf','rb') as f:
+        blob = base64.b64encode(f.read())
+        response = HttpResponse(blob, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment;filename=report.pdf'
+        return response
     # report_url = settings.MEDIA_URL+'report3.pdf'
     # return HttpResponse(report_url)
-    '''
     # return HttpResponse(html_out)
 
 
