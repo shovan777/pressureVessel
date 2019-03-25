@@ -48,8 +48,10 @@ class NozzleSerializer(serializers.ModelSerializer):
     projectID = serializers.IntegerField(
         required = True,
     )
-    
+    componentID = serializers.IntegerField(
+        required = True,
+    )
     class Meta:
         model = NozzleData
         # fields = ['nominal_pipe_size','type_name','class_value','projectID']
-        fields = ['type_name','nominal_pipe_size','class_value','spec_num','type_grade','temp1','designPressure','cylinderDiameter','corrosionAllowance','cylinderThickness','nozzleDiameter','externalNozzleProjection','internalNozzleProjection','projectID']
+        fields = ['type_name','nominal_pipe_size','class_value','spec_num','type_grade','temp1','designPressure','cylinderDiameter','corrosionAllowance','cylinderThickness','nozzleDiameter','externalNozzleProjection','internalNozzleProjection','projectID','componentID']

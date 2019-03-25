@@ -54,8 +54,9 @@ class NozzleAPIView(APIView):
         # nozzleThickness = 4.75
         nozzleAllowableStress = shellAllowableStress*1000
         reinforcingElementAllowableStress = shellAllowableStress*1000
-
-        value = calculation_thick(designPressure,corrosionAllowance,shellAllowableStress*1000,yieldStrength*1000,cylinderInsideDiameter,cylinderThickness,nozzleOutsideDiameter,nozzleThickness,externalNozzleProjection,internalNozzleProjection,nozzleAllowableStress,reinforcingElementAllowableStress)
+        projectID = data1.get('projectID')
+        component_react_id = data1.get('componentID')
+        value = calculation_thick(designPressure,corrosionAllowance,shellAllowableStress*1000,yieldStrength*1000,cylinderInsideDiameter,cylinderThickness,nozzleOutsideDiameter,nozzleThickness,externalNozzleProjection,internalNozzleProjection,nozzleAllowableStress,reinforcingElementAllowableStress, projectID, component_react_id)
 
         newdict = {
             "areaAvailable": value[0],

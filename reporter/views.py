@@ -29,7 +29,7 @@ from .models import Report
 from reporter.serializers import ReportSerializer
 
 # state modules
-from state.models import CylinderState
+from state.models import CylinderState, NozzleState
 
 # drawing modules
 from drawing.drawing import PyGame
@@ -83,6 +83,9 @@ def index(request):
     print(projectID)
     cylinder_params = CylinderState.objects.filter(
         report__id=projectID).values()
+    nozzle_params = NozzleState.objects.filter(
+        report__id=projectID).values()
+    
     # print(infoTables['area'])
     # pygame object
     pygame = PyGame()
@@ -133,7 +136,8 @@ def index(request):
         'createdAt': '2019-02-21',
         'infoTables': info_tables,
         'cylinderParams': cylinder_params,
-        'image': image
+        'image': image,
+        'nozzleParams': nozzle_params
     }
     # print(Report.objects.get(id=87))
     html_out = template.render(context, request)

@@ -1,0 +1,26 @@
+<p># Nozzle {{ nozzleParams.component_id }}</p>
+<b>Parallel Limit of reinforcement per UG-40</b>
+<br>
+L<sub>H</sub> = MAX(d, R<sub>n</sub> + (t<sub>n</sub> - C<sub>n</sub>) + (t - C))<br>
+= MAX({{ nozzleParams.d }}, {{ nozzleParams.R_n }} + ({{ nozzleParams.t_n }} - {{ nozzleParams.C_n }}) + ({{ nozzleParams.t }} - {{ nozzleParams.C_A }}))<br>
+= {{ nozzleParams.L_R }}in
+<br><br>
+<b>Outer Normal Limit of reinforcement per UG-40</b>
+<br>
+L<sub>H</sub> = MIN(2.5*(t - C), 2.5*(t<sub>n</sub> - C<sub>n</sub>) + t<sub>e</sub>)<br>
+= MIN(2.5*({{ nozzleParams.t }} - {{ nozzleParams.C_n }}), 2.5*({{ nozzleParams.t_n }} - {{ nozzleParams.C_n }}) + {{ nozzleParams.t_e }})<br>
+= {{ nozzleParams.L_H }}in
+<br><br>
+<b>nozzle required thickness per UG-27(c)(1)</b>
+<br>
+t<sub>rn</sub> = P*R<sub>n</sub> / (S<sub>n</sub>*E - 0.6*P)<br>
+= {{ nozzleParams.P }}*{{ nozzleParams.R_n }} / ({{ nozzleParams.S_n }}*{{ nozzleParams.E }} - 0.6*{{ nozzleParams.P }})<br>
+= {{ nozzleParams.t_rn }}in
+<br><br>
+<b>Required thickness t<sub>r</sub> from UG-37(a)</b>
+<br>
+t<sub>r</sub> = P*R<sub>o</sub> / (S*E + 0.4*P)<br>
+= {{ nozzleParams.P }}*{{ nozzleParams.R_o }} / ({{ nozzleParams.S_n }}*{{ nozzleParams.E }} - 0.6*{{ nozzleParams.P }})<br>
+= {{ nozzleParams.t_r }}in
+<br><br>
+<b>{{ nozzleParams.msg }}</b>
