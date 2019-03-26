@@ -14,10 +14,16 @@ class HeadSerializer(serializers.ModelSerializer):
     ic = serializers.FloatField(
         required = True,
     )
+    hr = serializers.CharField(
+        required = True,
+    )
+    position = serializers.IntegerField(
+        required = True,
+    )
     projectID = serializers.IntegerField(
         required = True,
     )
 
     class Meta:
         model = MaximumAllowableStress
-        fields = ['spec_num','type_grade','temp1','ip','sd','ic','projectID']
+        fields = ['spec_num','type_grade','temp1','ip','sd','ic','hr','position','projectID']
