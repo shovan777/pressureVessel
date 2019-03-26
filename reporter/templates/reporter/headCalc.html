@@ -1,0 +1,7 @@
+<p># Head {{ headParams.component_id }}</p>
+<p><b>{{ headParams.position }}</b></p>
+<b>Design Internal Thickness for Internal Pressure as per ---</b>
+<br>
+t = P*D<sub>o</sub>*K / (2*S*E + 2*P*(K - 0.1)) + Corrosion<br>
+= {{ headParams.P }}*{{ headParams.D_o }}*{{ headParams.K }} / (2*{{ headParams.S }}*{{ headParams.E }} + 2*{{ headParams.P }}*({{ headParams.K }} - 0.1)) + {{ headParams.C_A }}<br>
+= {{ headParams.t }}in

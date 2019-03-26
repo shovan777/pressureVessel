@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('reporter', '0017_remove_cylinderstate_component_id'),
+        # ('reporter', '0017_remove_cylinderstate_component_id'),
         ('reporter', '0017_auto_20190318_0714'),
     ]
 

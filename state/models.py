@@ -63,5 +63,29 @@ class NozzleState(models.Model):
         # return self.id or something like that
         return self.component.__str__()
 
+class HeadState(models.Model):
+    report = models.ForeignKey(
+        Report,
+        on_delete=models.CASCADE,
+        verbose_name='the related report'
+    )
+    component = models.OneToOneField(
+        Component,
+        on_delete=models.CASCADE
+    )
+    position = models.CharField(max_length=50)
+    P = models.FloatField(default=0.0)
+    D_o = models.FloatField(default=0.0)
+    K = models.FloatField(default=0.0)
+    S = models.FloatField(default=0.0)
+    E = models.FloatField(default=0.0)
+    C_A = models.FloatField(default=0.0)
+    t = models.FloatField(default=0.0)
+
+    def __str__(self):
+        # return self.id or something like that
+        return self.component.__str__()
+
+
 class CentreOfGravity(models.Model):
     pass
