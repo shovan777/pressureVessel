@@ -26,10 +26,15 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance,position, report_i
     upper_part = float(P * diameterWithOutCorrosion)
     lower_part = float( (2 * S * 1000 * E) - (0.2 * P) )
     thicknessWithCorrosion =  (upper_part/lower_part) + corrosionAllowance
-
+    thicknessWithCorrosion = 1.125
     heightWithOutCorrosion = diameterWithOutCorrosion/4 
-    L = 81.0
-    r = 15.3
+    
+    '''
+    From ASME Section VIII Div 1 Rules for Construction.pdf
+    An acceptable approximation of a 2:1 ellipsoidal head is one with a knuckle radius of 0.17D and a spherical radius of 0.90D .
+    '''
+    sphericalRadius = 0.90 * diameterWithOutCorrosion
+    knuckleRadius = 0.17 * diameterWithOutCorrosion
 
     '''
     From pdf Examples Problem Manual VIII-1.pdf
@@ -39,8 +44,8 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance,position, report_i
 
     kFactor = diameterWithOutCorrosion/(2*heightWithOutCorrosion)
     diameterWithCorrosion = diameterWithOutCorrosion + 2*corrosionAllowance
-    lengthWithCorrosion = L + corrosionAllowance
-    rWithCorrosion = r + corrosionAllowance
+    sphericalRadiusWithCorrosion = sphericalRadius + corrosionAllowance
+    knuckleRadiusWithCorrosion = knuckleRadius + corrosionAllowance
     thicknessWithOutCorrosion = thicknessWithCorrosion - corrosionAllowance
 
     '''
@@ -49,9 +54,10 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance,position, report_i
     '''
     
     KFactor = (1/6.0)*( 2 + pow(kFactor,2))
-    MAWPressure = (2 * S * E * thicknessWithOutCorrosion) / ((KFactor*diameterWithCorrosion) + (0.2 * thicknessWithOutCorrosion))
+    MAWPressure = (2 * S *1000 * E * thicknessWithOutCorrosion) / ((KFactor*diameterWithCorrosion) + (0.2 * thicknessWithOutCorrosion))
 
-    comparisionFactor = thicknessWithOutCorrosion/L
+    comparisionFactor = thicknessWithOutCorrosion/sphericalRadiusWithCorrosion
+    
     msg = ""
     if comparisionFactor >= 0.002:
         msg = "the rules of 1- 4(f) are not required"
