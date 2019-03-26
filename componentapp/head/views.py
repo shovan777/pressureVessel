@@ -35,19 +35,29 @@ class ThicknessData(APIView):
                 })
         temp = data1.get('temp1')
         max_stress = row_dict['max_stress_' + str(temp)]
+        hrAll = data1.get('hr').split(":")
+        hrUpperPart = int(hrAll[0])
+        hrLowerPart = int(hrAll[1])
         P = float(data1.get('ip'))
         S = max_stress
         D = float(data1.get('sd'))
         C_A = float(data1.get('ic'))
         density = row_dict['density']
         projectID = data1.get('projectID')
-        
-        thickness = head_t(P, S, D, C_A,projectID)
 
-        weightData = center_of_gravity(D,density,60,thickness-C_A)
+        position = ""
+        if data1.get('position') == 1:
+            position = "top"
+        else:
+            position ="bottom"
+
+        thickness = head_t(P, S, D, C_A,position,projectID)
+        weightData = center_of_gravity(D,density,60,thickness[0]-C_A)
 
         newdict = {
-            'thickness':thickness,
+            'thickness':thickness[0],
+            'MAWP':thickness[1],
+            'MAWPResponse':thickness[2],
             'weight':weightData[1],
             'weightTimesCG':weightData[0]
         }
