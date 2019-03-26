@@ -14,7 +14,7 @@ def head_t(P, S, D, C_A, report_id,E=1.0):
         Inside diameter .
     CA : float
         Corrosion Allowance.
-    E : float max 1 
+    E : float max 1
         Joint efficiency.
 
     Returns
