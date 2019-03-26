@@ -44,6 +44,7 @@ class ThicknessData(APIView):
         C_A = float(data1.get('ic'))
         density = row_dict['density']
         projectID = data1.get('projectID')
+        component_react_id = data1.get('componentID')
 
         position = ""
         if data1.get('position') == 1:
@@ -51,7 +52,7 @@ class ThicknessData(APIView):
         else:
             position ="bottom"
 
-        thickness = head_t(P, S, D, C_A,position,projectID)
+        thickness = head_t(P, S, D, C_A,position,projectID,component_react_id)
         weightData = center_of_gravity(D,density,60,thickness[0]-C_A)
 
         newdict = {

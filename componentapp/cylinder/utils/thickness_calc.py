@@ -1,6 +1,5 @@
 """Calculate inner thickness."""
-from math import exp, atan, cos, pi, pow
-from django.db import connection
+from math import atan, cos, pi, pow
 from reporter.models import Report
 from state.models import CylinderState
 from componentapp.component.models import Component

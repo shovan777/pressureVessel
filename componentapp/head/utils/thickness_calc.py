@@ -1,7 +1,10 @@
 """Calculate inner thickness."""
 from math import exp, atan, cos, pi, pow
+from reporter.models import Report
+from state.models import HeadState
+from componentapp.component.models import Component
 
-def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance,position, report_id,E=1.0):
+def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_id, component_react_id, E=1.0):
     """Calculate thickness as per ASME DIV I
 
     Parameters
@@ -58,7 +61,40 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance,position, report_i
     else :
         msg = "the rules of Mandatory Appendix 1-4(f) shall also be met"
 
-    return thicknessWithCorrosion,MAWPressure,msg
+    report = Report.objects.get(id=report_id)
+    
+    component = Component.objects.filter(
+        report__id=report_id, react_component_id=component_react_id)[0]
+
+    head_state = HeadState.objects.filter(
+        report__id=report_id,
+        component__id=component.id).update(
+            position = position,
+            P = P,
+            D_o = diameterWithOutCorrosion,
+            K = KFactor,
+            S = S,
+            E = E,
+            C_A = corrosionAllowance,
+            t = thicknessWithCorrosion
+        )
+    if not head_state:
+        calc_steps = HeadState(
+            report=Report.objects.get(id=report_id),
+            component=component,  # provide the component object here
+            position = position,
+            P = P,
+            D_o = diameterWithOutCorrosion,
+            K = KFactor,
+            S = S,
+            E = E,
+            C_A = corrosionAllowance,
+            t = thicknessWithCorrosion
+        )
+        calc_steps.save()
+
+
+    return thicknessWithCorrosion, MAWPressure, msg
 
 def center_of_gravity(headDiameterOutside,density,skirtHeight,headThickness,Sf=2):
     headHeightOutside = headDiameterOutside/4

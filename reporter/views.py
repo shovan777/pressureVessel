@@ -87,7 +87,6 @@ def index(request):
         report__id=projectID).values()
     head_params = HeadState.objects.filter(
         report__id=projectID).values()
-
     # print(infoTables['area'])
     # pygame object
     pygame = PyGame()
