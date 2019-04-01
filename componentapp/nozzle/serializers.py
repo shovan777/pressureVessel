@@ -3,53 +3,53 @@ from asme.models import NozzleData,PipingSchedule
 
 class NozzleSerializer(serializers.ModelSerializer):
 
-    type_name =  serializers.CharField(
+    type_name = serializers.CharField(
         max_length=10,
-        required = True
+        required=True
     )
     nominal_pipe_size = serializers.FloatField(
-        required = True,
+        required=True,
     )
     class_value = serializers.IntegerField(
-        max_value = 2500,
-        min_value = 150,
-        required = True,
+        max_value=2500,
+        min_value=150,
+        required=True,
     )
     spec_num = serializers.CharField(
-        required = True,
+        required=True,
     )
     type_grade = serializers.CharField(
-        required = True,
+        required=True,
     )
     temp1 = serializers.IntegerField(
-        required = True,
+        required=True,
     )
     designPressure = serializers.FloatField(
-        required = True,
+        required=True,
     )
     cylinderDiameter = serializers.FloatField(
-        required = True,
+        required=True,
     )
     corrosionAllowance = serializers.FloatField(
-        required = True,
+        required=True,
     )
     cylinderThickness = serializers.FloatField(
-        required = True,
+        required=True,
     )
     nozzleDiameter = serializers.FloatField(
-        required = True,
+        required=True,
     )
     externalNozzleProjection = serializers.FloatField(
-        required = True,
+        required=True,
     )
     internalNozzleProjection = serializers.FloatField(
-        required = True,
+        required=True,
     )
     projectID = serializers.IntegerField(
-        required = True,
+        required=True,
     )
     componentID = serializers.IntegerField(
-        required = True,
+        required=True,
     )
     class Meta:
         model = NozzleData

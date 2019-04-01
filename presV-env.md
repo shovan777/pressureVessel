@@ -103,7 +103,7 @@ psql -d vesseldb
 alter user username with encrypted password 'password';
 ```
 
-- make migration 
+- make migration
 ```bash
 python manage.py migrate
 ```
