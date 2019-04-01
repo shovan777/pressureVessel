@@ -45,6 +45,7 @@ class ThicknessData(APIView):
         density = row_dict['density']
         projectID = data1.get('projectID')
         component_react_id = data1.get('componentID')
+        srl = data1.get('srl')
 
         position = ""
         if data1.get('position') == 1:
@@ -53,14 +54,13 @@ class ThicknessData(APIView):
             position ="bottom"
 
         thickness = head_t(P, S, D, C_A,position,projectID,component_react_id)
-        weightData = center_of_gravity(D,density,60,thickness[0]-C_A)
+        weightData = center_of_gravity(D,density,thickness[0]-C_A,srl)
 
         newdict = {
             'thickness':thickness[0],
             'MAWP':thickness[1],
             'MAWPResponse':thickness[2],
-            'weight':weightData[1],
-            'weightTimesCG':weightData[0]
+            'weight':weightData
         }
         newdict.update(serializer.data)
         return Response(newdict,status=status.HTTP_200_OK)

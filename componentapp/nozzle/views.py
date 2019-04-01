@@ -61,7 +61,9 @@ class NozzleAPIView(APIView):
         newdict = {
             "areaAvailable": value[0],
             "areaRequired" : value[1],
-            "areaResponse" : value[2]
+            "areaResponse" : value[2],
+            'weight':0,
+            'weightTimesCG':0
         }
         newdict.update(serializer.data)
         newdict.update(row_dict_nozzle)

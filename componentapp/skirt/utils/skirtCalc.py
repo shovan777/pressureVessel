@@ -96,3 +96,19 @@ def skirtCalculation(diameter,thickness,corossionAllowance,stress,reportId):
         return 'The allowable compressive stress criterion is satisfied.'
     else:
         return 'The allowable compressive stress criterion is not satisfied.'
+
+    
+def center_of_gravity(diameter, length, density, thicknessCylinder):
+    cylinderVolumeOuter = float(
+        (m.pi*m.pow((diameter/2.0), 2)*length))
+        
+    # sum of inidividual CG, S.F. of ellipsoidal head, height of skirt
+
+    cylinderVolumeInner = (
+        m.pi*(m.pow(((float(diameter)-float(thicknessCylinder))/2.0), 2.0)*length))
+
+    netVolumeOfCylinder = cylinderVolumeOuter-cylinderVolumeInner
+
+    newWeight = netVolumeOfCylinder*density
+
+    return newWeight

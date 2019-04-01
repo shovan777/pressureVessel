@@ -1,5 +1,5 @@
 """Calculate inner thickness."""
-from math import atan, cos, pi, pow
+import math as m
 from reporter.models import Report
 from state.models import CylinderState
 from componentapp.component.models import Component
@@ -80,23 +80,19 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
 def conical_t(P, S, D_l, D_s, L_c, CA, report_id, E=1.0):
     D_l += 2 * CA
     D_s += 2 * CA
-    alpha = atan(0.5 * (D_l - D_s) / L_c)
+    alpha = m.atan(0.5 * (D_l - D_s) / L_c)
     t_wo_allowance = (P * D_l) / (2 * cos(alpha) * (S * E * 1000 - 0.6 * P))
     return t_wo_allowance + CA
 
 
-def center_of_gravity(cylinderDiameter, cylinderLength, density, skirtHeight, thicknessCylinder, Sf=2):
-    cylinderVolumeOuter = float(
-        (pi*pow((cylinderDiameter/2.0), 2)*cylinderLength))
-    individualCG = cylinderLength/2.0
+def center_of_gravity(cylinderDiameter, cylinderLength, density,thicknessCylinder):
+    cylinderVolumeOuter = (m.pi*m.pow((cylinderDiameter/2.0), 2)*cylinderLength)
     # sum of inidividual CG, S.F. of ellipsoidal head, height of skirt
-    cgFromDatum = float(individualCG + Sf + skirtHeight)
-    cylinderVolumeInner = (
-        pi*(pow(((float(cylinderDiameter)-float(thicknessCylinder))/2.0), 2.0)*cylinderLength))
+    cylinderVolumeInner = (m.pi*(m.pow(((float(cylinderDiameter)-float(thicknessCylinder))/2.0), 2.0)*cylinderLength))
 
     netVolumeOfCylinder = cylinderVolumeOuter-cylinderVolumeInner
 
     newWeight = netVolumeOfCylinder*density
-    weightTimesCG = newWeight*cgFromDatum
 
-    return weightTimesCG, newWeight
+
+    return newWeight

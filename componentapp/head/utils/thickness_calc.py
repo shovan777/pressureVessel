@@ -1,5 +1,6 @@
-"""Calculate inner thickness."""
-from math import exp, atan, cos, pi, pow
+"""Calculate inner thickness."""\
+
+import math as m
 from reporter.models import Report
 from state.models import HeadState
 from componentapp.component.models import Component
@@ -29,10 +30,15 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_
     upper_part = float(P * diameterWithOutCorrosion)
     lower_part = float( (2 * S * 1000 * E) - (0.2 * P) )
     thicknessWithCorrosion =  (upper_part/lower_part) + corrosionAllowance
-
+    thicknessWithCorrosion = 1.125
     heightWithOutCorrosion = diameterWithOutCorrosion/4 
-    L = 81.0
-    r = 15.3
+    
+    '''
+    From ASME Section VIII Div 1 Rules for Construction.pdf
+    An acceptable approximation of a 2:1 ellipsoidal head is one with a knuckle radius of 0.17D and a spherical radius of 0.90D .
+    '''
+    sphericalRadius = 0.90 * diameterWithOutCorrosion
+    knuckleRadius = 0.17 * diameterWithOutCorrosion
 
     '''
     From pdf Examples Problem Manual VIII-1.pdf
@@ -42,8 +48,8 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_
 
     kFactor = diameterWithOutCorrosion/(2*heightWithOutCorrosion)
     diameterWithCorrosion = diameterWithOutCorrosion + 2*corrosionAllowance
-    lengthWithCorrosion = L + corrosionAllowance
-    rWithCorrosion = r + corrosionAllowance
+    sphericalRadiusWithCorrosion = sphericalRadius + corrosionAllowance
+    knuckleRadiusWithCorrosion = knuckleRadius + corrosionAllowance
     thicknessWithOutCorrosion = thicknessWithCorrosion - corrosionAllowance
 
     '''
@@ -52,9 +58,10 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_
     '''
     
     KFactor = (1/6.0)*( 2 + pow(kFactor,2))
-    MAWPressure = (2 * S * E * thicknessWithOutCorrosion) / ((KFactor*diameterWithCorrosion) + (0.2 * thicknessWithOutCorrosion))
+    MAWPressure = (2 * S *1000 * E * thicknessWithOutCorrosion) / ((KFactor*diameterWithCorrosion) + (0.2 * thicknessWithOutCorrosion))
 
-    comparisionFactor = thicknessWithOutCorrosion/L
+    comparisionFactor = thicknessWithOutCorrosion/sphericalRadiusWithCorrosion
+    
     msg = ""
     if comparisionFactor >= 0.002:
         msg = "the rules of 1- 4(f) are not required"
@@ -96,22 +103,19 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_
 
     return thicknessWithCorrosion, MAWPressure, msg
 
-def center_of_gravity(headDiameterOutside,density,skirtHeight,headThickness,Sf=2):
+def center_of_gravity(headDiameterOutside,density,headThickness,Sf):
     headHeightOutside = headDiameterOutside/4
-    headVolumeOutside = ((2*pi*pow((headDiameterOutside/2.0),2)*(headHeightOutside))/3)+(pi*pow((headDiameterOutside/2.0),2)*Sf)
-    headIndividualCGOutside = (4*headHeightOutside)/(3*pi)
-    cgFromDatumOutside = (skirtHeight-headIndividualCGOutside)
+    
+    headVolumeOutside = ((2*m.pi*m.pow((headDiameterOutside/2.0),2)*(headHeightOutside))/3)+(m.pi*m.pow((headDiameterOutside/2.0),2)*Sf)
 
     headDiameterInside = headDiameterOutside-headThickness
-    headHeightInside = headDiameterInside/4
-    headVoulmeInside = ((2*pi*pow((headDiameterInside/2.0),2)*(headHeightInside))/3)+(pi*pow((headDiameterInside/2.0),2)*Sf)
-    headIndividualCGInside = (4*headHeightInside)/(3*pi)
-    cgFromDatumInside = (skirtHeight-headIndividualCGInside)
+    
+    headHeightInside = headHeightOutside - headThickness
+    
+    headVoulmeInside = ((2*m.pi*m.pow((headDiameterInside/2.0),2)*(headHeightInside))/3)+(m.pi*m.pow((headDiameterInside/2.0),2)*Sf)
 
     netHeadVolume = headVolumeOutside-headVoulmeInside
-    netCGFromDatum = (cgFromDatumInside+cgFromDatumOutside)/2.0
 
     newWeight = netHeadVolume * density
-    weightTimesCG = newWeight*netCGFromDatum
 
-    return weightTimesCG,newWeight
+    return newWeight

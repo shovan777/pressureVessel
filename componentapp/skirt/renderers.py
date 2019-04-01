@@ -18,5 +18,6 @@ class ParameterJSONRenderer(JSONRenderer):
             return super(ParameterJSONRenderer,self).render(data)
         
         return json.dumps({
-            'thicknessResponse':data['thicknessResponse']
+            'thicknessResponse':data['thicknessResponse'],
+            'weight':data.get('weight',0)
         })

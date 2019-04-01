@@ -26,7 +26,10 @@ class HeadSerializer(serializers.ModelSerializer):
     componentID = serializers.IntegerField(
         required = True,
     )
+    srl = serializers.FloatField(
+        required = True,
+    )
 
     class Meta:
         model = MaximumAllowableStress
-        fields = ['spec_num','type_grade','temp1','ip','sd','ic','hr','position','projectID','componentID']
+        fields = ['spec_num','type_grade','temp1','ip','sd','ic','hr','position','projectID','componentID','srl']

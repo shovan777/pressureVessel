@@ -1,7 +1,7 @@
 from asme.models import MaximumAllowableStress
 from .serializers import ParameterSerializer
 from .renderers import ParameterJSONRenderer
-from .utils.skirtCalc import skirtCalculation
+from .utils.skirtCalc import skirtCalculation,center_of_gravity
 
 # django-rest modules
 from rest_framework.views import APIView
@@ -37,15 +37,16 @@ class SkirtThicknessData(APIView):
         D = data1.get('sd')
         C_A = data1.get('ic')
         thickness = data1.get('thickness')
-
-        print(D,thickness,C_A,S)
-
+        length = data1.get('length')
+        density = row_dict['density']
         projectID = data1.get('projectID')
 
         thicknessResponse = skirtCalculation(D, thickness, C_A, S*1000, projectID)
+        weightResponse = center_of_gravity(D,length+4,density,thickness-C_A)
         
         newdict = {
-            'thicknessResponse':thicknessResponse
+            'thicknessResponse':thicknessResponse,
+            'weight':weightResponse
         }
         newdict.update(serializer.data)
         return Response(newdict,status=status.HTTP_200_OK)

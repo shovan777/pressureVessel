@@ -21,6 +21,5 @@ class HeadJSONRenderer(JSONRenderer):
             'thickness':data['thickness'],
             'MAWP':data['MAWP'],
             'MAWPResponse':data['MAWPResponse'],
-            'weight':data.get('weight',0),
-            'weightTimesCG':data.get('weightTimesCG',0)
+            'weight':data.get('weight',0)
         })
