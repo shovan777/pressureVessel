@@ -42,12 +42,11 @@ class SkirtThicknessData(APIView):
         projectID = data1.get('projectID')
 
         thicknessResponse = skirtCalculation(D, thickness, C_A, S*1000, projectID)
-        weightResponse = center_of_gravity(D,length,density,thickness)
+        weightResponse = center_of_gravity(D,length+4,density,thickness-C_A)
         
         newdict = {
             'thicknessResponse':thicknessResponse,
-            'weight':weightResponse[1],
-            'weightTimesCG':weightResponse[0]
+            'weight':weightResponse
         }
         newdict.update(serializer.data)
         return Response(newdict,status=status.HTTP_200_OK)

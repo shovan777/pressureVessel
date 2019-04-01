@@ -101,15 +101,14 @@ def skirtCalculation(diameter,thickness,corossionAllowance,stress,reportId):
 def center_of_gravity(diameter, length, density, thicknessCylinder):
     cylinderVolumeOuter = float(
         (m.pi*m.pow((diameter/2.0), 2)*length))
-    individualCG = length/2.0
+        
     # sum of inidividual CG, S.F. of ellipsoidal head, height of skirt
-    cgFromDatum = float(individualCG)
+
     cylinderVolumeInner = (
         m.pi*(m.pow(((float(diameter)-float(thicknessCylinder))/2.0), 2.0)*length))
 
     netVolumeOfCylinder = cylinderVolumeOuter-cylinderVolumeInner
 
     newWeight = netVolumeOfCylinder*density
-    weightTimesCG = newWeight*cgFromDatum
 
-    return weightTimesCG, newWeight
+    return newWeight

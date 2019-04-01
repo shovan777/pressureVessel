@@ -20,10 +20,13 @@ class ParameterSerializer(serializers.ModelSerializer):
     componentID = serializers.IntegerField(
         required = True,
     )
+    length = serializers.FloatField(
+        required = True,
+    )
 
     class Meta:
         model = MaximumAllowableStress
-        fields = ['spec_num','type_grade','temp1','ip','sd','ic','projectID','componentID']
+        fields = ['spec_num','type_grade','temp1','ip','sd','ic','projectID','componentID','length']
 
 class ParameterSerializerConical(serializers.ModelSerializer):
     temp1 = serializers.IntegerField(

@@ -1,5 +1,6 @@
-"""Calculate inner thickness."""
-from math import exp, atan, cos, pi, pow
+"""Calculate inner thickness."""\
+
+import math as m
 from reporter.models import Report
 from state.models import HeadState
 from componentapp.component.models import Component
@@ -102,22 +103,19 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_
 
     return thicknessWithCorrosion, MAWPressure, msg
 
-def center_of_gravity(headDiameterOutside,density,skirtHeight,headThickness,Sf=2):
+def center_of_gravity(headDiameterOutside,density,headThickness,Sf):
     headHeightOutside = headDiameterOutside/4
-    headVolumeOutside = ((2*pi*pow((headDiameterOutside/2.0),2)*(headHeightOutside))/3)+(pi*pow((headDiameterOutside/2.0),2)*Sf)
-    headIndividualCGOutside = (4*headHeightOutside)/(3*pi)
-    cgFromDatumOutside = (skirtHeight-headIndividualCGOutside)
+    
+    headVolumeOutside = ((2*m.pi*m.pow((headDiameterOutside/2.0),2)*(headHeightOutside))/3)+(m.pi*m.pow((headDiameterOutside/2.0),2)*Sf)
 
     headDiameterInside = headDiameterOutside-headThickness
-    headHeightInside = headDiameterInside/4
-    headVoulmeInside = ((2*pi*pow((headDiameterInside/2.0),2)*(headHeightInside))/3)+(pi*pow((headDiameterInside/2.0),2)*Sf)
-    headIndividualCGInside = (4*headHeightInside)/(3*pi)
-    cgFromDatumInside = (skirtHeight-headIndividualCGInside)
+    
+    headHeightInside = headHeightOutside - headThickness
+    
+    headVoulmeInside = ((2*m.pi*m.pow((headDiameterInside/2.0),2)*(headHeightInside))/3)+(m.pi*m.pow((headDiameterInside/2.0),2)*Sf)
 
     netHeadVolume = headVolumeOutside-headVoulmeInside
-    netCGFromDatum = (cgFromDatumInside+cgFromDatumOutside)/2.0
 
     newWeight = netHeadVolume * density
-    weightTimesCG = newWeight*netCGFromDatum
 
-    return weightTimesCG,newWeight
+    return newWeight
