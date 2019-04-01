@@ -24,7 +24,7 @@ class LiftingLugAPIView(APIView):
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
         data1 = serializer.data
-
+        print(data1)
         try:
             row_dict_stress = MaximumAllowableStress.objects.filter(spec_num=data1.get(
                 'spec_num')).filter(type_grade=data1.get('type_grade')).values()[0]
@@ -34,7 +34,7 @@ class LiftingLugAPIView(APIView):
             })
 
         # get from db ok
-        tensile_stress = row_dict_stress['min_tensile_stress']
+        tensile_stress = row_dict_stress['min_tensile_strength']
         # get other stress from db also
         # for now we put default values as in per compress report 18-001 pdf
         shear_stress = 13320 # in psi
@@ -45,16 +45,16 @@ class LiftingLugAPIView(APIView):
 
         length = data1.get('length')
         height = data1.get('height')
-        hole_diameter = data1.get('holeDiameter')
+        hole_diameter = data1.get('hole_diameter')
         thickness = data1.get('thickness')
-        pin_diameter = data1.get('pinDiameter')
-        load_eccentricity = data1.get('loadEccentricity')
-        distance_load_to_shell = data1.get('distanceLoadToShell')
-        normal_load_angle = data1.get('normalLoadAngle')
-        vertical_load_angle = data1.get('verticalLoadAngle')
-        weld_size = data1.get('weldSize')
-        lug1_cg_distance = data1.get('lug1CgDistance')
-        lug2_cg_distance = data1.get('lug2CgDistance')
+        pin_diameter = data1.get('pin_diameter')
+        load_eccentricity = data1.get('load_eccentricity')
+        distance_load_to_shell = data1.get('distance_load_to_shell')
+        normal_load_angle = data1.get('normal_load_angle')
+        vertical_load_angle = data1.get('vertical_load_angle')
+        weld_size = data1.get('weld_size')
+        lug1_cg_distance = data1.get('lug1_cg_distance')
+        lug2_cg_distance = data1.get('lug2_cg_distance')
         weight = data1.get('weight')
         projectID = data1.get('projectID')
         componentID = data1.get('componentID')

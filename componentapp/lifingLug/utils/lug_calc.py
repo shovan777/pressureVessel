@@ -62,7 +62,9 @@ def lug_calc(
 
     # calculate lift forces
     # force on vessel at lug, F_r
-    F_r = (W/cos(phi)) * (1-x_1 / (x_1 + x_2))
+    print('********************')
+    print(W, phi, x_1, x_2)
+    F_r = (W/cos(phi)) * (1- x_1 / (x_1 + x_2))
 
     # calculate lug pin diameter -shear stress
     # lug pin diamter, d_reqd
