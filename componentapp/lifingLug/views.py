@@ -44,7 +44,7 @@ class LiftingLugAPIView(APIView):
 
 
         length = data1.get('length')
-        height = data1.get('height')
+        height = data1.get('height_lug')
         hole_diameter = data1.get('hole_diameter')
         thickness = data1.get('thickness')
         pin_diameter = data1.get('pin_diameter')

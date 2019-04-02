@@ -7,7 +7,7 @@ class LiftingLugSerializer(serializers.ModelSerializer):
     length = serializers.FloatField(
         required=True,
     )
-    height = serializers.FloatField(
+    height_lug = serializers.FloatField(
         required=True,
     )
     hole_diameter = serializers.FloatField(
@@ -52,6 +52,6 @@ class LiftingLugSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaximumAllowableStress
-        fields = ['spec_num', 'type_grade', 'length', 'height', 'thickness', 'hole_diameter', 'pin_diameter',
+        fields = ['spec_num', 'type_grade', 'length', 'height_lug', 'thickness', 'hole_diameter', 'pin_diameter',
                   'load_eccentricity', 'distance_load_to_shell', 'normal_load_angle', 'vertical_load_angle',
                   'weld_size', 'lug1_cg_distance', 'lug2_cg_distance', 'weight', 'projectID', 'componentID']

@@ -40,7 +40,8 @@ class ThicknessData(APIView):
         density = row_dict['density']
         projectID = data1.get('projectID')
         component_react_id = data1.get('componentID')
-        length = data1.get('length')
+        one_feet_to_inch = 12
+        length = data1.get('length') * one_feet_to_inch
 
         thickness = cylinder_t(P, S, D, C_A, projectID, component_react_id)
         weightOfCylinder = center_of_gravity(D,length,density,thickness-C_A)

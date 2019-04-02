@@ -81,7 +81,7 @@ def conical_t(P, S, D_l, D_s, L_c, CA, report_id, E=1.0):
     D_l += 2 * CA
     D_s += 2 * CA
     alpha = m.atan(0.5 * (D_l - D_s) / L_c)
-    t_wo_allowance = (P * D_l) / (2 * cos(alpha) * (S * E * 1000 - 0.6 * P))
+    t_wo_allowance = (P * D_l) / (2 * m.cos(alpha) * (S * E * 1000 - 0.6 * P))
     return t_wo_allowance + CA
 
 
