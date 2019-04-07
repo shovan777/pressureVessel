@@ -267,7 +267,16 @@
     <br><br>
     {% endfor %}
 
-
+    <p><b>Skirt Calculations</b></p>
+    {% for skirt in skirtParams %}
+    <p class="c6 c36">
+        <span class="c5 c12">Skirt{{ forloop.counter }}
+            <br>
+            {% include 'reporter/skirtCalc.html' with skirtParams=skirt %}
+        </span>
+    </p>
+    <br><br>
+    {% endfor %}
 
     <h1 class="c6 c19" id="h.9n1fc2s568b5"><span class="c13 c33">MAWP</span></h1>
     <h1 class="c6 c19" id="h.5fdg0nobh1a5"><span class="c13 c33">Weight of Pressure Vessel (entire Weight)</span></h1>

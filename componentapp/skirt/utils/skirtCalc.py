@@ -1,12 +1,19 @@
 import math as m
+from reporter.models import Report
+from state.models import SkirtState
+from componentapp.component.models import Component
 
-def skirtCalculation(diameter,thickness,corossionAllowance,stress,reportId):
+def skirtCalculation(diameter,thickness,corossionAllowance,stress,report_id,component_react_id):
 
     diameterInside = diameter + 2 * corossionAllowance
     radiusInside = 0.5 * diameterInside
     thicknessCorroded  = thickness - corossionAllowance
     diameterOutside = diameter + 2 * thicknessCorroded
     radiusOutside = 0.5 * diameterOutside
+
+    # variable for defining steps
+    response_skirt = ""
+    next_step = True
 
     '''
     In accordance with VIII-2, paragraph 4.3.10.2, the following procedure shall be used to design cylindrical, spherical, and conical shells subjected to internal pressure plus supplemental loads of applied net section axial force, bending moment, and torsional moment. By inspection of the results shown in Table E4.15.2.2 and Table E4.15.2.3, Load Case 6 is determined to be a potential governing load case. The pressure, net section axial force, and bending moment at the location of interest for Load Case 6 are: So
@@ -52,20 +59,24 @@ def skirtCalculation(diameter,thickness,corossionAllowance,stress,reportId):
     '''
     sigmae = (1/m.sqrt(2))* m.sqrt(m.pow((sigma1-sigma2),2)+m.pow((sigma2-sigma3),2)+m.pow((sigma3-sigma1),2))
 
-    if sigmae <= stress :
+    if (sigmae <= stress) and next_step :
         pass
-    else :
-        return 'need to change the parameters'
+    else:
+        next_step = False
+        response_skirt = 'need to change the parameters'
+        # return 'need to change the parameters'
 
     '''
     STEP 4 – For cylindrical and conical shells, if the meridional stress, sigmasm is compressive, then check the allowable compressive stress per UG-23(b).Sincesigmasm is compressive, {sigmasm = -3421.0021 psi < 0 } , a compressive stress check is required. sigmasm <= Fxa (Fxa =0)
     '''
     # TODO: need to be verified
     Fxa = 0.0
-    if sigmasmsub < Fxa:
+    if (sigmasmsub < Fxa) and next_step:
         pass
     else :
-        return 'not compressive'
+        next_step = False
+        response_skirt = 'not compressive'
+        # return 'not compressive'
 
     '''
     Evaluate per paragraph UG-23(b). The maximum allowable longitudinal compressive stress to be used in the design of cylindrical shells or tubes, either seamless or butt welded, subjected to loadings that produce longitudinal compression in the shell or tube shall be the smaller of the maximum allowable tensile stress value shown in STEP 3 or the value of the factor B determined by the following procedure where the joint efficiency for butt welded joints shall be taken as unity.
@@ -92,10 +103,36 @@ def skirtCalculation(diameter,thickness,corossionAllowance,stress,reportId):
     STEP 4.5 – Compare the calculated value of factorB obtained in STEPS 4.3 or 4.4 with the computed longitudinal compressive stress in the cylindrical shell or tube, using the selected values of thicknessCorroded and radiusOutside . If the value of factorB is smaller than the computed compressive stress, a greater value of thicknessCorroded must be selected and the design procedure repeated until a value of factorB is obtained that is greater than the compressive stress computed for the loading on the cylindrical shell or tube.
     '''
 
-    if abs(sigmasmsub) <= factorB :
-        return 'The allowable compressive stress criterion is satisfied.'
+    if (abs(sigmasmsub) <= factorB) and next_step:
+        response_skirt = 'The allowable compressive stress criterion is satisfied.'
+        # return 'The allowable compressive stress criterion is satisfied.'
     else:
-        return 'The allowable compressive stress criterion is not satisfied.'
+        response_skirt = 'The allowable compressive stress criterion is not satisfied.'
+        # return 'The allowable compressive stress criterion is not satisfied.'
+
+    report = Report.objects.get(id=report_id)
+
+    component = Component.objects.filter(
+        report__id=report_id, react_component_id=component_react_id)[0]
+
+    skirt_state = SkirtState.objects.filter(
+        report__id=report_id,
+        component__id=component.id).update(
+            response_skirt=response_skirt,
+            thickness=thickness,
+            corrosion_allowance=corossionAllowance
+        )
+    if not skirt_state:
+       calc_steps = SkirtState(
+           report=Report.objects.get(id=report_id),
+           component=component,  # provide the component object here
+           response_skirt=response_skirt,
+           thickness=thickness,
+           corrosion_allowance=corossionAllowance
+       )
+       calc_steps.save()
+
+    return response_skirt
 
     
 def center_of_gravity(diameter, length, density, thicknessCylinder):

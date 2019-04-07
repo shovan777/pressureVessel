@@ -40,8 +40,9 @@ class SkirtThicknessData(APIView):
         length = data1.get('length')
         density = row_dict['density']
         projectID = data1.get('projectID')
+        component_react_id = data1.get('componentID')
 
-        thicknessResponse = skirtCalculation(D, thickness, C_A, S*1000, projectID)
+        thicknessResponse = skirtCalculation(D, thickness, C_A, S*1000, projectID, component_react_id)
         weightResponse = center_of_gravity(D,length+4,density,thickness-C_A)
         
         newdict = {
