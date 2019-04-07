@@ -1,5 +1,8 @@
 """Calculate parameters for lifting lug."""
 from math import cos, sin, pow as p, pi
+from reporter.models import Report
+from state.models import LiftingLugState
+from componentapp.component.models import Component
 
 
 # def error_check(ratio, calc_param, msg):
@@ -34,7 +37,9 @@ def lug_calc(
     sigma_b,
     tau_allowable,
     x_1,
-    x_2
+    x_2,
+    report_id,
+    component_react_id
 ):
     '''Perform all calculations for lifting lug
         as per calcgen report 18-001-Calculations.pdf
@@ -62,9 +67,8 @@ def lug_calc(
 
     # calculate lift forces
     # force on vessel at lug, F_r
-    print('********************')
-    print(W, phi, x_1, x_2)
-    F_r = (W/cos(phi)) * (1- x_1 / (x_1 + x_2))
+
+    F_r = (W/cos(phi * pi / 180)) * (1 - x_1 / (x_1 + x_2))
 
     # calculate lug pin diameter -shear stress
     # lug pin diamter, d_reqd
@@ -79,43 +83,47 @@ def lug_calc(
 
     # calculate lug thickness - tensile stress
     # required lug thickness, t_reqd
-    t_reqd = F_r/((L-d)*sigma_t)
+
+    t_reqd_tensile = F_r/((L-d)*sigma_t)
     # thickness_ratio = t_reqd / t
-    t_max = t_reqd
+    t_max = t_reqd_tensile
     # error_check(thickness_ratio, t_reqd,
     #             'thickness is not acceptable due to tensile stress')
 
     # calculate tensile stress
     sigma_t_calc = F_r / ((L-d)*t)
-    sigma_t_ratio = sigma_t / sigma_t_calc
+    sigma_t_ratio = sigma_t_calc / sigma_t
+
     # error_check(sigma_t_ratio, sigma_t_calc,
     #             'tensile stress is not acceptable')
 
     # calculate lug thickness - bearing stress
     # required lug thickness
-    t_reqd = F_r/(D_p*sigma_p)
-    if t_reqd > t_max:
-        t_max = t_reqd
+    t_reqd_bearing = F_r/(D_p*sigma_p)
+    if t_reqd_bearing > t_max:
+        t_max = t_reqd_bearing
     # thickness_ratio = t_reqd / t
     # error_check(thickness_ratio, t_reqd,
     #             'thickness is not acceptable due to bearing stress')
     #  calculate bearing stress
     A_bearing = (D_p * (t))
     sigma_b_calc = F_r / A_bearing
-    sigma_b_ratio = sigma_b / sigma_b_calc
+    sigma_b_ratio = sigma_b_calc / sigma_b
     # error_check(sigma_b_ratio, sigma_b_calc,
     #             'bearing stress is not acceptable')
 
     # calculate shear stress length
     phi_shear = 55*D_p/d
-    L_shear = (H - a_2 - 0.5*d) + 0.5 * D_p * (1-cos(phi))
+    # print('***********')]
+    # print(H, a2, d, Dp, )
+    L_shear = (H - a_2 - 0.5*d) + 0.5 * D_p * (1-cos(phi_shear * pi / 180))
 
     # calculate lug thickness - shear stress
     # required lug thickness
-    t_reqd = (F_r/sigma_s) / (2*L_shear)
-    if t_reqd > t_max:
-        t_max = t_reqd
-    thickness_ratio = t_reqd/t_max
+    t_reqd_shear = (F_r/sigma_s) / (2*L_shear)
+    if t_reqd_shear > t_max:
+        t_max = t_reqd_shear
+    thickness_ratio = t_max / t
     # thickness_ratio = t_reqd/t
     # error_check(thickness_ratio, t_reqd,
     #             'thickness is not acceptable due to shear stress')
@@ -131,16 +139,16 @@ def lug_calc(
     # calculate weld stress
     A_weld = 2*0.707*t_w*(L+t)
     alpha = 0.0
-    tau_t = F_r * cos(alpha) / A_weld
-    tau_s = F_r * sin(alpha) / A_weld
+    tau_t = F_r * cos(alpha * pi / 180) / A_weld
+    tau_s = F_r * sin(alpha * pi / 180) / A_weld
     M = 3.0  # how to calculate M
     Hght = 3.0  # how to calculate hght
-    c = F_r*sin(alpha)*Hght - F_r*cos(alpha)*a_1
+    c = F_r*sin(alpha * pi / 180)*Hght - F_r*cos(alpha * pi / 180)*a_1
     h = 1.0  # how to calculate h what is h?
     l = 0.707*h*L*(3*t+L)
     tau_b = M * abs(c)/l
 
-    tau_ratio = p(p(tau_t + tau_b, 2) + p(tau_s, 2), 2) / tau_allowable
+    tau_ratio = p(p(tau_t + tau_b, 2) + p(tau_s, 2), 1/2) / tau_allowable
 
     return_dict = {
         'lift_force': F_r,
@@ -178,4 +186,122 @@ def lug_calc(
         'phi_shear': phi_shear
     }
 
+    report = Report.objects.get(id=report_id)
+
+    component = Component.objects.filter(
+        report__id=report_id, react_component_id=component_react_id)[0]
+
+    lug_state = LiftingLugState.objects.filter(
+        report__id=report_id,
+        component__id=component.id).update(
+            W,
+            phi,
+            x_1,
+            x_2,
+            F_r,
+            d_reqd,
+            diameter_ratio,
+            D_p,
+            sigma_sd_calc,
+            sigma_sd_ratio,
+            t_reqd_tensile,
+            L,
+            d,
+            sigma_t,
+            sigma_t_calc,
+            sigma_t_ratio,
+            t,
+            t_reqd_bearing,
+            A_bearing,
+            sigma_b_calc,
+            sigma_b_ratio,
+            phi_shear,
+            L_shear,
+            H,
+            a_2,
+            t_reqd_shear,
+            t_max,
+            thickness_ratio,
+            A_shear,
+            tau,
+            sigma_s,
+            sigma_s_ratio,
+            A_weld,
+            t_w,
+            alpha,
+            tau_t,
+            tau_s,
+            M,
+            Hght,
+            c,
+            h,
+            l,
+            tau_b,
+            tau_allowable,
+            tau_ratio,
+            lug_pin_check=return_dict['lug_pin_diameter']['check'],
+            lug_thickness_check=return_dict['lug_thickness']['check'],
+            shear_thickness_check=return_dict['shear_stress_thickness']['check'],
+            shear_diameter_check=return_dict['shear_stress_for_diameter']['check'],
+            tensile_check=return_dict['tensile_stress']['check'],
+            bearing_check=return_dict['bearing_stress']['check']
+    )
+
+    if not head_state:
+        calc_steps = LiftingLugState(
+            Report.objects.get(id=report_id),
+            component,  # provide the component object here
+            W,
+            phi,
+            x_1,
+            x_2,
+            F_r,
+            d_reqd,
+            diameter_ratio,
+            D_p,
+            sigma_sd_calc,
+            sigma_sd_ratio,
+            t_reqd_tensile,
+            L,
+            d,
+            sigma_t,
+            sigma_t_calc,
+            sigma_t_ratio,
+            t,
+            t_reqd_bearing,
+            A_bearing,
+            sigma_b_calc,
+            sigma_b_ratio,
+            phi_shear,
+            L_shear,
+            H,
+            a_2,
+            t_reqd_shear,
+            t_max,
+            thickness_ratio,
+            A_shear,
+            tau,
+            sigma_s,
+            sigma_s_ratio,
+            A_weld,
+            t_w,
+            alpha,
+            tau_t,
+            tau_s,
+            M,
+            Hght,
+            c,
+            h,
+            l,
+            tau_b,
+            tau_allowable,
+            tau_ratio,
+            lug_pin_check=return_dict['lug_pin_diameter']['check'],
+            lug_thickness_check=return_dict['lug_thickness']['check'],
+            shear_thickness_check=return_dict['shear_stress_thickness']['check'],
+            shear_diameter_check=return_dict['shear_stress_for_diameter']['check'],
+            tensile_check=return_dict['tensile_stress']['check'],
+            bearing_check=return_dict['bearing_stress']['check']
+        )
+        calc_steps.save()
     return return_dict
