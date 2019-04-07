@@ -35,8 +35,10 @@ class LiftingLugAPIView(APIView):
 
         # get from db ok
         tensile_stress = row_dict_stress['min_tensile_strength']
+        # tensile stress from db does not match the value from report
         # get other stress from db also
         # for now we put default values as in per compress report 18-001 pdf
+        tensile_stress = 19980 # in psi
         shear_stress = 13320 # in psi
         bearing_stress = 29970 # in psi
         bending_stress = 22201 # in psi
@@ -58,6 +60,8 @@ class LiftingLugAPIView(APIView):
         weight = data1.get('weight')
         projectID = data1.get('projectID')
         componentID = data1.get('componentID')
+
+
         calc_dict = lug_calc(
             L = length,
             H = height,
@@ -81,6 +85,8 @@ class LiftingLugAPIView(APIView):
         # add some code here
 
         #
-        newdict = calc_dict
+        newdict = {
+            "response":calc_dict
+        }
         newdict.update(serializer.data)
         return Response(newdict, status=status.HTTP_200_OK)

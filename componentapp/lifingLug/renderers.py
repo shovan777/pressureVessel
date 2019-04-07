@@ -18,6 +18,4 @@ class LiftingLugJSONRenderer(JSONRenderer):
         if errors is not None:
             return super(LiftingLugJSONRenderer, self).render(data)
 
-        return json.dumps({
-            'lug_thickness': data['thickness']
-        })
+        return json.dumps(data['response'])
