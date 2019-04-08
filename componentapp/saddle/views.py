@@ -1,5 +1,6 @@
 from .serializers import ParameterSerializer
 from .renderers import ParameterJSONRenderer
+from .utils.saddleCalc import skirtCalc
 
 # django-rest modules
 from rest_framework.views import APIView
@@ -19,5 +20,7 @@ class SaddleResponse(APIView):
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
         data1 = serializer.data
+
+        responses = skirtCalc()
 
         return Response(serializer.data,status=status.HTTP_200_OK)
