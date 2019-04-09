@@ -17,6 +17,4 @@ class ParameterJSONRenderer(JSONRenderer):
         if errors is not None:
             return super(ParameterJSONRenderer,self).render(data)
         
-        return json.dumps({
-            'response':'Thank you'
-        })
+        return json.dumps(data.get('responses'))

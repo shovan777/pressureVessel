@@ -1,6 +1,20 @@
 import math as m
 
-def skirtCalc():
+def skirtCalc(vessel_diameter,
+    vessel_thickness,
+    vessel_corrosion_allowance,
+    vessel_head_height,
+    vessel_design_pressure,
+    vessel_allowable_pressure,
+    vessel_yield_stress,
+    weld_joint_effiency,
+    length_of_vessel,
+    saddle_center_line_to_head,
+    saddle_contact_angle,
+    saddle_width,
+    total_vessel_weight,
+    report_id,
+    component_react_id):
     
     '''
     From example problems Manual VIII 1.pdf
@@ -24,15 +38,16 @@ def skirtCalc():
     Shel Tangent to Tangent Length = 292.0 in
     '''
 
-    vessel_inside_diameter = 60.0 # inch
-    corrosion_allowance = 0.125 # inch
-    thickness_with_corrosion_allowance = 3.0 # inch
-    vessel_outside_diameter = 66.0 # inch
-    vessel_overall_length = 292.0 # inch (L) Shell Tangent to Tangent Length
-    head_heigth = 16.5 # in (h2) Head Height (Based on OD)
-    design_pressure = 2074 # psig (P) Design Conditions
-    allowable_stress = 20000 # psi (S) Allowable Stress
-    weld_joint_efficiency = 1.0 # (E) Weld Joint Efficiency
+    corrosion_allowance = vessel_corrosion_allowance # 0.125 # inch
+    thickness_with_corrosion_allowance = vessel_thickness # 3.0 # inch
+    vessel_outside_diameter = vessel_diameter # 66.0 # inch
+    vessel_inside_diameter = vessel_outside_diameter-2*thickness_with_corrosion_allowance # 60.0 # inch
+    vessel_overall_length = length_of_vessel # 292.0 # inch (L) Shell Tangent to Tangent Length
+    head_heigth = vessel_head_height # 16.5 # in (h2) Head Height (Based on OD)
+    design_pressure = vessel_design_pressure # 2074 # psig (P) Design Conditions
+    allowable_stress = vessel_allowable_pressure # 20000 # psi (S) Allowable Stress
+    weld_joint_efficiency = weld_joint_effiency # 1.0 # (E) Weld Joint Efficiency
+    vessel_yield_stress = vessel_yield_stress # Sy
     
     '''
     Saddle Data:
@@ -43,10 +58,10 @@ def skirtCalc():
     Vessel Load per Saddle = 50459.0 lbs
     '''
 
-    theta_given = 123.0 # Saddle Contact Angle
-    saddle_center_line_to_head_tangent_line = 41.0 # inch (a) Saddle Center Line to Head Tangent Line
-    vessel_load_per_saddle = 50459.0 # lbs (Q) Vessel Load per Saddle
-    width_of_saddle = 8.0 # inch (b) Width of Saddles.
+    theta_given = saddle_contact_angle # 123.0 # Saddle Contact Angle
+    saddle_center_line_to_head_tangent_line = saddle_center_line_to_head # 41.0 # inch (a) Saddle Center Line to Head Tangent Line
+    vessel_load_per_saddle = total_vessel_weight # 50459.0 # lbs (Q) Vessel Load per Saddle
+    width_of_saddle = saddle_width # 8.0 # inch (b) Width of Saddles.
     '''
     Adjust the vessel inside diameter and thickness by the corrosion allowance.
     '''
@@ -433,11 +448,11 @@ def skirtCalc():
     with units of in^2,
     '''
     sigma_t = force_h/As
-    Sy = 1 
+    # Sy = 1 # vessel_yield_stress
     '''
     Sy is the yield stress of the saddle material with units of psi
     '''
-    if sigma_t <= 0.6*Sy:
+    if sigma_t <= 0.6*vessel_yield_stress:
         # response_text = "Fh/As is satisfied."
         response_text.update({"14":"Fh/As is satisfied."})
     else:
@@ -460,7 +475,7 @@ def skirtCalc():
     '''
     sigma_b = (force_h*d*c)/I
 
-    if sigma_b<=0.66*Sy:
+    if sigma_b<=0.66*vessel_yield_stress:
         # response_text = "sigma_b and Sy is satisfied."
         response_text.update({"15":"sigma_b and Sy is satisfied."})
     else:
