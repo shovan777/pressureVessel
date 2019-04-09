@@ -111,6 +111,7 @@ class LiftingLugState(models.Model):
     L = models.FloatField(default=0.0)
     d = models.FloatField(default=0.0)
     sigma_t = models.FloatField(default=0.0)
+    sigma_b = models.FloatField(default=0.0)
     sigma_t_calc = models.FloatField(default=0.0)
     sigma_t_ratio = models.FloatField(default=0.0)
     t = models.FloatField(default=0.0)

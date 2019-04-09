@@ -31,6 +31,7 @@ urlpatterns = [
     path('api/', include('componentapp.skirt.urls')),
     path('api/', include('componentapp.lifingLug.urls')),
     path('api/', include('componentapp.saddle.urls')),
+    path('api/', include('state.urls')),
     path('user/', include('userapp.urls')),
     path('admin', admin.site.urls),
     path('auth/', include('authenticationapp.urls')),

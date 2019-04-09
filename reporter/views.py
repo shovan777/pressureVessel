@@ -29,7 +29,7 @@ from .models import Report
 from reporter.serializers import ReportSerializer
 
 # state modules
-from state.models import CylinderState, NozzleState, HeadState, SkirtState
+from state.models import CylinderState, NozzleState, HeadState, SkirtState, LiftingLugState
 
 # drawing modules
 from drawing.drawing import PyGame
@@ -89,7 +89,8 @@ def index(request):
         report__id=projectID).values()
     skirt_params = SkirtState.objects.filter(
         report__id=projectID).values()
-    print(skirt_params)
+    lug_params = LiftingLugState.objects.filter(
+        report__id=projectID).values()
     # print(infoTables['area'])
     # pygame object
     pygame = PyGame()
@@ -144,6 +145,7 @@ def index(request):
         'nozzleParams': nozzle_params,
         'headParams': head_params,
         'skirtParams': skirt_params,
+        'lugParams': lug_params
     }
     # print(Report.objects.get(id=87))
     html_out = template.render(context, request)
@@ -187,7 +189,7 @@ def index(request):
     page viewed to solve problem
     https://stackoverflow.com/questions/48287623/pythonconversion-of-pdf-to-blob-and-back-to-pdf-leads-to-corrupt
     '''
-    with open(settings.MEDIA_URL+'report3.pdf','rb') as f:
+    with open(settings.MEDIA_URL+'report3.pdf', 'rb') as f:
         blob = base64.b64encode(f.read())
         response = HttpResponse(blob, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment;filename=report.pdf'

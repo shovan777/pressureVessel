@@ -3,7 +3,7 @@ from rest_framework import viewsets
 
 # state modules
 from .models import CylinderState, NozzleState, Report
-from reporter.serializers import CylinderStateSerializer, NozzleStateSerializer
+from .serializers import CylinderStateSerializer, NozzleStateSerializer
 
 
 class CylinderStateViewSet(viewsets.ModelViewSet):

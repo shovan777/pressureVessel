@@ -278,6 +278,17 @@
     <br><br>
     {% endfor %}
 
+    <p><b>Lifting Lug Calculations</b></p>
+    {% for lug in lugParams %}
+    <p class="c6 c36">
+        <span class="c5 c12">#LiftingLug {{ forloop.counter }}
+            <br>
+            {% include 'reporter/lugCalc.html' with lugParams=lug %}
+        </span>
+    </p>
+    <br><br>
+    {% endfor %}
+
     <h1 class="c6 c19" id="h.9n1fc2s568b5"><span class="c13 c33">MAWP</span></h1>
     <h1 class="c6 c19" id="h.5fdg0nobh1a5"><span class="c13 c33">Weight of Pressure Vessel (entire Weight)</span></h1>
     <h1 class="c6 c19" id="h.fmrh1jvut3ut"><span class="c13 c33">Center of Gravity with Fluid or without fluid</span></h1>

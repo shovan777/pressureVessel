@@ -38,12 +38,11 @@ class LiftingLugAPIView(APIView):
         # tensile stress from db does not match the value from report
         # get other stress from db also
         # for now we put default values as in per compress report 18-001 pdf
-        tensile_stress = 19980 # in psi
-        shear_stress = 13320 # in psi
-        bearing_stress = 29970 # in psi
-        bending_stress = 22201 # in psi
-        weld_shear_stress = 13320 # in psi
-
+        tensile_stress = 19980  # in psi
+        shear_stress = 13320  # in psi
+        bearing_stress = 29970  # in psi
+        bending_stress = 22201  # in psi
+        weld_shear_stress = 13320  # in psi
 
         length = data1.get('length')
         height = data1.get('height_lug')
@@ -61,32 +60,33 @@ class LiftingLugAPIView(APIView):
         projectID = data1.get('projectID')
         componentID = data1.get('componentID')
 
-
         calc_dict = lug_calc(
-            L = length,
-            H = height,
-            t = thickness,
-            d = hole_diameter,
-            D_p = pin_diameter,
-            a_1 = load_eccentricity,
-            a_2 = distance_load_to_shell,
-            beta = normal_load_angle,
-            phi = vertical_load_angle,
-            t_w = weld_size,
-            x_1 = lug1_cg_distance,
-            x_2 = lug2_cg_distance,
-            sigma_t = tensile_stress,
-            sigma_s = shear_stress,
-            sigma_p = bearing_stress,
-            sigma_b = bending_stress,
-            tau_allowable = weld_shear_stress,
-            W = weight
+            L=length,
+            H=height,
+            t=thickness,
+            d=hole_diameter,
+            D_p=pin_diameter,
+            a_1=load_eccentricity,
+            a_2=distance_load_to_shell,
+            beta=normal_load_angle,
+            phi=vertical_load_angle,
+            t_w=weld_size,
+            x_1=lug1_cg_distance,
+            x_2=lug2_cg_distance,
+            sigma_t=tensile_stress,
+            sigma_s=shear_stress,
+            sigma_p=bearing_stress,
+            sigma_b=bending_stress,
+            tau_allowable=weld_shear_stress,
+            W=weight,
+            component_react_id=componentID,
+            report_id=projectID
         )
         # add some code here
 
         #
         newdict = {
-            "response":calc_dict
+            "response": calc_dict
         }
         newdict.update(serializer.data)
         return Response(newdict, status=status.HTTP_200_OK)
