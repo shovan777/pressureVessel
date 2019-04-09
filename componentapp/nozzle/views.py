@@ -58,14 +58,19 @@ class NozzleAPIView(APIView):
         component_react_id = data1.get('componentID')
         value = calculation_thick(designPressure,corrosionAllowance,shellAllowableStress*1000,yieldStrength*1000,cylinderInsideDiameter,cylinderThickness,nozzleOutsideDiameter,nozzleThickness,externalNozzleProjection,internalNozzleProjection,nozzleAllowableStress,reinforcingElementAllowableStress, projectID, component_react_id)
 
-        newdict = {
+        newdict1 = row_dict_nozzle
+
+        newdict3 = {
             "areaAvailable": value[0],
             "areaRequired" : value[1],
             "areaResponse" : value[2],
             'weight':0,
             'weightTimesCG':0
         }
+        newdict1.update(newdict3)
+        newdict = {"responses":newdict1}
+
         newdict.update(serializer.data)
-        newdict.update(row_dict_nozzle)
+        # newdict.update(row_dict_nozzle)
         # newdict.update(row_dict_pipe)
         return Response(newdict,status=status.HTTP_200_OK)
