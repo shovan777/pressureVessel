@@ -1,5 +1,5 @@
 # django modules
-from django.http import HttpResponse, Http404, FileResponse
+from django.http import HttpResponse, Http404, FileResponse, JsonResponse
 from django.template import loader
 from django.core.files.storage import FileSystemStorage, Storage
 from django.core.files import File
@@ -9,8 +9,8 @@ from pressureVessel import settings
 # rest framework modules
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework import permissions
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions, renderers
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.reverse import reverse
 
 # component modules
@@ -27,6 +27,10 @@ import io
 # reporter modules
 from .models import Report
 from reporter.serializers import ReportSerializer
+
+# userapp modules
+from userapp.models import User
+
 
 # state modules
 from state.models import CylinderState, NozzleState, HeadState, SkirtState, LiftingLugState
@@ -209,9 +213,35 @@ class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
+    # override the list action
+    def list(self, *args, **kwargs):
+        username = self.request.user.username
+        temp_query = self.queryset
+        self.queryset = self.queryset.filter(author=username)
+        response = super(ReportViewSet, self).list(*args, **kwargs)
+        self.queryset = temp_query
+        return response
+
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def project(self, request, *args, **kwargs):
+        report = self.get_object()
+        # cylinder_params = report.cylinderstate_set.all()
+        # cylinder_params = cylinder_params.values()
+        report_params = {
+            'cylinder_params': list(report.cylinderstate_set.all().values()),
+            'nozzle_params': list(report.nozzlestate_set.all().values()),
+            'head_params': list(report.headstate_set.all().values()),
+            'skirt_params': list(report.skirtstate_set.all().values()),
+            'lug_params': list(report.liftinglugstate_set.all().values())
+        }
+        # print(report.cylinderstate_set.all()[0].id)
+        # return JsonResponse(list(cylinder_params), safe=False)
+        return JsonResponse(report_params)
+
     def perform_create(self, serializer):
         serializer.save(
-            author=self.request.user.username if self.request.user.username else 'Shovan Shrestha')
+            author=self.request.user.username if self.request.user.username else 'Shovan Shrestha',
+            author_id=User.objects.get(username=self.request.user.username))
         # serializer.save(author='calcgen')
     # @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     #  use @action to handle custom endpoints of GET requests

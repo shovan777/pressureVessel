@@ -78,6 +78,9 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
 
 
 def conical_t(P, S, D_l, D_s, L_c, CA, report_id, E=1.0):
+    
+    
+
     D_l += 2 * CA
     D_s += 2 * CA
     alpha = m.atan(0.5 * (D_l - D_s) / L_c)

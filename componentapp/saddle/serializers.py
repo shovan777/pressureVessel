@@ -57,7 +57,6 @@ class ParameterSerializer(serializers.ModelSerializer):
     total_vessel_weight = serializers.FloatField(
         required=True,
     )
-    
     projectID = serializers.IntegerField(
         required=True,
     )
@@ -85,4 +84,5 @@ class ParameterSerializer(serializers.ModelSerializer):
                   'saddle_width',
                   'total_vessel_weight',
                   'projectID',
-                  'componentID']
+                  'componentID'
+                  ]
