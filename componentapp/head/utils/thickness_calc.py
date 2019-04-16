@@ -5,6 +5,8 @@ from reporter.models import Report
 from state.models import HeadState
 from componentapp.component.models import Component
 
+from exceptionapp.exceptions import newError
+
 def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_id, component_react_id, E=1.0):
     """Calculate thickness as per ASME DIV I
 
@@ -67,11 +69,21 @@ def head_t(P, S, diameterWithOutCorrosion, corrosionAllowance, position, report_
         msg = "the rules of 1- 4(f) are not required"
     else :
         msg = "the rules of Mandatory Appendix 1-4(f) shall also be met"
-
-    report = Report.objects.get(id=report_id)
-    
-    component = Component.objects.filter(
-        report__id=report_id, react_component_id=component_react_id)[0]
+        
+    try:
+        report = Report.objects.get(id=report_id)
+    except:
+        raise newError({
+            "database":["Report cannot be found Please Create the report"]
+            })
+        
+    try:
+        component = Component.objects.filter(
+            report__id=report_id, react_component_id=component_react_id)[0]
+    except:
+        raise newError({
+            "database":["Component cannot be found Please Create the component"]
+            })
 
     head_state = HeadState.objects.filter(
         report__id=report_id,

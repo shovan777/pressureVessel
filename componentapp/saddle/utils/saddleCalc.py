@@ -1,6 +1,8 @@
 import math as m
 
-def skirtCalc(vessel_diameter,
+from exceptionapp.exceptions import newError
+
+def saddleCalc(vessel_diameter,
     vessel_thickness,
     vessel_corrosion_allowance,
     vessel_head_height,
