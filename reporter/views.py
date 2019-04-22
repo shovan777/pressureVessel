@@ -3,6 +3,8 @@ from django.http import HttpResponse, Http404, FileResponse, JsonResponse
 from django.template import loader
 from django.core.files.storage import FileSystemStorage, Storage
 from django.core.files import File
+from django.shortcuts import render
+
 from pressureVessel import settings
 
 
@@ -22,7 +24,11 @@ from weasyprint.fonts import FontConfiguration
 
 # pandas - data manipulator
 import pandas as pd
+
+# default modules
 import io
+import json
+import os
 
 # reporter modules
 from .models import Report
@@ -128,7 +134,7 @@ def index(request):
         plt.savefig(img_in_memory, format='png')
     display_image_in_actual_size(cylinder_img_path, img_in_memory)
     # plt.savefig(img_in_memory, format='png')
-    print('****************')
+    # print('****************')
     # print(img_in_memory.getvalue())
     image = base64.b64encode(img_in_memory.getvalue())
     # image = base64.b64encode(img)
@@ -208,16 +214,41 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
+    renderer_classes = (renderers.JSONRenderer, )
+
+
+    # override the create action
+    def create(self, *args, **kwargs):
+        # write a schema file
+        data = {
+            'createdBy': self.request.user.username,
+            'projectName': self.request.data['projectName'],
+            'components': []
+        }
+        response = super(ReportViewSet, self).create(*args, **kwargs)
+        state_path = str(response.data['location_state'])
+        folder = os.path.split(state_path)[0]
+        os.makedirs(folder)
+
+        with open(state_path, 'w') as file:
+            json.dump(data, file)
+
+        return response
+        
+
 
     # override the list action
     def list(self, *args, **kwargs):
         username = self.request.user.username
+        # print('****************')
+        # print(username)
         temp_query = self.queryset
         self.queryset = self.queryset.filter(author=username)
+        # print(self.queryset)
         response = super(ReportViewSet, self).list(*args, **kwargs)
         self.queryset = temp_query
         return response
@@ -239,9 +270,10 @@ class ReportViewSet(viewsets.ModelViewSet):
         return JsonResponse(report_params)
 
     def perform_create(self, serializer):
+        # print('*****************')
+        # print(self.request.user.username)
         serializer.save(
-            author=self.request.user.username if self.request.user.username else 'Shovan Shrestha',
-            author_id=User.objects.get(username=self.request.user.username))
+            author=self.request.user.username if self.request.user.username else 'Shovan Shrestha')
         # serializer.save(author='calcgen')
     # @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     #  use @action to handle custom endpoints of GET requests

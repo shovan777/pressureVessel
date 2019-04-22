@@ -1,9 +1,16 @@
 # rest framework modules
 from rest_framework import viewsets
+from rest_framework.decorators import api_view, permission_classes
 
 # state modules
 from .models import CylinderState, NozzleState, Report
 from .serializers import CylinderStateSerializer, NozzleStateSerializer
+
+from reporter.models import Report
+
+import json
+
+from django.http import HttpResponse, JsonResponse
 
 
 class CylinderStateViewSet(viewsets.ModelViewSet):
@@ -15,3 +22,59 @@ class NozzleStateViewSet(viewsets.ModelViewSet):
     queryset = NozzleState.objects.all()
     serializer_class = NozzleStateSerializer
 
+
+@api_view(['GET', 'POST'])
+# @permission_classes((permissions.IsAuthenticated, ))
+def schemaWrite(request):
+    # print(request.data)
+    data = request.data['schema']
+    projectID = request.data['projectID']
+    report = Report.objects.get(id=projectID)
+    state_path = report.location_state
+    # read the file and add the component
+    with open(state_path, 'r') as file:
+        json_data = json.load(file)
+        json_data['components'].append(data)
+
+    # write to file
+    with open(state_path, 'w') as file:
+        json.dump(json_data, file)
+    return HttpResponse('ok iam writing')
+
+@api_view(['GET', 'POST'])
+# @permission_classes((permissions.IsAuthenticated, ))
+def schemaUpdate(request):
+    # print(request.data)
+    data = request.data['schema']
+    array_id = data['componentID']
+    projectID = request.data['projectID']
+    report = Report.objects.get(id=projectID)
+    state_path = report.location_state
+    # read the file and update the component
+    with open(state_path, 'r') as file:
+        json_data = json.load(file)
+        json_data['components'][array_id] = data
+
+    # write to file
+    with open(state_path, 'w') as file:
+        json.dump(json_data, file)
+    return HttpResponse('ok iam writing')
+
+@api_view(['GET'])
+# @permission_classes((permissions.IsAuthenticated, ))
+def schemaOpen(request):
+    print('**********')
+    # print(request.data)
+    print(request.GET.get('projectID'))
+    # print(request.params)
+    print('************')
+    projectID = request.GET.get('projectID')
+    report = Report.objects.get(id=projectID)
+    state_path = report.location_state
+    # data = request.data['schema']
+    # read the file and send the json response
+    with open(state_path, 'r') as file:
+        json_data = json.load(file)
+        
+    return JsonResponse(json_data)
+    

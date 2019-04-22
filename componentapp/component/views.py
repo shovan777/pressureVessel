@@ -9,12 +9,19 @@ from rest_framework import permissions
 from .models import Component
 from .serializer import ComponentSerializer
 
+from exceptionapp.exceptions import newError
+
 class ComponentViewSet(viewsets.ModelViewSet):
     permission_clases = (permissions.IsAuthenticated,)
     queryset = Component.objects.all()
     serializer_class = ComponentSerializer
 
     def perform_create(self, serializer):
-        serializer.save(
-            report_id = self.request.data.get('projectID', 88)
-        )
+        if self.request.data.get('projectID') == None:
+            raise newError({
+            "reportError":["Report cannot be found Please Create the report"]
+            })
+        else:
+            serializer.save(
+                report_id = self.request.data.get('projectID')
+            )

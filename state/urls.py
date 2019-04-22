@@ -8,6 +8,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 # state modules
 from . import views
+from .views import schemaWrite, schemaUpdate, schemaOpen
 
 router = routers.DefaultRouter()
 
@@ -16,4 +17,7 @@ router.register(r'nozzlestates', views.NozzleStateViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    path('state/write', schemaWrite, name='schema-write'),
+    path('state/update', schemaUpdate, name='schema-update'),
+    path('state/open', schemaOpen, name='schema-open'),
 ]
