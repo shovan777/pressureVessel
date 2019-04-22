@@ -12,3 +12,4 @@ frontend/node_modules/
 /playground
 .vscode/
 
+static/states/

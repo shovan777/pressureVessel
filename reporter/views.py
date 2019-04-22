@@ -37,6 +37,7 @@ from reporter.serializers import ReportSerializer
 # userapp modules
 from userapp.models import User
 
+from exceptionapp.exceptions import newError
 
 # state modules
 from state.models import CylinderState, NozzleState, HeadState, SkirtState, LiftingLugState
@@ -229,7 +230,29 @@ class ReportViewSet(viewsets.ModelViewSet):
             'projectName': self.request.data['projectName'],
             'components': []
         }
+
+        # get the user
+        username = self.request.user.username
+        # save the default queryset
+        temp_query = self.queryset
+        print('*********')
+        print('inside create')
+        # filter the queryset to get querys where given projectName exists
+        name_exists = temp_query.filter(author=username).filter(projectName=data['projectName'])
+        if name_exists:
+            print('checking if project name exists')
+            raise newError({
+                'msg': 'The project name already exists.'
+            })
+
         response = super(ReportViewSet, self).create(*args, **kwargs)
+        
+        report_id = response.data['id']
+        vessel_orientation = response.data['orientation']
+
+        data['orientation'] = vessel_orientation
+        data['projectID'] = report_id
+
         state_path = str(response.data['location_state'])
         folder = os.path.split(state_path)[0]
         os.makedirs(folder)

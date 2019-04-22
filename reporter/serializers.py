@@ -15,4 +15,4 @@ class ReportSerializer(serializers.ModelSerializer):
     #     return Report.objects.create(**validated_data)
     class Meta:
         model = Report
-        fields = ('id', 'created_at', 'report_type', 'location', 'location_state', 'author', 'projectName')
+        fields = ('id', 'created_at', 'report_type', 'location', 'location_state', 'author', 'projectName', 'orientation')

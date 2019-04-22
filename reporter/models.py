@@ -32,6 +32,7 @@ class Report(models.Model):
         path=static_state_path, allow_folders=True, max_length=255)
     author = models.CharField(max_length=100, default='shovan')
     projectName = models.CharField(max_length=100)
+    orientation = models.CharField(max_length=100)
     # author_id = models.ForeignKey(
     #     User,
     #     on_delete=models.CASCADE,
