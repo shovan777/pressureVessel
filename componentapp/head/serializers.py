@@ -2,19 +2,34 @@ from rest_framework import serializers
 from asme.models import MaximumAllowableStress
 
 class HeadSerializer(serializers.ModelSerializer):
-    temp1 = serializers.CharField(
-        max_length = 50,
+    temp1 = serializers.IntegerField(
+        required = True,
     )
-    ip = serializers.CharField(
-        max_length = 50,
+    ip = serializers.FloatField(
+        required = True,
     )
-    sd = serializers.CharField(
-        max_length = 50,
+    sd = serializers.FloatField(
+        required = True,
     )
-    ic = serializers.CharField(
-        max_length = 50,
+    ic = serializers.FloatField(
+        required = True,
+    )
+    hr = serializers.CharField(
+        required = True,
+    )
+    position = serializers.IntegerField(
+        required = True,
+    )
+    projectID = serializers.IntegerField(
+        required = True,
+    )
+    componentID = serializers.IntegerField(
+        required = True,
+    )
+    srl = serializers.FloatField(
+        required = True,
     )
 
     class Meta:
         model = MaximumAllowableStress
-        fields = ['spec_num','type_grade','temp1','ip','sd','ic']
+        fields = ['spec_num','type_grade','temp1','ip','sd','ic','hr','position','projectID','componentID','srl']

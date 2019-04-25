@@ -19,4 +19,5 @@ class ParameterJSONRenderer(JSONRenderer):
         
         return json.dumps({
             'thickness':data['thickness'],
+            'weight':data.get('weight',0)
         })

@@ -19,4 +19,7 @@ class HeadJSONRenderer(JSONRenderer):
         
         return json.dumps({
             'thickness':data['thickness'],
+            'MAWP':data['MAWP'],
+            'MAWPResponse':data['MAWPResponse'],
+            'weight':data.get('weight',0)
         })

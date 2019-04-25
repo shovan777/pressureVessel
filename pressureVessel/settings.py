@@ -28,15 +28,23 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'rest_framework',
+    'corsheaders',
 
     'componentapp.cylinder',
     'authenticationapp',
     'componentapp.nozzle',
-    'reporter.apps.ReporterConfig',
+    # 'reporter.apps.ReporterConfig',
+    'reporter',
     'userapp',
     'emailapp',
     'componentapp.head',
     'asme',
+    'drawing',
+    'componentapp.skirt',
+    'componentapp.component',
+    'componentapp.lifingLug',
+    'componentapp.saddle',
+    'state',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +77,7 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000000)
 }
 
 ROOT_URLCONF = 'pressureVessel.urls'
@@ -77,7 +85,7 @@ ROOT_URLCONF = 'pressureVessel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'emailapp/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'emailapp/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

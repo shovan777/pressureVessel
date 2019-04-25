@@ -12,8 +12,6 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'reports', views.ReportViewSet)
-router.register(r'cylinderstates', views.CylinderStateViewSet)
-router.register(r'nozzlestates', views.NozzleStateViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

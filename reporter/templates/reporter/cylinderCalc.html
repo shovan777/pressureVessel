@@ -1,0 +1,48 @@
+<p>Calculations for Internal Pressure</p>
+<b>Thickness of Cylindrical Shell as per UG-27</b>
+<br>
+<math>
+    <mi>t</mi>
+    <mo>=</mo>
+    <mfrac>
+        <mi> PR </mi>
+        <mrow>
+            <mi> (SE </mi>
+            <mo> - </mo>
+            <mi>0.6P)</mi>
+        </mrow>
+    </mfrac>
+    <mo> = </mo>
+    <mfrac>
+        <mrow>
+            <mi> {{ cylinderParams.P }} </mi>
+            <mi>({{ cylinderParams.R }}) </mi>
+        </mrow>
+
+        <mrow>
+            <mi> {{ cylinderParams.S }}({{ cylinderParams.E }}) </mi>
+            <mo> - </mo>
+            <mi>0.6({{ cylinderParams.P }})</mi>
+        </mrow>
+    </mfrac>
+    <mo>=</mo>
+    <mi>{{ cylinderParams.t_inter }} in</mi>
+</math>
+<br>
+<math>
+    <mi>t</mi>
+    <mo>=</mo>
+    <mrow>
+        <mi> {{ cylinderParams.t_inter }} </mi>
+        <mo> + </mo>
+        <mi> Corrosion Allowance </mi>
+    </mrow>
+    <mo> = </mo>
+    <mrow>
+        <mi> {{ cylinderParams.t_inter }} </mi>
+        <mo> + </mo>
+        <mi> {{ cylinderParams.C_A }} </mi>
+    </mrow>
+    <mo>=</mo>
+    <mi>{{ cylinderParams.t }} in</mi>
+</math>

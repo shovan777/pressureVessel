@@ -2,7 +2,7 @@
 from asme.models import MaximumAllowableStress
 from .serializers import HeadSerializer
 from .renderers import HeadJSONRenderer
-from .utils.thickness_calc import head_t
+from .utils.thickness_calc import head_t,center_of_gravity
 
 # django-rest modules
 from rest_framework.views import APIView
@@ -16,12 +16,13 @@ class ThicknessData(APIView):
     """
     Determine thickness for provided cylinder params
     """
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_classes = HeadSerializer
     renderer_classes = (HeadJSONRenderer,)
     def post(self, request, format=None):
 
         data = request.data.get('headParam', {})
+        data['projectID'] = request.data.get('projectID',None)
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
         
@@ -34,12 +35,32 @@ class ThicknessData(APIView):
                 })
         temp = data1.get('temp1')
         max_stress = row_dict['max_stress_' + str(temp)]
-        P = int(data1.get('ip'))
+        hrAll = data1.get('hr').split(":")
+        hrUpperPart = int(hrAll[0])
+        hrLowerPart = int(hrAll[1])
+        P = float(data1.get('ip'))
         S = max_stress
-        D = int(data1.get('sd'))
-        C_A = int(data1.get('ic'))
-        thickness = head_t(P, S, D, C_A)
+        D = float(data1.get('sd'))
+        C_A = float(data1.get('ic'))
+        density = row_dict['density']
+        projectID = data1.get('projectID')
+        component_react_id = data1.get('componentID')
+        srl = data1.get('srl')
 
-        newdict = {'thickness':thickness}
+        position = ""
+        if data1.get('position') == 1:
+            position = "top"
+        else:
+            position ="bottom"
+
+        thickness = head_t(P, S, D, C_A,position,projectID,component_react_id)
+        weightData = center_of_gravity(D,density,thickness[0]-C_A,srl)
+
+        newdict = {
+            'thickness':thickness[0],
+            'MAWP':thickness[1],
+            'MAWPResponse':thickness[2],
+            'weight':weightData
+        }
         newdict.update(serializer.data)
         return Response(newdict,status=status.HTTP_200_OK)

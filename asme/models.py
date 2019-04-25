@@ -11,6 +11,7 @@ class MaximumAllowableStress(models.Model):
     size_thickness = models.CharField(max_length=50)
     p_num = models.CharField(max_length=50, default='1')
     group_num = models.CharField(max_length=50, default='1')
+    density = models.FloatField(default=0.0)
     min_tensile_strength = models.FloatField(default=0.0)
     min_yield_strength = models.FloatField(default=0.0)
     max_temp_I = models.CharField(max_length=50)
@@ -37,16 +38,42 @@ class MaximumAllowableStress(models.Model):
     max_stress_1000 = models.FloatField(default=0.0)
 
     def __str__(self):
-        return self.spec_num
+        return self.spec_num + "_" + self.type_grade
 
 
 class PipingSchedule(models.Model):
-    pipe_size = models.FloatField(default=0.000)
-    od_inch = models.FloatField(default=0.000)
-    id_inch = models.FloatField(default=0.000)
+    nominal_pipe_size = models.FloatField(default=0.000)
+    pipe_outer_diameter_inch = models.FloatField(default=0.000)
+    pipe_internal_diameter_inch = models.FloatField(default=0.000)
     schedules = models.CharField(max_length=255)
     wall_inch = models.FloatField(default=0.000)
-    est_wt = models.FloatField(default=0.0000)
+    est_wt_pipe = models.FloatField(default=0.0000)
 
     def __str__(self):
-        return self.schedules
+        return str(self.nominal_pipe_size) + "_" + self.schedules
+
+class NozzleData(models.Model):
+    class_value = models.IntegerField(default=150)
+    type_name =  models.CharField(max_length=10)
+    nominal_pipe_size = models.FloatField(default=0.00)
+
+    flange_outer_diameter = models.FloatField(default=0.00)
+    flange_thickness = models.FloatField(default=0.00)
+    raised_face_diameter = models.FloatField(default=0.00)
+    blot_hole_number = models.IntegerField(default=0)
+    blot_hole_size = models.FloatField(default=0.00)
+    blot_circle_diameter = models.FloatField(default=0.00)
+    bore = models.FloatField(default=0.00)
+    barrel_outer_diameter = models.FloatField(default=0.00)
+    
+    nut_stop_diameter = models.FloatField(default=0.00)
+    nut_relief_diameter = models.FloatField(default=0.00)
+    nut_relief_length = models.FloatField(default=0.00)
+    neck_thickness = models.FloatField(default=0.00)
+    base_weight = models.FloatField(default=0.00)
+    weight_per_one_inch = models.FloatField(default=0.00)
+    base_weight_length = models.FloatField(default=0.00)
+    raised_face_thickness = models.FloatField(default=0.00)
+
+    def __str__(self):
+        return self.type_name + "_" +str(self.class_value)+ "_" + str(self.nominal_pipe_size)

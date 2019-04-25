@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import NozzleData
+from .views import NozzleAPIView
 
 app_name = 'nozzle'
 urlpatterns = [
-    path('nozzle/data',NozzleData.as_view()),
+    path('nozzle/data',NozzleAPIView.as_view()),
 ]
