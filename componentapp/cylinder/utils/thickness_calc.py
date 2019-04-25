@@ -4,6 +4,7 @@ from reporter.models import Report
 from state.models import CylinderState
 from componentapp.component.models import Component
 
+from exceptionapp.exceptions import newError
 
 def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
     """Calculate thickness as per ASME DIV I
@@ -40,10 +41,20 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
     t = t_inter + C_A
     # think about how you can save the calculation steps later
     # check if the cylinder is a new one or older
-    report = Report.objects.get(id=report_id)
+    try:
+        report = Report.objects.get(id=report_id)
+    except:
+        raise newError({
+            "database":["Report cannot be found Please Create the report"]
+            })
     
-    component = Component.objects.filter(
-        report__id=report_id, react_component_id=component_react_id)[0]
+    try:
+        component = Component.objects.filter(
+            report__id=report_id, react_component_id=component_react_id)[0]
+    except:
+        raise newError({
+            "database":["Component cannot be found Please Create the component"]
+            })
 
     cylinder_state = CylinderState.objects.filter(
         report__id=report_id,
@@ -78,6 +89,9 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
 
 
 def conical_t(P, S, D_l, D_s, L_c, CA, report_id, E=1.0):
+    
+    
+
     D_l += 2 * CA
     D_s += 2 * CA
     alpha = m.atan(0.5 * (D_l - D_s) / L_c)

@@ -32,7 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     first_name = models.CharField(max_length=30,blank=False)
-    middle_name = models.CharField(max_length=30,null=True)
+    middle_name = models.CharField(max_length=30,null=True,blank=True)
     last_name = models.CharField(max_length=30,blank=False)
     
     USERNAME_FIELD = 'username'

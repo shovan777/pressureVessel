@@ -1,7 +1,7 @@
 from asme.models import MaximumAllowableStress
 from .serializers import ParameterSerializer
 from .renderers import ParameterJSONRenderer
-from .utils.saddleCalc import skirtCalc
+from .utils.saddleCalc import saddleCalc
 
 # django-rest modules
 from rest_framework.views import APIView
@@ -48,7 +48,7 @@ class SaddleResponse(APIView):
 
         projectID = data1.get('projectID')
         component_react_id = data1.get('componentID')
-        responses = skirtCalc(
+        responses = saddleCalc(
             vessel_diameter=vessel_diameter,
             vessel_thickness=vessel_thickness,
             vessel_corrosion_allowance=vessel_corrosion_allowance,

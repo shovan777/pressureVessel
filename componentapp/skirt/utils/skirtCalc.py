@@ -3,6 +3,8 @@ from reporter.models import Report
 from state.models import SkirtState
 from componentapp.component.models import Component
 
+from exceptionapp.exceptions import newError
+
 def skirtCalculation(diameter,thickness,corossionAllowance,stress,report_id,component_react_id):
 
     diameterInside = diameter + 2 * corossionAllowance
@@ -110,11 +112,21 @@ def skirtCalculation(diameter,thickness,corossionAllowance,stress,report_id,comp
         response_skirt = 'The allowable compressive stress criterion is not satisfied.'
         # return 'The allowable compressive stress criterion is not satisfied.'
 
-    report = Report.objects.get(id=report_id)
+    try:
+        report = Report.objects.get(id=report_id)
+    except:
+        raise newError({
+            "database":["Report cannot be found Please Create the report"]
+            })
 
-    component = Component.objects.filter(
-        report__id=report_id, react_component_id=component_react_id)[0]
-
+    try:
+        component = Component.objects.filter(
+            report__id=report_id, react_component_id=component_react_id)[0]
+    except:
+        raise newError({
+            "database":["Component cannot be found Please Create the component"]
+            })
+            
     skirt_state = SkirtState.objects.filter(
         report__id=report_id,
         component__id=component.id).update(

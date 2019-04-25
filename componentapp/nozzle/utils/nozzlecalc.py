@@ -3,6 +3,7 @@ from reporter.models import Report
 from state.models import NozzleState
 from componentapp.component.models import Component
 
+from exceptionapp.exceptions import newError
 
 def calculation_thick(
     designPressure,
@@ -286,10 +287,20 @@ def calculation_thick(
 
     # save the calculation steps in the state
     # check if the cylinder is a new one or older
-    report = Report.objects.get(id=report_id)
+    try:
+        report = Report.objects.get(id=report_id)
+    except:
+        raise newError({
+            "database":["Report cannot be found Please Create the report"]
+            })
 
-    component = Component.objects.filter(
-        report__id=report_id, react_component_id=component_react_id)[0]
+    try:
+        component = Component.objects.filter(
+            report__id=report_id, react_component_id=component_react_id)[0]
+    except:
+        raise newError({
+            "database":["Component cannot be found Please Create the component"]
+            })
 
     nozzle_state = NozzleState.objects.filter(
         report__id=report_id,

@@ -1,16 +1,18 @@
 # django modules
-from django.http import HttpResponse, Http404, FileResponse
+from django.http import HttpResponse, Http404, FileResponse, JsonResponse
 from django.template import loader
 from django.core.files.storage import FileSystemStorage, Storage
 from django.core.files import File
+from django.shortcuts import render
+
 from pressureVessel import settings
 
 
 # rest framework modules
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework import permissions
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions, renderers
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.reverse import reverse
 
 # component modules
@@ -22,11 +24,20 @@ from weasyprint.fonts import FontConfiguration
 
 # pandas - data manipulator
 import pandas as pd
+
+# default modules
 import io
+import json
+import os
 
 # reporter modules
 from .models import Report
 from reporter.serializers import ReportSerializer
+
+# userapp modules
+from userapp.models import User
+
+from exceptionapp.exceptions import newError
 
 # state modules
 from state.models import CylinderState, NozzleState, HeadState, SkirtState, LiftingLugState
@@ -124,7 +135,7 @@ def index(request):
         plt.savefig(img_in_memory, format='png')
     display_image_in_actual_size(cylinder_img_path, img_in_memory)
     # plt.savefig(img_in_memory, format='png')
-    print('****************')
+    # print('****************')
     # print(img_in_memory.getvalue())
     image = base64.b64encode(img_in_memory.getvalue())
     # image = base64.b64encode(img)
@@ -204,12 +215,86 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
+    renderer_classes = (renderers.JSONRenderer, )
+
+
+    # override the create action
+    def create(self, *args, **kwargs):
+        # write a schema file
+        data = {
+            'createdBy': self.request.user.username,
+            'projectName': self.request.data['projectName'],
+            'components': []
+        }
+
+        # get the user
+        username = self.request.user.username
+        # save the default queryset
+        temp_query = self.queryset
+        print('*********')
+        print('inside create')
+        # filter the queryset to get querys where given projectName exists
+        name_exists = temp_query.filter(author=username).filter(projectName=data['projectName'])
+        if name_exists:
+            print('checking if project name exists')
+            raise newError({
+                'msg': 'The project name already exists.'
+            })
+
+        response = super(ReportViewSet, self).create(*args, **kwargs)
+        
+        report_id = response.data['id']
+        vessel_orientation = response.data['orientation']
+
+        data['orientation'] = vessel_orientation
+        data['projectID'] = report_id
+
+        state_path = str(response.data['location_state'])
+        folder = os.path.split(state_path)[0]
+        os.makedirs(folder)
+
+        with open(state_path, 'w') as file:
+            json.dump(data, file)
+
+        return response
+        
+
+
+    # override the list action
+    def list(self, *args, **kwargs):
+        username = self.request.user.username
+        # print('****************')
+        # print(username)
+        temp_query = self.queryset
+        self.queryset = self.queryset.filter(author=username)
+        # print(self.queryset)
+        response = super(ReportViewSet, self).list(*args, **kwargs)
+        self.queryset = temp_query
+        return response
+
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def project(self, request, *args, **kwargs):
+        report = self.get_object()
+        # cylinder_params = report.cylinderstate_set.all()
+        # cylinder_params = cylinder_params.values()
+        report_params = {
+            'cylinder_params': list(report.cylinderstate_set.all().values()),
+            'nozzle_params': list(report.nozzlestate_set.all().values()),
+            'head_params': list(report.headstate_set.all().values()),
+            'skirt_params': list(report.skirtstate_set.all().values()),
+            'lug_params': list(report.liftinglugstate_set.all().values())
+        }
+        # print(report.cylinderstate_set.all()[0].id)
+        # return JsonResponse(list(cylinder_params), safe=False)
+        return JsonResponse(report_params)
 
     def perform_create(self, serializer):
+        # print('*****************')
+        # print(self.request.user.username)
         serializer.save(
             author=self.request.user.username if self.request.user.username else 'Shovan Shrestha')
         # serializer.save(author='calcgen')

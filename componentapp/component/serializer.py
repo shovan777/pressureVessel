@@ -21,3 +21,12 @@ class ComponentSerializer(serializers.ModelSerializer):
         report_id = validated_data.pop('report_id')
         validated_data['report'] = self._get_report(report_id)
         return Component.objects.create(**validated_data)
+
+class ComponentInputSerializer(serializers.ModelSerializer):
+    projectID = serializers.IntegerField(
+        required = True,
+    )
+
+    class Meta:
+        model = Component
+        fields = ('projectID')
