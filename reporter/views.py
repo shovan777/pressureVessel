@@ -32,7 +32,7 @@ import os
 
 # reporter modules
 from .models import Report
-from reporter.serializers import ReportSerializer
+from reporter.serializers import ReportSerializer,ReportInputSerializer
 
 # userapp modules
 from userapp.models import User
@@ -215,19 +215,23 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-    renderer_classes = (renderers.JSONRenderer, )
-
+    # renderer_classes = (renderers.JSONRenderer, )
+    serializerClass = ReportInputSerializer
 
     # override the create action
     def create(self, *args, **kwargs):
+        serializers = self.serializerClass(data=self.request.data)
+        serializers.is_valid(raise_exception=True)
+        data1 = serializers.data
+
         # write a schema file
         data = {
             'createdBy': self.request.user.username,
-            'projectName': self.request.data['projectName'],
+            'projectName': data1['projectName'],
             'components': []
         }
 
@@ -235,12 +239,9 @@ class ReportViewSet(viewsets.ModelViewSet):
         username = self.request.user.username
         # save the default queryset
         temp_query = self.queryset
-        print('*********')
-        print('inside create')
         # filter the queryset to get querys where given projectName exists
         name_exists = temp_query.filter(author=username).filter(projectName=data['projectName'])
         if name_exists:
-            print('checking if project name exists')
             raise newError({
                 'msg': 'The project name already exists.'
             })
@@ -260,9 +261,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         with open(state_path, 'w') as file:
             json.dump(data, file)
 
-        return response
-        
-
+        return response      
 
     # override the list action
     def list(self, *args, **kwargs):

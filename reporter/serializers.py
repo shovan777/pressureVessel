@@ -16,3 +16,19 @@ class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = ('id', 'created_at', 'report_type', 'location', 'location_state', 'author', 'projectName', 'orientation')
+        
+class ReportInputSerializer(serializers.ModelSerializer):
+
+    report_type = serializers.CharField(
+        required=True,
+    )
+    projectName = serializers.CharField(
+        required=True,
+    )
+    orientation = serializers.CharField(
+        required=True,
+    )
+
+    class Meta:
+        model = Report
+        fields = ['report_type', 'projectName', 'orientation']
