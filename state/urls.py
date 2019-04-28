@@ -8,7 +8,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 # state modules
 from . import views
-from .views import schemaWrite, schemaUpdate, schemaOpen
+from .views import schemaWrite, schemaUpdate, schemaOpen, schemaDelete
 
 router = routers.DefaultRouter()
 
@@ -20,4 +20,5 @@ urlpatterns = [
     path('state/write', schemaWrite, name='schema-write'),
     path('state/update', schemaUpdate, name='schema-update'),
     path('state/open', schemaOpen, name='schema-open'),
+    path('state/delete', schemaDelete, name='schema-delete'),
 ]

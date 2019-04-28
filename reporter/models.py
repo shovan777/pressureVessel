@@ -60,4 +60,4 @@ class Report(models.Model):
         ordering = ['created_at']
 
     def __str__(self):
-        return '%s' % (self.location)
+        return '%s %s %s' % (self.author, self.projectName, self.orientation)

@@ -30,7 +30,8 @@ class CylinderState(models.Model):
 
     def __str__(self):
         # return self.id or something like that
-        return self.component.__str__()
+        return '%s %s' % (self.report.__str__(), self.component.__str__())
+        # return self.report.__str__()
 
 
 class NozzleState(models.Model):
@@ -61,7 +62,8 @@ class NozzleState(models.Model):
 
     def __str__(self):
         # return self.id or something like that
-        return self.component.__str__()
+        # return self.component.__str__()
+        return '%s %s' % (self.report.__str__(), self.component.__str__())
 
 class HeadState(models.Model):
     report = models.ForeignKey(
@@ -84,7 +86,8 @@ class HeadState(models.Model):
 
     def __str__(self):
         # return self.id or something like that
-        return self.component.__str__()
+        # return self.component.__str__()
+        return '%s %s' % (self.report.__str__(), self.component.__str__())
 
 
 class LiftingLugState(models.Model):
@@ -152,7 +155,8 @@ class LiftingLugState(models.Model):
 
     def __str__(self):
         # return self.id or something like that
-        return self.component.__str__()
+        # return self.component.__str__()
+        return '%s %s' % (self.report.__str__(), self.component.__str__())
 
 
 class SkirtState(models.Model):
@@ -170,7 +174,8 @@ class SkirtState(models.Model):
     corrosion_allowance = models.FloatField(default=0.0)
 
     def __str__(self):
-        return self.component.__str__()
+        # return self.component.__str__()
+        return '%s %s' % (self.report.__str__(), self.component.__str__())
 
 
 class CentreOfGravity(models.Model):
