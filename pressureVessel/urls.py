@@ -21,8 +21,11 @@ from emailapp import funcs
 from django.conf import settings
 from django.conf.urls.static import static
 
+import debug_toolbar
+
 urlpatterns = [
     # path('', include('frontend.urls')),
+    path('__debug__/', include(debug_toolbar.urls)),
     path('api/', include('componentapp.component.urls')),
     path('report/', include('reporter.urls')),
     path('api/', include('componentapp.cylinder.urls')),
