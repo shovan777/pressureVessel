@@ -10,6 +10,8 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
 from exceptionapp.exceptions import newError
+from asme.utils.calculators import max_stress_calculator
+
 
 class SkirtThicknessData(APIView):
 
@@ -28,8 +30,8 @@ class SkirtThicknessData(APIView):
             raise newError({
                 "database":["Data cannot be found incorrect data"]
             })
-        temp = data1.get('temp1')
-        max_stress = row_dict['max_stress_' + str(temp)]
+
+        max_stress = max_stress_calculator(row_dict, data1.get('temp1'))
         yield_strength = row_dict['min_yield_strength']
         # modulus of elasticity at design temp
         

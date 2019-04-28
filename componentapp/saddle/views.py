@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from exceptionapp.exceptions import newError
+from asme.utils.calculators import max_stress_calculator
 
 class SaddleResponse(APIView):
 
@@ -30,8 +31,7 @@ class SaddleResponse(APIView):
                 "database":["Data cannot be found incorrect data"]
             })
         
-        temp = data1.get('vessel_design_temperature')
-        max_stress = row_dict['max_stress_' + str(temp)]
+        max_stress = max_stress_calculator(row_dict, data1.get('vessel_design_temperature'))
         vessel_yield_stress = row_dict['min_yield_strength']
 
         vessel_diameter = data1.get('vessel_diameter')

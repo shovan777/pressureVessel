@@ -12,6 +12,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from exceptionapp.exceptions import newError
 
+from asme.utils.calculators import max_stress_calculator
+
 class ThicknessData(APIView):
     """
     Determine thickness for provided cylinder params
@@ -21,7 +23,6 @@ class ThicknessData(APIView):
     renderer_classes = (ParameterJSONRenderer,)
     def post(self, request, format=None):
         data = request.data.get('cylinderParam', {})
-        print(data)
         data['projectID'] = request.data.get('projectID',None)
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
@@ -32,8 +33,8 @@ class ThicknessData(APIView):
             raise newError({
                 "database":["Data cannot be found incorrect data"]
             })
-        temp = data1.get('temp1')
-        max_stress = row_dict['max_stress_' + str(temp)]
+
+        max_stress = max_stress_calculator(row_dict, data1.get('temp1'))
         P = data1.get('ip')
         S = max_stress
         D = data1.get('sd')
@@ -73,8 +74,7 @@ class ThicknessDataConical(APIView):
             raise newError({
                 "database":["Data cannot be found incorrect data"]
             })
-        temp = data1.get('temp1')
-        max_stress = row_dict['max_stress_' + str(temp)]
+        max_stress = max_stress_calculator(row_dict, data1.get('temp1'))
         P = data1.get('ip')
         S = max_stress
         D_l = data1.get('sd_l')

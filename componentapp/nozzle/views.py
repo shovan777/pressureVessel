@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import APIException
 
 from exceptionapp.exceptions import newError
-
+from asme.utils.calculators import max_stress_calculator
 
 class NozzleAPIView(APIView):
 
@@ -39,8 +39,7 @@ class NozzleAPIView(APIView):
         designPressure = data1.get('designPressure')
         corrosionAllowance = data1.get('corrosionAllowance')
 
-        temp = data1.get('temp1')
-        shellAllowableStress = row_dict_stress['max_stress_' + str(temp)]
+        shellAllowableStress = max_stress_calculator(row_dict_stress, data1.get('temp1'))
         
         yieldStrength = row_dict_stress['min_yield_strength']
         cylinderInsideDiameter = data1.get('cylinderDiameter')
