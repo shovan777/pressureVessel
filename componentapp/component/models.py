@@ -11,7 +11,7 @@ class Component(models.Model):
         )
     react_component_id = models.IntegerField()
     type = models.CharField(max_length=100)
-    # name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     def __str__(self):
          return '%s--%s' % (self.report.__str__(), self.type)
         # return str(self.react_component_id)
