@@ -24,9 +24,15 @@ class ComponentSerializer(serializers.ModelSerializer):
 
 class ComponentInputSerializer(serializers.ModelSerializer):
     projectID = serializers.IntegerField(
-        required = True,
+        required=True,
     )
-
+    react_component_id = serializers.IntegerField(
+        required=True,
+    )
+    type = serializers.CharField(
+        required=True,
+    )
     class Meta:
         model = Component
-        fields = ('projectID')
+        fields = ['projectID', 'react_component_id', 'type']
+        
