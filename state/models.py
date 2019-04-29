@@ -58,6 +58,8 @@ class NozzleState(models.Model):
     E = models.FloatField(default=0.0)
     t_r = models.FloatField(default=0.0)
     R_o = models.FloatField(default=0.0)
+    A_r = models.FloatField(default=0.0)
+    A_a = models.FloatField(default=0.0)
     msg = models.TextField()
 
     def __str__(self):

@@ -1,0 +1,73 @@
+    <h3>Nozzle Summary</h3>
+    <table class="c42">
+        <tbody>
+            <tr class="c7">
+                <td class="c32" colspan="1" rowspan="1">
+                    <p class="c0"><span class="c5 c4">Dimensions</span></p>
+                </td>
+            </tr>
+            <tr class="c7">
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">Nozzle ID</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">Nozzle Mark</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">OD (in)</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">t<sub>n</sub> (in)</span></p>
+                </td>
+
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">Nominal Shell t(in)</span></p>
+                </td>
+                
+                
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">Corr(in)</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">A<sub>r</sub></span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">A<sub>a</sub></span></p>
+                </td>
+
+            </tr>
+            {% for nozzle, name_id in nozzleZip %}
+            <tr class="c7">
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ name_id.id }}</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ name_id.name }}</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ nozzle.d}}</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ nozzle.t_n }}</span></p>
+                </td>
+                
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ nozzle.ct }}</span></p>
+                </td>
+                
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ nozzle.C_n }}</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ nozzle.A_r }}</span></p>
+                </td>
+                <td class="c49">
+                    <p class="c6"><span class="c5 c9">{{ nozzle.A_a }}</span></p>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
