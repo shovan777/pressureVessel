@@ -146,6 +146,8 @@
             class="c9"><a class="c8" href="#h.30j0zll">3</a></span></p>
     <p class="c25"><span class="c9"><a class="c8" href="#h.1fob9te">DEFINITION</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
             class="c9"><a class="c8" href="#h.1fob9te">3</a></span></p>
+    <p class="c25"><span class="c9"><a class="c8" href="#nozzlesum">NOZZLE SUMMARY</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+            class="c9"><a class="c8" href="#nozzlesum">3</a></span></p>
     <p class="c25"><span class="c9"><a class="c8" href="#h.rqag0rqyom4i">PIPE AND FLANGE DATA NEEDED</a></span><span
             class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c9"><a class="c8" href="#h.rqag0rqyom4i">5</a></span></p>
     <p class="c25"><span class="c9"><a class="c8" href="#h.x1eqdwniihkq">COMPONENTS REQUIRED</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
@@ -194,6 +196,12 @@
                 alt="" src="{% static 'reporter/images/image3.png' %}" style="width: 500.00px; height: 456.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                 title=""></span></h4>
     <p class="c0 c17"><span class="c5 c4"></span></p>
+    <ol class="c18 lst-kix_list_3-0" start="2">
+        <li class="c6 c14">
+            <h1 id="nozzlesum" style="display:inline"><span class="c13 c9">Nozzle Summary</span></h1>
+        </li>
+    </ol>
+    {% include 'reporter/nozzleSummary.html' %}
     <ol class="c18 lst-kix_list_3-0" start="3">
         <li class="c6 c14">
             <h1 id="h.rqag0rqyom4i" style="display:inline"><span class="c13 c9">PIPE AND FLANGE DATA NEEDED</span></h1>
@@ -288,6 +296,8 @@
     </p>
     <br><br>
     {% endfor %}
+
+    
 
     <h1 class="c6 c19" id="h.9n1fc2s568b5"><span class="c13 c33">MAWP</span></h1>
     <h1 class="c6 c19" id="h.5fdg0nobh1a5"><span class="c13 c33">Weight of Pressure Vessel (entire Weight)</span></h1>
