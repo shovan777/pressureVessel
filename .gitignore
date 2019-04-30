@@ -13,3 +13,5 @@ frontend/node_modules/
 .vscode/
 
 static/states/
+htmlcov/
+.coverage
