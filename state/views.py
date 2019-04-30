@@ -1,6 +1,7 @@
 # rest framework modules
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework import permissions
 
 # state modules
 from .models import CylinderState, NozzleState, Report
@@ -24,7 +25,7 @@ class NozzleStateViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET', 'POST'])
-# @permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def schemaWrite(request):
     # print(request.data)
     data = request.data['schema']
@@ -43,7 +44,7 @@ def schemaWrite(request):
 
 
 @api_view(['GET', 'POST'])
-# @permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def schemaUpdate(request):
     # print(request.data)
     data = request.data['schema']
@@ -63,7 +64,7 @@ def schemaUpdate(request):
 
 
 @api_view(['GET', 'POST'])
-# @permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def schemaDelete(request):
     # print('**************')
     # print(request.data['schema']['componentID'])
@@ -81,7 +82,7 @@ def schemaDelete(request):
         array = json_data['components']
         for i in range(len(array)):
             if array[i] != {}:
-                print(array[i])
+                # print(array[i])
                 if int(array[i]['componentID']) == int(array_id):
                     json_data['components'][i]={}
                     break
@@ -93,7 +94,7 @@ def schemaDelete(request):
 
 
 @api_view(['GET'])
-# @permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def schemaOpen(request):
     print('**********')
     # print(request.data)
