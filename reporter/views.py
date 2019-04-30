@@ -5,8 +5,6 @@ from django.core.files.storage import FileSystemStorage, Storage
 from django.core.files import File
 from django.shortcuts import render
 
-from pressureVessel import settings
-
 
 # rest framework modules
 from rest_framework import viewsets, status
@@ -30,9 +28,11 @@ import io
 import json
 import os
 
+from pressureVessel import settings
+
 # reporter modules
 from .models import Report
-from reporter.serializers import ReportSerializer,ReportInputSerializer
+from reporter.serializers import ReportSerializer, ReportInputSerializer
 
 # userapp modules
 from userapp.models import User
@@ -43,7 +43,8 @@ from exceptionapp.exceptions import newError
 from state.models import CylinderState, NozzleState, HeadState, SkirtState, LiftingLugState
 
 # drawing modules
-from drawing.drawing import PyGame
+# from drawing.drawing import PyGame
+from drawing.drawingcopy import DrawingClass
 
 # matplotlib modules
 import matplotlib.pyplot as plt
@@ -67,7 +68,7 @@ def csv_loader(filename):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.AllowAny, ))
 def index(request):
     # print(request.data)
     material_list = MaximumAllowableStress.objects.all()
@@ -89,23 +90,81 @@ def index(request):
         'volume': csv_loader(info_table_path + 'volume.csv')
     }
     # get this variable from request ok
-    # projectID = '87'
+    # projectID = 1344
+    # projectID = 1442
     projectID = request.data['projectID']
-    print(projectID)
-    cylinder_params = CylinderState.objects.filter(
-        report__id=projectID).values()
-    nozzle_params = NozzleState.objects.filter(
-        report__id=projectID).values()
-    head_params = HeadState.objects.filter(
-        report__id=projectID).values()
-    skirt_params = SkirtState.objects.filter(
-        report__id=projectID).values()
-    lug_params = LiftingLugState.objects.filter(
-        report__id=projectID).values()
+
+    # all queries from db here
+    cylinder_qset = CylinderState.objects.filter(
+        report__id=projectID)
+    nozzle_qset = NozzleState.objects.filter(
+        report__id=projectID)
+    head_qset = HeadState.objects.filter(
+        report__id=projectID)
+    skirt_qset = SkirtState.objects.filter(
+        report__id=projectID)
+    lug_qset = LiftingLugState.objects.filter(
+        report__id=projectID)
+
+    # print(projectID)
+    cylinder_params = cylinder_qset.values()
+    nozzle_params = nozzle_qset.values()
+    head_params = head_qset.values()
+    skirt_params = skirt_qset.values()
+    lug_params = lug_qset.values()
+
+    # get names and id of the components
+    cylinder_id_name = [{'id': n.component.react_component_id,
+                         'name': n.component.name} for n in cylinder_qset]
+    nozzle_id_name = [{'id': n.component.react_component_id,
+                       'name': n.component.name} for n in nozzle_qset]
+    head_id_name = [{'id': n.component.react_component_id,
+                     'name': n.component.name} for n in head_qset]
+    skirt_id_name = [{'id': n.component.react_component_id,
+                      'name': n.component.name} for n in skirt_qset]
+    lug_id_name = [{'id': n.component.react_component_id,
+                    'name': n.component.name} for n in lug_qset]
+
+    # nozzle_sum_params = {
+    #     nozzel_mark: 4, # just provide the number of nozzle
+    #     outer_diameter: 4, # d in NozzleState
+    #     thickness: 5,
+    #     req_thickness: 5,
+    #     nom_shell_t: 5,
+    #     des_shell_t: 5,
+    #     user_shell_t: 5,
+    #     corrosion_allowance: .125,
+    #     area_ratio: 4
+    # }
     # print(infoTables['area'])
     # pygame object
-    pygame = PyGame()
-    cylinder_img_path = pygame.do_task(settings.MEDIA_ROOT + 'images/')
+    # pygame = PyGame()
+
+    ########################### FOR DRAWING PURPOSE ONLY ########
+    report = Report.objects.get(id=projectID)
+    state_path = report.location_state
+    main_data = {}
+    with open(state_path) as json_file:
+        main_data = json.load(json_file)
+
+    dra = DrawingClass(fileName=settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_"+str(main_data.get("projectID")), drawing_scale_factor=10, type=main_data.get('orientation'))
+
+    if main_data.get('orientation') == 'horizontal':
+        print("i am here")
+        starting_y = 600
+        main_array,starting_x,total_length = dra.arrange_data(main_data)
+        dra.draw_main_horizontal(data=main_array, starting_x=starting_x, starting_y=starting_y)
+
+    elif main_data.get('orientation') == 'vertical':
+        print("i am not avaliable")
+        starting_x = 600
+        main_array,starting_y,total_length = dra.arrange_data(main_data)
+        dra.draw_main_vertical(data=main_array, starting_x=starting_x, starting_y=starting_y,total_length=total_length)
+    
+    ############################ DRAWING PURPOSE END ##############
+
+    # cylinder_img_path = pygame.do_task(settings.MEDIA_ROOT + 'images/')
+    cylinder_img_path = settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_"+str(main_data.get("projectID"))+".png"
     print(cylinder_img_path)
     # fig = plt.figure()
     img_in_memory = io.BytesIO()
@@ -114,7 +173,7 @@ def index(request):
     # plt.xticks([]), plt.yticks([])
 
     def display_image_in_actual_size(im_path, img_in_memory):
-        dpi = 100
+        dpi = 1000
         im_data = plt.imread(im_path)
         height, width, depth = im_data.shape
 
@@ -156,7 +215,8 @@ def index(request):
         'nozzleParams': nozzle_params,
         'headParams': head_params,
         'skirtParams': skirt_params,
-        'lugParams': lug_params
+        'lugParams': lug_params,
+        'nozzleZip': zip(nozzle_params, nozzle_id_name)
     }
     # print(Report.objects.get(id=87))
     html_out = template.render(context, request)
@@ -168,7 +228,7 @@ def index(request):
     html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
                    stylesheets=[google_css, typo_css])
     # pdf = html.write_pdf(stylesheets=[google_css, typo_css])
-    
+
     # fs = FileSystemStorage(location=str(Report.objects.get(id=87))[:-10])
     # fs.save(content='hello', name='report.pdf')
     # with open(str(Report.objects.get(id=87)), 'w') as f:
@@ -240,14 +300,15 @@ class ReportViewSet(viewsets.ModelViewSet):
         # save the default queryset
         temp_query = self.queryset
         # filter the queryset to get querys where given projectName exists
-        name_exists = temp_query.filter(author=username).filter(projectName=data['projectName'])
+        name_exists = temp_query.filter(author=username).filter(
+            projectName=data['projectName'])
         if name_exists:
             raise newError({
                 'msg': 'The project name already exists.'
             })
 
         response = super(ReportViewSet, self).create(*args, **kwargs)
-        
+
         report_id = response.data['id']
         vessel_orientation = response.data['orientation']
 
@@ -261,7 +322,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         with open(state_path, 'w') as file:
             json.dump(data, file)
 
-        return response      
+        return response
 
     # override the list action
     def list(self, *args, **kwargs):
@@ -300,4 +361,3 @@ class ReportViewSet(viewsets.ModelViewSet):
     # @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     #  use @action to handle custom endpoints of GET requests
     #  use @method to handle custom endpoints of POST requests
-
