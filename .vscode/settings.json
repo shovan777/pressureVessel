@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "/home/calcgen2/anaconda3/envs/vessel/bin/python",
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": [
-        "--load-plugins=pylint_django"
-   ]
-}
