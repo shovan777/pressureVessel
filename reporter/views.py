@@ -152,15 +152,27 @@ def index(request):
     if main_data.get('orientation') == 'horizontal':
         print("i am here")
         starting_y = 600
-        main_array,starting_x,total_length = dra.arrange_data(main_data)
-        dra.draw_main_horizontal(data=main_array, starting_x=starting_x, starting_y=starting_y)
+        main_array,length_of_left_head,length_of_right_head,total_length = dra.arrange_data(main_data)
+        dra.draw_main_horizontal(data=main_array,
+                                starting_x=length_of_left_head+10,
+                                starting_y=starting_y,
+                                total_length=total_length,
+                                length_of_left_head=length_of_left_head,
+                                length_of_right_head=length_of_right_head
+                                )
 
     elif main_data.get('orientation') == 'vertical':
         print("i am not avaliable")
         starting_x = 600
-        main_array,starting_y,total_length = dra.arrange_data(main_data)
-        dra.draw_main_vertical(data=main_array, starting_x=starting_x, starting_y=starting_y,total_length=total_length)
-    
+        main_array,length_of_bottom_head,length_of_top_head,total_length = dra.arrange_data(main_data)
+        dra.draw_main_vertical(data=main_array,
+                            starting_x=starting_x,
+                            starting_y=length_of_top_head + 10,
+                            total_length=total_length,
+                            length_of_top_head=length_of_top_head,
+                            length_of_bottom_head=length_of_bottom_head
+                            )
+
     ############################ DRAWING PURPOSE END ##############
 
     # cylinder_img_path = pygame.do_task(settings.MEDIA_ROOT + 'images/')
