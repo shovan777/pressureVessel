@@ -1,6 +1,6 @@
 from exceptionapp.exceptions import newError
 
-def max_stress_calculator(row_dict,temp):
+def max_stress_calculator(row_dict, temp):
     temp_list = [100, 150, 200, 250, 300, 400, 500, 600, 650, 700, 750, 800, 850, 900, 950, 1000]
     # temp = data1.get('temp1')
     max_stress = 0
@@ -10,7 +10,7 @@ def max_stress_calculator(row_dict,temp):
             return max_stress
         elif temp > temp_list[len(temp_list)-1]:
             raise newError({
-                "temp_error":["Temperatue is too high for the material"]
+                "temp_error": "Temperatue is too high for the material"
             })
         elif temp_list[temperature_index] ==temp:
             max_stress = row_dict['max_stress_'+ str(temp)]
