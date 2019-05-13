@@ -28,7 +28,7 @@ class RegistrationNormalUserAPIView(APIView):
             'pk':serializer.data.get('pk'),
             'is_active':serializer.data.get('is_active'),
             'email':serializer.data.get('email'),
-        },request=request)        
+        },request=request)
 
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 

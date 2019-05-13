@@ -171,6 +171,8 @@ class DrawingClass:
             "Nozzle":[]
         }
         starting_x = 0
+        starting_y = 0
+        max_array = []
         total_length = 0
         for val in data.get('components'):
             if val.get('component') == 'Cylinder':
@@ -184,7 +186,10 @@ class DrawingClass:
                                     (float(val.get('hr').split(":")[0]))) * 40
             elif val.get('component') == 'Nozzle':
                 main_array.get('Nozzle').append(val)
+                if float(val.get('orientation')) >= 90 and float(val.get('orientation')) <=270:
+                    max_array.append(float(val.get('externalNozzleProjection')))
 
+        starting_y = max(max_array)*self.drawingScaleFactor
         return main_array,starting_x,total_length
 
         
@@ -286,9 +291,9 @@ class DrawingClass:
             for val in data.get('Ellipsoidal Head'):
                 if float(val.get('position')) == 0:
                     length_of_head = ((float(val.get('sd'))/2)/(float(val.get('hr').split(":")[0])))
-                    self.draw_head_bottom(
+                    self.draw_head_top(
                         float(rightx),
-                        float(topy+(bottomy-2*length_of_head)*self.drawingScaleFactor),
+                        float(topy),
                         float(val.get('hr').split(":")[1])*self.drawingScaleFactor,
                         float(val.get('hr').split(":")[0])*self.drawingScaleFactor,
                         float(val.get('sd'))*self.drawingScaleFactor,
@@ -296,9 +301,9 @@ class DrawingClass:
                         self.line_width
                     )
                 elif float(val.get('position')) == 1:
-                    self.draw_head_top(
+                    self.draw_head_bottom(
                         float(rightx),
-                        float(topy),
+                        float(topy+(bottomy-2*length_of_head)*self.drawingScaleFactor),
                         float(val.get('hr').split(":")[1])*self.drawingScaleFactor,
                         float(val.get('hr').split(":")[0])*self.drawingScaleFactor,
                         float(val.get('sd'))*self.drawingScaleFactor,
