@@ -10,7 +10,7 @@ class UserJSONRenderer(JSONRenderer):
         
         errors = data.get('errors', None)
         detail = data.get('detail',None)
-
+        
         if detail is not None:
             return super(UserJSONRenderer,self).render(data)
 
@@ -27,5 +27,5 @@ class UserJSONRenderer(JSONRenderer):
             return super(UserJSONRenderer,self).render(output)
 
         return json.dumps({
-            'detail':'please validate your account',
+            'success':'please validate your account',
         })

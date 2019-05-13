@@ -1,8 +1,4 @@
 '''Test the views of authentication app.'''
-from django.test import TestCase
-# rest framework
-from rest_framework.test import APIRequestFactory
-from rest_framework.test import APIClient
 import json
 
 from django.urls import reverse
