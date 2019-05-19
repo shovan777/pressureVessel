@@ -23,12 +23,13 @@ class NozzleStateViewSet(viewsets.ModelViewSet):
     queryset = NozzleState.objects.all()
     serializer_class = NozzleStateSerializer
 
-
+# TODO handle error in data,projectID,componentID, database query is available or not
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.IsAuthenticated, ))
 def schemaWrite(request):
     # print(request.data)
     data = request.data['schema']
+    print(data)
     projectID = request.data['projectID']
     report = Report.objects.get(id=projectID)
     state_path = report.location_state

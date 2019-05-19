@@ -147,7 +147,7 @@ def index(request):
     with open(state_path) as json_file:
         main_data = json.load(json_file)
 
-    dra = DrawingClass(fileName=settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_"+str(main_data.get("projectID")), drawing_scale_factor=10, type=main_data.get('orientation'))
+    dra = DrawingClass(fileName=settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_"+str(main_data.get("projectID")), drawing_scale_factor=1, type=main_data.get('orientation'))
 
     if main_data.get('orientation') == 'horizontal':
         print("i am here")

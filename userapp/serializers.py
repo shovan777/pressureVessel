@@ -50,34 +50,34 @@ class RegistrationSuperUserSerializer(serializers.ModelSerializer):
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['email','username','password']
+        fields = ['email','username','password','first_name','last_name']
 
     def create(self, validated_data):
         return User.objects.create_superuser(**validated_data)
 
 
-class UserSerializer(serializers.ModelSerializer):
+# class UserSerializer(serializers.ModelSerializer):
 
-    password = serializers.CharField(
-        max_length=128,
-        min_length=8,
-        write_only=True
-    )
+#     password = serializers.CharField(
+#         max_length=128,
+#         min_length=8,
+#         write_only=True
+#     )
 
-    class Meta:
-        model = User
-        fields = ('email','username','password')
+#     class Meta:
+#         model = User
+#         fields = ('email','username','password')
 
-    def update(self, instance, validated_data):
+#     def update(self, instance, validated_data):
 
-        password = validated_data.pop('password',None)
+#         password = validated_data.pop('password',None)
 
-        for (key, value) in validated_data.items():
-            setattr(instance, key, value)
+#         for (key, value) in validated_data.items():
+#             setattr(instance, key, value)
 
-        if password is not None:
-            instance.set_password(password)
+#         if password is not None:
+#             instance.set_password(password)
 
-        instance.save()
+#         instance.save()
 
-        return instance
+#         return instance
