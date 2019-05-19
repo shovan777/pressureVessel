@@ -22,9 +22,9 @@ class UserMangaerTest(TestCase):
             first_name="John",
             last_name="Snow")
         ret_val = user1.username
-        self.assertTrue(isinstance(user1,User))
-        self.assertEqual(expected_val,ret_val)
-        self.assertEqual(False,user1.is_active)
+        self.assertTrue(isinstance(user1, User))
+        self.assertEqual(expected_val, ret_val)
+        self.assertEqual(False, user1.is_active)
 
     def test_CreateSuperUser(self):
         expected_val = "john"
@@ -35,8 +35,8 @@ class UserMangaerTest(TestCase):
             first_name="John",
             last_name="Snow")
         ret_val = user1.username
-        self.assertTrue(isinstance(user1,User))
-        self.assertEqual(expected_val,ret_val)
-        self.assertEqual(True,user1.is_active)
-        self.assertEqual(True,user1.is_superuser)
-        self.assertEqual(True,user1.is_staff)
+        self.assertTrue(isinstance(user1, User))
+        self.assertEqual(expected_val, ret_val)
+        self.assertEqual(True, user1.is_active)
+        self.assertEqual(True, user1.is_superuser)
+        self.assertEqual(True, user1.is_staff)

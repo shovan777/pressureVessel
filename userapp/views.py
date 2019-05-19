@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from emailapp.funcs import SendEmailVerification
 
 from .serializers import (
-    RegistrationNormalUserSerializer, UserSerializer,RegistrationSuperUserSerializer
+    RegistrationNormalUserSerializer,RegistrationSuperUserSerializer
 )
 from .renderers import UserJSONRenderer
 
@@ -47,23 +47,23 @@ class RegistrationSuperUserAPIView(APIView):
         return Response(serializer.data,status=status.HTTP_201_CREATED)
 
 
-class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
-    permission_classes = (IsAuthenticated,)
-    renderer_classes = (UserJSONRenderer,)
-    serializer_class = UserSerializer
+# class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     renderer_classes = (UserJSONRenderer,)
+#     serializer_class = UserSerializer
 
-    def retrieve(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.user)
+#     def retrieve(self, request, *args, **kwargs):
+#         serializer = self.serializer_class(request.user)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def update(self, request, *args, **kwargs):
-        serializer_data = request.data.get('user',{})
+#     def update(self, request, *args, **kwargs):
+#         serializer_data = request.data.get('user',{})
 
-        serializer = self.serializer_class(
-            request.user, data= serializer_data, partial =True
-        )
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+#         serializer = self.serializer_class(
+#             request.user, data= serializer_data, partial =True
+#         )
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+#         return Response(serializer.data, status=status.HTTP_200_OK)

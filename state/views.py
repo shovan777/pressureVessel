@@ -29,6 +29,7 @@ class NozzleStateViewSet(viewsets.ModelViewSet):
 def schemaWrite(request):
     # print(request.data)
     data = request.data['schema']
+    print(data)
     projectID = request.data['projectID']
     report = Report.objects.get(id=projectID)
     state_path = report.location_state

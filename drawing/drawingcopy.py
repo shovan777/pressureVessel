@@ -234,7 +234,7 @@ class DrawingClass:
         
         if data.get('Nozzle'):
             for val in data.get('Nozzle'):
-                if float(val.get('orientation')) >= 90 and float(val.get('orientation')) <=270:
+                if float(val.get('orientation')) >= 0 and float(val.get('orientation')) <=180:
                     self.draw_nozzle_type_bottom(
                         float(leftx),
                         float(topy),
@@ -313,7 +313,7 @@ class DrawingClass:
 
         if data.get('Nozzle'):
             for val in data.get('Nozzle'):
-                if float(val.get('orientation')) >= 90 and float(val.get('orientation')) <=270:
+                if float(val.get('orientation')) >= 0 and float(val.get('orientation')) <=180:
                     self.draw_nozzle_type_left(
                         float(rightx),
                         float(topy),
