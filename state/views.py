@@ -1,11 +1,11 @@
 # rest framework modules
 from rest_framework import viewsets
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, serializer_class
 from rest_framework import permissions
 
 # state modules
 from .models import CylinderState, NozzleState, Report
-from .serializers import CylinderStateSerializer, NozzleStateSerializer
+from .serializers import CylinderStateSerializer, NozzleStateSerializer, ProjectIdSerializer
 
 from reporter.models import Report
 
@@ -26,11 +26,12 @@ class NozzleStateViewSet(viewsets.ModelViewSet):
 # TODO handle error in data,projectID,componentID, database query is available or not
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.IsAuthenticated, ))
+# @serializer_class(ProjectIdSerializer)
 def schemaWrite(request):
     # print(request.data)
     data = request.data['schema']
-    print(data)
     projectID = request.data['projectID']
+    # serializer_class()
     report = Report.objects.get(id=projectID)
     state_path = report.location_state
     # read the file and add the component
@@ -47,7 +48,6 @@ def schemaWrite(request):
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.IsAuthenticated, ))
 def schemaUpdate(request):
-    # print(request.data)
     data = request.data['schema']
     array_id = data['componentID']
     projectID = request.data['projectID']
