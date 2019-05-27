@@ -13,13 +13,15 @@ from rest_framework.authtoken.models import Token
 from userapp.models import User
 
 from state.views import schemaWrite, schemaUpdate, schemaOpen, schemaDelete
+from reporter.views import ReportViewSet
 
 class SchemaWriteTest(TestCase):
 
     def setUp(self):
         self.url = reverse('schema-write')
         self.url1 = reverse('token-auth')
-        # self.url2 = reverse('')
+        self.url2 = reverse('report-list')
+
         self.user = User.objects.create_superuser(
             username="john",
             email="johnking@got.com",
@@ -32,26 +34,16 @@ class SchemaWriteTest(TestCase):
             'password':'popularchoice'
         }
         self.token = json.loads(self.client.post(self.url1, self.data1).content)['data']['token']
-        self.report_data =  Recipe(Report,
-            report_type ="vessel",
-            author = "john",
-            projectName = "ironthrone",
-            orientation = "vertical",
-            location_state = 'states/user_john/ironthrone/data.json',
-            location = 'reports/user_john/'
-        )
 
     def test_schema_write_without_authorization_token(self):
-        data = {}
-        response = self.client.post(self.url,data,format=json)
-        response_json = json.loads(response.content)
-        self.assertEqual(401, response.status_code)
-        self.assertTrue('detail' in response_json)
-
-    def test_schema_write_with_authorization_token(self):
-        reports = self.report_data.make()
+        data_report = {
+            "report_type":"vessel",
+            "projectName":"1",
+            "orientation":"vertical"
+        }
+        response_report = json.loads(self.client.post(self.url2,data_report,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token}).content).get('id')
         data = {
-            'schema': {[
+            "schema": {
                 "component": "Cylinder",
                 "type": "blob",
                 "componentID": 0,
@@ -72,12 +64,81 @@ class SchemaWriteTest(TestCase):
                     "thickness": 0.7655141843971631,
                     "weight": 1952.38476084217
                 }
-            ]
             },
-            'projectID':reports.id
+            "projectID": response_report
         }
-        response = self.client.post(self.url,data,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token})
+        response = self.client.post(self.url,data,format=json)
         response_json = json.loads(response.content)
-        print(response_json)
         self.assertEqual(401, response.status_code)
         self.assertTrue('detail' in response_json)
+
+    def test_schema_write_with_authorization_token(self):
+        data_report = {
+            "report_type":"vessel",
+            "projectName":"2",
+            "orientation":"vertical"
+        }
+        response_report = json.loads(self.client.post(self.url2,data_report,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token}).content).get('id')
+        data = {
+            "schema": {
+                "component": "Cylinder",
+                "type": "blob",
+                "componentID": 0,
+                "componentName": "2",
+                "material": "SA-516 60",
+                "ip": 300,
+                "temp1": 300,
+                "ep": "15",
+                "temp2": "300",
+                "ic": "0.125",
+                "sd": 72,
+                "length": "8",
+                "thickness": 0.775,
+                "number": 1,
+                "spec_num": "SA-516",
+                "type_grade": "60",
+                "value": {
+                    "thickness": 0.7655141843971631,
+                    "weight": 1952.38476084217
+                }
+            },
+            "projectID": response_report
+        }
+        response = self.client.post(self.url,data,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token})
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(b'ok iam writing', response.content)
+
+    def test_schema_write_without_projectid(self):
+        data_report = {
+            "report_type":"vessel",
+            "projectName":"3",
+            "orientation":"vertical"
+        }
+        response_report = json.loads(self.client.post(self.url2,data_report,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token}).content).get('id')
+        data = {
+            "schema": {
+                "component": "Cylinder",
+                "type": "blob",
+                "componentID": 0,
+                "componentName": "2",
+                "material": "SA-516 60",
+                "ip": 300,
+                "temp1": 300,
+                "ep": "15",
+                "temp2": "300",
+                "ic": "0.125",
+                "sd": 72,
+                "length": "8",
+                "thickness": 0.775,
+                "number": 1,
+                "spec_num": "SA-516",
+                "type_grade": "60",
+                "value": {
+                    "thickness": 0.7655141843971631,
+                    "weight": 1952.38476084217
+                }
+            }
+        }
+        response = self.client.post(self.url,data,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token})
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(b'ok iam writing', response.content)

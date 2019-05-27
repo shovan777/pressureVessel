@@ -16,7 +16,7 @@ from .views import ReportViewSet
 # }, renderer_classes=[renderers.StaticHTMLRenderer])
 
 router = routers.DefaultRouter()
-router.register(r'reports', views.ReportViewSet)
+router.register(r'reports', views.ReportViewSet,base_name="report")
 
 urlpatterns = [
     url(r'^', include(router.urls)),
