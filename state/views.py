@@ -1,6 +1,6 @@
 # rest framework modules
 from rest_framework import viewsets
-from rest_framework.decorators import api_view, permission_classes #, serializer_class
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
 
 # state modules
@@ -26,12 +26,13 @@ class NozzleStateViewSet(viewsets.ModelViewSet):
 # TODO handle error in data,projectID,componentID, database query is available or not
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.IsAuthenticated, ))
-# @serializer_class(ProjectIdSerializer)
 def schemaWrite(request):
-    # print(request.data)
     data = request.data['schema']
-    projectID = request.data['projectID']
-    # serializer_class()
+
+    serialization = ProjectIdSerializer(data=request.data)
+    serialization.is_valid(raise_exception=True)
+    projectID = serialization.data.get('projectID')
+
     report = Report.objects.get(id=projectID)
     state_path = report.location_state
     # read the file and add the component
@@ -50,7 +51,11 @@ def schemaWrite(request):
 def schemaUpdate(request):
     data = request.data['schema']
     array_id = data['componentID']
-    projectID = request.data['projectID']
+
+    serialization = ProjectIdSerializer(data=request.data)
+    serialization.is_valid(raise_exception=True)
+    projectID = serialization.data.get('projectID')
+
     report = Report.objects.get(id=projectID)
     state_path = report.location_state
     # read the file and update the component
@@ -71,7 +76,11 @@ def schemaDelete(request):
     # print(request.data['schema']['componentID'])
     data = request.data['schema']
     array_id = data['componentID']
-    projectID = request.data['projectID']
+
+    serialization = ProjectIdSerializer(data=request.data)
+    serialization.is_valid(raise_exception=True)
+    projectID = serialization.data.get('projectID')
+
     report = Report.objects.get(id=projectID)
 
     # delete the component with ComponentID
@@ -97,12 +106,17 @@ def schemaDelete(request):
 @api_view(['GET'])
 @permission_classes((permissions.IsAuthenticated, ))
 def schemaOpen(request):
-    print('**********')
+    # print('**********')
     # print(request.data)
-    print(request.GET.get('projectID'))
+    # print(request.GET.get('projectID'))
     # print(request.params)
-    print('************')
-    projectID = request.GET.get('projectID')
+    # print('************')
+
+    serialization = ProjectIdSerializer(data=request.GET)
+    serialization.is_valid(raise_exception=True)
+    projectID = serialization.data.get('projectID')
+
+    # projectID = request.GET.get('projectID')
     report = Report.objects.get(id=projectID)
     state_path = report.location_state
     # data = request.data['schema']

@@ -2,18 +2,12 @@ import json
 
 from django.urls import reverse
 from django.test import TestCase
-from model_mommy import mommy
-from model_mommy.recipe import Recipe, foreign_key, related
-
-from reporter.models import Report
-
-from rest_framework.test import APIClient
-from rest_framework.authtoken.models import Token
 
 from userapp.models import User
 
-from state.views import schemaWrite, schemaUpdate, schemaOpen, schemaDelete
-from reporter.views import ReportViewSet
+from pressureVessel import settings
+
+import shutil
 
 class SchemaWriteTest(TestCase):
 
@@ -34,7 +28,12 @@ class SchemaWriteTest(TestCase):
             'password':'popularchoice'
         }
         self.token = json.loads(self.client.post(self.url1, self.data1).content)['data']['token']
-
+    
+    def tearDown(self):
+        shutil.rmtree(settings.STATIC_ROOT+"/states/user_john/1", ignore_errors=True)
+        shutil.rmtree(settings.STATIC_ROOT+"/states/user_john/2", ignore_errors=True)
+        shutil.rmtree(settings.STATIC_ROOT+"/states/user_john/3", ignore_errors=True)
+        
     def test_schema_write_without_authorization_token(self):
         data_report = {
             "report_type":"vessel",
@@ -79,6 +78,7 @@ class SchemaWriteTest(TestCase):
             "orientation":"vertical"
         }
         response_report = json.loads(self.client.post(self.url2,data_report,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token}).content).get('id')
+        
         data = {
             "schema": {
                 "component": "Cylinder",
@@ -104,7 +104,7 @@ class SchemaWriteTest(TestCase):
             },
             "projectID": response_report
         }
-        response = self.client.post(self.url,data,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token})
+        response = self.client.post(self.url,data,content_type="application/json",format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token})
         self.assertEqual(200, response.status_code)
         self.assertEqual(b'ok iam writing', response.content)
 
@@ -139,6 +139,7 @@ class SchemaWriteTest(TestCase):
                 }
             }
         }
-        response = self.client.post(self.url,data,format=json,**{'HTTP_AUTHORIZATION':'JWT '+self.token})
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(b'ok iam writing', response.content)
+        resp = self.client.post(self.url,data,format=json,content_type="application/json",**{'HTTP_AUTHORIZATION':'JWT '+self.token})
+        response_json = json.loads(resp.content)
+        self.assertEqual(400, resp.status_code)
+        self.assertTrue('errors' in response_json)
