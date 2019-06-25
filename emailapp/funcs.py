@@ -48,3 +48,4 @@ def activate(request, uidb64, token):
         return JsonResponse({
             'success':'Account is activated',
         })
+

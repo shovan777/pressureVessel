@@ -20,6 +20,7 @@ from emailapp import funcs
 # del these imports done for media url
 from django.conf import settings
 from django.conf.urls.static import static
+from emailapp import views
 
 import debug_toolbar
 
@@ -38,6 +39,7 @@ urlpatterns = [
     path('user/', include('userapp.urls')),
     path('admin', admin.site.urls),
     path('auth/', include('authenticationapp.urls')),
+    path('ticketing/', views.eticketing),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         funcs.activate, name='activate'),
 ]
