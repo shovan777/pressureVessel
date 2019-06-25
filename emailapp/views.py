@@ -23,7 +23,7 @@ def eticketing(request):
         )
 
         mail_subject = request.POST.get('subject', '')
-        to_email = 'calcgenamatya@gmail.com'
+        to_email = 'calcgennepal1@gmail.com'
         email = EmailMessage(mail_subject, message, to=[to_email])
         if request.FILES:
             myfile = request.FILES['pic']
