@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'componentapp.lifingLug',
     'componentapp.saddle',
     'state',
+
+    'oidc_rp',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'oidc_rp.middleware.OIDCRefreshIDTokenMiddleware',
 ]
 
 AUTH_USER_MODEL = 'userapp.User'
@@ -71,7 +75,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oidc_rp.contrib.rest_framework.authentication.BearerTokenAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+
     ),
 }
 
@@ -96,6 +102,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'oidc_rp.context_processors.oidc',
             ],
         },
     },
@@ -151,7 +158,22 @@ DEFAULT_FROM_EMAIL = 'grunze1212@gmail.com'
 SERVER_EMAIL = 'grunze1212@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
-
+# AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'oidc_rp.backends.OIDCAuthBackend',
+)
 
 INTERNAL_IPS = ['127.0.0.1', '192.168.1.13']
+
+# OIDC provider configuration
+OIDC_RP_PROVIDER_ENDPOINT = 'http://sushil:8001/openid/'
+OIDC_RP_CLIENT_ID = '433482'
+OIDC_RP_CLIENT_SECRET = '1f2ca0e3cabbe1e13bd6e801db2e75b0d75f7b7fc3737ddb529d0e18'
+OIDC_RP_USE_NONCE = False
+OIDC_RP_USE_STATE = True
+OIDC_RP_AUTHENTICATION_REDIRECT_URI = '/'
+OIDC_RP_SCOPES = 'openid email profile'
+OIDC_RP_USE_AJAX = True
+# OIDC Provider configuration

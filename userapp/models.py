@@ -6,18 +6,17 @@ from django.db import models
 # Create your models here.
 
 class UserMangaer(BaseUserManager):
-    def create_user(self, username, email, password, first_name, last_name, middle_name=None):
-        user = self.model(username=username, email=self.normalize_email(email), first_name=first_name, last_name=last_name, middle_name=middle_name)
+    def create_user(self, username, email, first_name, last_name, middle_name=None, password=None,is_active=False):
+        user = self.model(username=username, email=self.normalize_email(email), first_name=first_name, last_name=last_name, middle_name=middle_name,is_active=is_active)
         user.set_password(password)
         user.save()
 
         return user
 
-    def create_superuser(self, username, email, password, first_name, last_name, middle_name=None):
-        user = self.create_user(username, email, password, first_name, last_name,middle_name=middle_name)
+    def create_superuser(self, username, email,  first_name, last_name, password=None ,middle_name=None):
+        user = self.create_user(username, email, first_name, last_name, password=password ,middle_name=middle_name,is_active=True)
         user.is_superuser = True
         user.is_staff = True
-        user.is_active = True
     
         user.save()
 

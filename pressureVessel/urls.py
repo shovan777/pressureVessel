@@ -27,6 +27,8 @@ import debug_toolbar
 urlpatterns = [
     # path('', include('frontend.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('', views.indexx),
+    path('oidc/', include('oidc_rp.urls')),
     path('api/', include('componentapp.component.urls')),
     path('report/', include('reporter.urls')),
     path('api/', include('componentapp.cylinder.urls')),

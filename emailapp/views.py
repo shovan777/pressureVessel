@@ -35,3 +35,12 @@ def eticketing(request):
         return JsonResponse({'message': 'We will contact you soon.'})
     else:
         return JsonResponse({'error': '{} method is not available'.format(request.method)})
+
+# Create your views here.
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny, ))
+def indexx(request):
+    # print(request.user)
+    if request.method == 'GET':
+        return JsonResponse({'status':'congratulations'})
+
