@@ -17,6 +17,18 @@ import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '04ynd%4&6gsfiaz*!bpe#2n%*id&96_xs5ndqo^vw4jr6y8ls%'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
