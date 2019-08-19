@@ -10,6 +10,8 @@ from pressureVessel import settings
 
 static_report_path = settings.STATIC_ROOT + 'reports/'
 static_state_path = settings.STATIC_ROOT + 'states/'
+# static_report_path = '/static/reports/'
+# static_state_path = '/static/states/'
 
 
 # this is a deprecated method

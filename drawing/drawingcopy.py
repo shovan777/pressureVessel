@@ -5,15 +5,15 @@ import cairo
 
 class DrawingClass:
     def __init__(self,fileName,drawing_scale_factor,type):
-        WIDTH,HEIGHT,PIXEL = 1.41, 1, 3508
+        self.WIDTH,self.HEIGHT,self.PIXEL = 1.41, 1, 3508
         if type == 'horizontal':
-            WIDTH,HEIGHT,PIXEL = 1.41, 1, 3508
+            self.WIDTH,self.HEIGHT,self.PIXEL = 1.41, 1, 3508
         elif type == 'vertical':
-            WIDTH,HEIGHT,PIXEL = 1, 1.41, 3508
+            self.WIDTH,self.HEIGHT,self.PIXEL = 1, 1.41, 3508
         self.fileName = fileName
-        surface = self.create_surface(fileName+".svg",WIDTH,HEIGHT,PIXEL)
+        surface = self.create_surface(fileName+".svg",self.WIDTH,self.HEIGHT,self.PIXEL)
         self.surface = surface
-        self.cr = self.create_context(surface,WIDTH,HEIGHT,PIXEL)
+        self.cr = self.create_context(surface,self.WIDTH,self.HEIGHT,self.PIXEL)
         self.drawingScaleFactor = drawing_scale_factor
         self.line_width = 10
 
@@ -179,11 +179,11 @@ class DrawingClass:
                 total_length = total_length + float(val.get('length'))*12
             elif val.get('component') == 'Ellipsoidal Head':
                 main_array.get('Ellipsoidal Head').append(val)
-                total_length = total_length+((float(val.get('sd'))/2)/(float(val.get('hr').split(':')[0])))
+                total_length = total_length+((float(val.get('sd'))/2)/(float(val.get('hr').split(':')[0])))+(float(val.get('srl')))
                 if float(val.get('position')) == 0:
-                   length_of_bottom_head = ((float(val.get('sd'))/2)/(float(val.get('hr').split(":")[0])))
+                   length_of_bottom_head = ((float(val.get('sd'))/2)/(float(val.get('hr').split(":")[0])))+(float(val.get('srl')))
                 else:
-                   length_of_top_head = ((float(val.get('sd'))/2)/(float(val.get('hr').split(":")[0])))
+                   length_of_top_head = ((float(val.get('sd'))/2)/(float(val.get('hr').split(":")[0])))+(float(val.get('srl')))
             elif val.get('component') == 'Nozzle':
                 main_array.get('Nozzle').append(val)
 
@@ -191,6 +191,8 @@ class DrawingClass:
 
         
     def draw_main_horizontal(self,data,starting_x,starting_y,total_length,length_of_left_head,length_of_right_head):
+        cle = float(total_length)/((self.WIDTH*self.PIXEL)-250)
+        self.drawingScaleFactor = self.drawingScaleFactor/cle
         leftx = float(starting_x)
         rightx = 0
         topy = float(starting_y)
@@ -231,7 +233,7 @@ class DrawingClass:
         
         if data.get('Nozzle'):
             for val in data.get('Nozzle'):
-                if float(val.get('orientation')) >= 90 and float(val.get('orientation')) <=270:
+                if float(val.get('orientation')) >= 0 and float(val.get('orientation')) <=180:
                     self.draw_nozzle_type_bottom(
                         float(leftx)*self.drawingScaleFactor,
                         float(topy),
@@ -268,21 +270,25 @@ class DrawingClass:
         self.surface.finish()
         
     def draw_main_vertical(self,data,starting_x,starting_y,total_length,length_of_top_head,length_of_bottom_head):
+        cle = float(total_length)/((self.HEIGHT*self.PIXEL)-500)
+        self.drawingScaleFactor = self.drawingScaleFactor/cle
         leftx = 0
         rightx = float(starting_x)
         topy = float(starting_y)
         bottomy = float(total_length)
         if data.get('Cylinder'):
             cylinder_height = 0
+            # cylinder_height = float(val.get('length'))*12
             for val in data.get('Cylinder'):
+                cylinder_height = cylinder_height + float(val.get('length'))*12
                 self.draw_rectangle(
                     float(rightx),
-                    float(topy-cylinder_height)*self.drawingScaleFactor,
+                    float(bottomy+topy-length_of_top_head-length_of_bottom_head-cylinder_height)*self.drawingScaleFactor,
                     float(val.get('sd'))*self.drawingScaleFactor,
                     float(val.get('length'))*self.drawingScaleFactor*12,
                     self.line_width
                 )
-                cylinder_height = cylinder_height - float(val.get('length'))*12
+                # cylinder_height = cylinder_height + float(val.get('length'))*12
 
         if data.get('Ellipsoidal Head'):
             for val in data.get('Ellipsoidal Head'):
@@ -299,7 +305,7 @@ class DrawingClass:
                 elif float(val.get('position')) == 1:
                     self.draw_head_top(
                         float(rightx),
-                        float(topy)*self.drawingScaleFactor,
+                        float(topy-float(val.get('srl')))*self.drawingScaleFactor,
                         float(val.get('hr').split(":")[1])*self.drawingScaleFactor,
                         float(val.get('hr').split(":")[0])*self.drawingScaleFactor,
                         float(val.get('sd'))*self.drawingScaleFactor,
@@ -309,11 +315,11 @@ class DrawingClass:
 
         if data.get('Nozzle'):
             for val in data.get('Nozzle'):
-                if float(val.get('orientation')) >= 90 and float(val.get('orientation')) <=270:
+                if float(val.get('orientation')) >= 0 and float(val.get('orientation')) <=180:
                     self.draw_nozzle_type_left(
-                        float(rightx),
-                        float(topy+bottomy-length_of_bottom_head-length_of_top_head)*self.drawingScaleFactor,
-                        -(float(val.get('height'))*self.drawingScaleFactor*12)+ (float(val.get('value').get('barrel_outer_diameter'))/2)*self.drawingScaleFactor,
+                        float(rightx),#startingx
+                        float(topy+bottomy-length_of_bottom_head-length_of_top_head)*self.drawingScaleFactor,#startingy
+                        -(float(val.get('height'))*self.drawingScaleFactor*12)- (float(val.get('value').get('barrel_outer_diameter'))/2)*self.drawingScaleFactor,#position
                         {
                             "lengthOfPipe":float(val.get('externalNozzleProjection'))*self.drawingScaleFactor,
                             "diameterOfPipe":float(val.get('value').get('barrel_outer_diameter'))*self.drawingScaleFactor,
@@ -328,8 +334,8 @@ class DrawingClass:
                 else:
                     self.draw_nozzle_type_right(
                         float(rightx),
-                        float(topy+bottomy-length_of_bottom_head-length_of_top_head)*self.drawingScaleFactor,
-                        -(float(val.get('height'))*self.drawingScaleFactor*12)+ (float(val.get('value').get('barrel_outer_diameter'))/2)*self.drawingScaleFactor,
+                        float(topy+bottomy-length_of_bottom_head-length_of_top_head-2)*self.drawingScaleFactor,
+                        -(float(val.get('height'))*self.drawingScaleFactor*12)- (float(val.get('value').get('barrel_outer_diameter'))/2)*self.drawingScaleFactor,
                         {
                             "lengthOfPipe":float(val.get('externalNozzleProjection'))*self.drawingScaleFactor,
                             "diameterOfPipe":float(val.get('value').get('barrel_outer_diameter'))*self.drawingScaleFactor,

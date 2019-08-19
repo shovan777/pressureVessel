@@ -20,3 +20,11 @@ class HeadStateSerializer(serializers.HyperlinkedModelSerializer):
         model = HeadState
         fields = '__all__'
 
+class ProjectIdSerializer(serializers.ModelSerializer):
+    projectID = serializers.IntegerField(
+        required = True,
+    )
+    class Meta:
+        model = HeadState
+        fields = ['projectID']
+
