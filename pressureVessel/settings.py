@@ -12,14 +12,24 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import datetime
-
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SECRET_KEY = os.environ['SECRET_KEY']
+
+DEBUG = os.environ['DEBUG'] == 'True'
+
+SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT'] == 'True'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+ALLOWED_HOSTS = ['vesselexpress-backend.appspot.com', '127.0.0.1']
+
 # Application definition
 
 INSTALLED_APPS = [
+    'pressureVessel',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,6 +120,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pressureVessel.wsgi.application'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD']
+    }
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -141,10 +162,31 @@ USE_L10N = True
 
 USE_TZ = True
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = os.environ['STATIC_URL'] # /static/ if DEBUG else Google Cloud bucket url
+
+# collectstatic directory (located OUTSIDE the base directory)
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'vesselexpress-backend')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'), # static directory (in the top level directory) for local testing
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = 'media/'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_HEADERS = default_headers + (
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Headers',
+    'responsetype'
+)
+
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
 
 APPEND_SLASH=False
 
@@ -168,9 +210,15 @@ AUTHENTICATION_BACKENDS = (
 INTERNAL_IPS = ['127.0.0.1', '192.168.1.13']
 
 # OIDC provider configuration
-OIDC_RP_PROVIDER_ENDPOINT = 'http://sushil:8001/openid/'
-OIDC_RP_CLIENT_ID = '433482'
-OIDC_RP_CLIENT_SECRET = '1f2ca0e3cabbe1e13bd6e801db2e75b0d75f7b7fc3737ddb529d0e18'
+OIDC_RP_PROVIDER_ENDPOINT = 'https://calcgen-208022.appspot.com/auth/'
+OIDC_RP_CLIENT_ID = '122079'
+OIDC_RP_CLIENT_SECRET = '97df361d6b4991ca5face2a925eaad069f55dc567cd93bd1edfcd68a'
+
+# OIDC_RP_PROVIDER_ENDPOINT = 'http://127.0.0.1:8000/auth/'
+# OIDC_RP_CLIENT_ID = '520504'
+# OIDC_RP_CLIENT_SECRET = '271215ae5b164ee2a46ede8851ec295e763e0d298db003d59c70f1eb'
+
+
 OIDC_RP_USE_NONCE = False
 OIDC_RP_USE_STATE = True
 OIDC_RP_AUTHENTICATION_REDIRECT_URI = '/'
