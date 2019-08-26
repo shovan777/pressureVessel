@@ -18,7 +18,7 @@ Django==2.1.2
 django-cors-headers==2.4.0
 django-debug-toolbar==1.11
 # django-oidc-rp==0.3.4
-git+git://github.com/Grunze1s/django-oidc-rp.git
+git+git://github.com/Grunze1s/django-oidc-rp.git@master
 djangorestframework==3.9.0
 djangorestframework-jwt==1.11.0
 entrypoints==0.3

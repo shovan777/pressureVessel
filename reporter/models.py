@@ -3,13 +3,15 @@ from django.db import models
 
 # userapp models
 from userapp.models import User
-
+import os
 
 # from settings
 from pressureVessel import settings
 
-static_report_path = settings.STATIC_ROOT + 'reports/'
-static_state_path = settings.STATIC_ROOT + 'states/'
+# static_report_path = settings.STATIC_ROOT + 'reports/'
+# static_state_path = settings.STATIC_ROOT + 'states/'
+static_report_path = os.path.join(settings.STATIC_ROOT,'reports')
+static_state_path = os.path.join(settings.STATIC_ROOT,'states')
 # static_report_path = '/static/reports/'
 # static_state_path = '/static/states/'
 
@@ -53,8 +55,10 @@ class Report(models.Model):
             flag = 1
         super(Report, self).save(*args, **kwargs)
         if flag:
-            self.location = static_report_path + self.report_path()
-            self.location_state = static_state_path + self.state_path()
+            # self.location = static_report_path + self.report_path()
+            # self.location_state = static_state_path + self.state_path()
+            self.location = os.path.join(static_report_path, self.report_path())
+            self.location_state = os.path.join(static_state_path, self.state_path())
             flag = 0
             self.save()
 
