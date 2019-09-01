@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import json
 import datetime
 from corsheaders.defaults import default_headers
 
@@ -24,7 +25,7 @@ DEBUG = os.environ['DEBUG'] == 'True'
 SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT'] == 'True'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['vesselexpress-backend.appspot.com', '127.0.0.1']
+ALLOWED_HOSTS = json.loads(os.environ['ALLOWED_HOSTS'])
 
 # Application definition
 
@@ -167,6 +168,7 @@ STATIC_URL = os.environ['STATIC_URL'] # /static/ if DEBUG else Google Cloud buck
 
 # collectstatic directory (located OUTSIDE the base directory)
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'vesselexpress-backend')
+# STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'), # static directory (in the top level directory) for local testing
@@ -192,13 +194,13 @@ APPEND_SLASH=False
 
 #email
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'grunze1212@gmail.com'
-EMAIL_HOST_PASSWORD = 'Asdfghjkl1234567890'
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'grunze1212@gmail.com'
-SERVER_EMAIL = 'grunze1212@gmail.com'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+SERVER_EMAIL = os.environ['SERVER_EMAIL']
+EMAIL_BACKEND = os.environ['EMAIL_BACKEND']
 
 # AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
 AUTHENTICATION_BACKENDS = (
@@ -209,15 +211,10 @@ AUTHENTICATION_BACKENDS = (
 
 INTERNAL_IPS = ['127.0.0.1', '192.168.1.13']
 
-# OIDC provider configuration
-OIDC_RP_PROVIDER_ENDPOINT = 'https://calcgen-208022.appspot.com/auth/'
-OIDC_RP_CLIENT_ID = '122079'
-OIDC_RP_CLIENT_SECRET = '97df361d6b4991ca5face2a925eaad069f55dc567cd93bd1edfcd68a'
-
-# OIDC_RP_PROVIDER_ENDPOINT = 'http://127.0.0.1:8000/auth/'
-# OIDC_RP_CLIENT_ID = '520504'
-# OIDC_RP_CLIENT_SECRET = '271215ae5b164ee2a46ede8851ec295e763e0d298db003d59c70f1eb'
-
+OIDC_RP_PROVIDER_ENDPOINT = os.environ['OIDC_RP_PROVIDER_ENDPOINT']
+OIDC_RP_CLIENT_ID = os.environ['OIDC_RP_CLIENT_ID']
+OIDC_RP_CLIENT_SECRET = os.environ['OIDC_RP_CLIENT_SECRET']
+OIDC_RP_PROVIDER_END_SESSION_ENDPOINT = os.environ['OIDC_RP_PROVIDER_END_SESSION_ENDPOINT']
 
 OIDC_RP_USE_NONCE = False
 OIDC_RP_USE_STATE = True
