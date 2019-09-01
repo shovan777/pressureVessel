@@ -225,3 +225,14 @@ OIDC_RP_AUTHENTICATION_REDIRECT_URI = '/'
 OIDC_RP_SCOPES = 'openid email profile'
 OIDC_RP_USE_AJAX = True
 # OIDC Provider configuration
+from google.oauth2 import service_account
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'vesselexpress-backend-2efff124d8a9.json')
+)
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+GS_BUCKET_NAME = 'vesselexpress-backend.appspot.com'
+
+PRODUCTION = os.getenv('GAE_APPLICATION', False)

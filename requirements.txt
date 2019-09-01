@@ -90,3 +90,4 @@ wcwidth==0.1.7
 WeasyPrint==44
 webencodings==0.5.1
 wrapt==1.10.11
+django-storages==1.7.1

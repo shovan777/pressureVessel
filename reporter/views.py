@@ -1,3 +1,8 @@
+# default modules
+import io
+import json
+import os
+
 # django modules
 from django.http import HttpResponse, Http404, FileResponse, JsonResponse
 from django.template import loader
@@ -23,12 +28,8 @@ from weasyprint.fonts import FontConfiguration
 # pandas - data manipulator
 import pandas as pd
 
-# default modules
-import io
-import json
-import os
 
-from pressureVessel import settings
+from pressureVessel import settings, file_utils
 
 # reporter modules
 from .models import Report
@@ -143,6 +144,7 @@ def index(request):
     ########################### FOR DRAWING PURPOSE ONLY ########
     report = Report.objects.get(id=projectID)
     state_path = report.location_state
+    report_path = report.location
     main_data = {}
     with open(state_path) as json_file:
         main_data = json.load(json_file)
@@ -237,10 +239,11 @@ def index(request):
     # print(css)
     # print(request.build_absolute_uri())
     html = HTML(string=html_out, base_url=request.build_absolute_uri())
-    html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
-                   stylesheets=[google_css, typo_css])
-    # pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+    # html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
+    #                stylesheets=[google_css, typo_css])
+    pdf = html.write_pdf(stylesheets=[google_css, typo_css])
 
+    file_utils.create_file(report_path, pdf)
     # fs = FileSystemStorage(location=str(Report.objects.get(id=87))[:-10])
     # fs.save(content='hello', name='report.pdf')
     # with open(str(Report.objects.get(id=87)), 'w') as f:
@@ -272,11 +275,11 @@ def index(request):
     page viewed to solve problem
     https://stackoverflow.com/questions/48287623/pythonconversion-of-pdf-to-blob-and-back-to-pdf-leads-to-corrupt
     '''
-    with open(settings.MEDIA_URL+'report3.pdf', 'rb') as f:
-        blob = base64.b64encode(f.read())
-        response = HttpResponse(blob, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment;filename=report.pdf'
-        return response
+    file_content = file_utils.read_file(report_path)
+    blob = base64.b64encode(file_content)
+    response = HttpResponse(blob, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment;filename=report.pdf'
+    return response
     # report_url = settings.MEDIA_URL+'report3.pdf'
     # return HttpResponse(report_url)
     # return HttpResponse(html_out)
@@ -328,19 +331,24 @@ class ReportViewSet(viewsets.ModelViewSet):
         data['projectID'] = report_id
 
         state_path = str(response.data['location_state'])
-        folder = os.path.split(state_path)[0]
-        os.makedirs(folder)
+        # folder = os.path.split(state_path)[0]
+        # os.makedirs(folder)
+        file_content = json.dumps(data)
+        try:
+            file_utils.create_file(state_path, file_content)
+        except Exception as error:
+            raise error
 
-        with open(state_path, 'w') as file:
-            json.dump(data, file)
+        # with open(state_path, 'w') as file:
+        #     json.dump(data, file)
 
         return response
 
     # override the list action
     def list(self, *args, **kwargs):
         username = self.request.user.username
-        # print('****************')
-        # print(username)
+        print('****************')
+        print(username)
         temp_query = self.queryset
         self.queryset = self.queryset.filter(author=username)
         # print(self.queryset)

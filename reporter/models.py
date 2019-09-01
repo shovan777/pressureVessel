@@ -8,8 +8,8 @@ from userapp.models import User
 # from settings
 from pressureVessel import settings
 
-static_report_path = settings.STATIC_ROOT + 'reports/'
-static_state_path = settings.STATIC_ROOT + 'states/'
+# static_report_path = settings.STATIC_ROOT + 'reports/'
+# static_state_path = settings.STATIC_ROOT + 'states/'
 # static_report_path = '/static/reports/'
 # static_state_path = '/static/states/'
 
@@ -28,10 +28,8 @@ def report_path(instance, filename='report'):
 class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     report_type = models.CharField(max_length=50)
-    location = models.FilePathField(
-        path=static_report_path, allow_folders=True, max_length=255)
-    location_state = models.FilePathField(
-        path=static_state_path, allow_folders=True, max_length=255)
+    location = models.CharField(max_length=255)
+    location_state = models.CharField(max_length=255)
     author = models.CharField(max_length=100, default='shovan')
     projectName = models.CharField(max_length=100)
     orientation = models.CharField(max_length=100)
@@ -53,8 +51,8 @@ class Report(models.Model):
             flag = 1
         super(Report, self).save(*args, **kwargs)
         if flag:
-            self.location = static_report_path + self.report_path()
-            self.location_state = static_state_path + self.state_path()
+            self.location = self.report_path()
+            self.location_state = self.state_path()
             flag = 0
             self.save()
 
