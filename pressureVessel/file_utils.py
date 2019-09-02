@@ -10,7 +10,7 @@ def create_file(file_path, content):
     """Make dir and write content into file."""
     if IS_PRODUCTION:
         try:
-            file = default_storage.open('file_path', 'w')
+            file = default_storage.open(file_path, 'w')
             file.write(content)
         except Exception as error:
             raise error
@@ -29,7 +29,7 @@ def write_file(file_path, content):
     """Write content into file."""
     if IS_PRODUCTION:
         try:
-            file = default_storage.open('file_path', 'w')
+            file = default_storage.open(file_path, 'w')
             file.write(content)
         except Exception as error:
             raise error
@@ -50,7 +50,7 @@ def read_file(file_path):
     """Read content from the given path."""
     if IS_PRODUCTION:
         try:
-            file = default_storage.open('file_path', 'r')
+            file = default_storage.open(file_path, 'r')
             content = file.read()
         except Exception as error:
             # print(e)

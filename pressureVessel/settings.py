@@ -234,4 +234,4 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 GS_BUCKET_NAME = 'vesselexpress-backend.appspot.com'
 
-PRODUCTION = os.getenv('GAE_APPLICATION', False)
+PRODUCTION = os.getenv('GAE_APPLICATION', True)
