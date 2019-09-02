@@ -6,7 +6,7 @@ beautifulsoup4==4.7.1
 bleach==3.1.0
 cairocffi==1.0.2
 CairoSVG==2.2.1
-certifi==2019.3.9
+# certifi==2019.3.9
 cffi==1.11.5
 chardet==3.0.4
 coverage==4.5.3
@@ -90,3 +90,4 @@ wcwidth==0.1.7
 WeasyPrint==44
 webencodings==0.5.1
 wrapt==1.10.11
+django-storages==1.7.1
