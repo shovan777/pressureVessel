@@ -4,6 +4,7 @@ autopep8==1.4.3
 backcall==0.1.0
 beautifulsoup4==4.7.1
 bleach==3.1.0
+cachetools==3.1.1
 cairocffi==1.0.2
 CairoSVG==2.2.1
 # certifi==2019.3.9
@@ -17,12 +18,18 @@ defusedxml==0.6.0
 Django==2.1.2
 django-cors-headers==2.4.0
 django-debug-toolbar==1.11
-# django-oidc-rp==0.3.4
 git+git://github.com/Grunze1s/django-oidc-rp.git@master
+django-storages==1.7.1
 djangorestframework==3.9.0
 djangorestframework-jwt==1.11.0
 entrypoints==0.3
 future==0.17.1
+google-api-core==1.14.2
+google-auth==1.6.3
+google-cloud-core==1.0.3
+google-cloud-storage==1.19.0
+google-resumable-media==0.3.3
+googleapis-common-protos==1.6.0
 gunicorn==19.9.0
 html5lib==1.0.1
 idna==2.8
@@ -55,9 +62,12 @@ pickleshare==0.7.5
 Pillow==5.4.1
 prometheus-client==0.6.0
 prompt-toolkit==2.0.9
+protobuf==3.9.1
 psycopg2==2.7.6.1
 psycopg2-binary==2.7.6.1
 ptyprocess==0.6.0
+pyasn1==0.4.7
+pyasn1-modules==0.2.6
 pycairo==1.18.1
 pycodestyle==2.5.0
 pycparser==2.19
@@ -75,6 +85,7 @@ pyzmq==18.0.0
 redis==3.0.1
 reportlab==3.5.12
 requests==2.22.0
+rsa==4.0
 Send2Trash==1.5.0
 six==1.12.0
 soupsieve==1.8
@@ -90,4 +101,3 @@ wcwidth==0.1.7
 WeasyPrint==44
 webencodings==0.5.1
 wrapt==1.10.11
-django-storages==1.7.1
