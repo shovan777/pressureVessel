@@ -10,7 +10,7 @@ def create_file(file_path, content):
     """Make dir and write content into file."""
     if IS_PRODUCTION:
         try:
-            file = default_storage.open('file_path', 'w')
+            file = default_storage.open(file_path, 'w')
             file.write(content)
         except Exception as error:
             raise error
@@ -18,7 +18,9 @@ def create_file(file_path, content):
             file.close()
     else:
         folder = os.path.split(file_path)[0]
-        os.makedirs(folder)
+        os.makedirs(folder, exist_ok=True)
+        if isinstance(content, bytes):
+            content = content.decode()
         try:
             with open(file_path, 'w') as file:
                 file.write(content)
@@ -27,15 +29,18 @@ def create_file(file_path, content):
 
 def write_file(file_path, content):
     """Write content into file."""
+    # print(IS_PRODUCTION)
     if IS_PRODUCTION:
         try:
-            file = default_storage.open('file_path', 'w')
+            file = default_storage.open(file_path, 'w')
             file.write(content)
         except Exception as error:
             raise error
         finally:
             file.close()
     else:
+        if isinstance(content, bytes):
+            content = content.decode()
         try:
             with open(file_path, 'w') as file:
                 file.write(content)
@@ -50,13 +55,14 @@ def read_file(file_path):
     """Read content from the given path."""
     if IS_PRODUCTION:
         try:
-            file = default_storage.open('file_path', 'r')
+            file = default_storage.open(file_path, 'r')
             content = file.read()
+            file.close()
         except Exception as error:
             # print(e)
             raise error
-        finally:
-            file.close()
+        # finally:
+        #     file.close()
     else:
         try:
             with open(file_path, 'r') as file:
@@ -64,6 +70,8 @@ def read_file(file_path):
         except Exception as error:
             # print(e)
             raise error
+        if isinstance(content, str):
+            content = content.encode()
     return content
     # this method reads the file and gives back the content
 

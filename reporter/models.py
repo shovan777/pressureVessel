@@ -10,11 +10,6 @@ from pressureVessel import settings
 
 # static_report_path = settings.STATIC_ROOT + 'reports/'
 # static_state_path = settings.STATIC_ROOT + 'states/'
-<<<<<<< HEAD
-=======
-static_report_path = os.path.join(settings.STATIC_ROOT,'reports')
-static_state_path = os.path.join(settings.STATIC_ROOT,'states')
->>>>>>> 5329f29f87bec75413a6a5e0d1bda6d7522c3311
 # static_report_path = '/static/reports/'
 # static_state_path = '/static/states/'
 

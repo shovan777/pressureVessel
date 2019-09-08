@@ -50,6 +50,7 @@ from drawing.drawingcopy import DrawingClass
 # matplotlib modules
 import matplotlib.pyplot as plt
 import base64
+from io import BytesIO
 
 
 # def index(request):
@@ -61,7 +62,10 @@ import base64
 # @permission_classes(permissions.IsAuthenticatedOrReadOnly,)
 def csv_loader(filename):
     try:
-        df = pd.read_csv(filename, skiprows=1)
+        file_bytes = file_utils.read_file(filename)
+        file_buf = BytesIO(file_bytes)
+        df = pd.read_csv(file_buf, skiprows=1)
+        file_buf.close()
         # print(df)
         return df.to_html()
     except Exception as e:
@@ -76,7 +80,7 @@ def index(request):
     template = loader.get_template('reporter/vessel2.html')
     # header_tempalate = loader.get_template('')
     list_array = [p.spec_num for p in material_list]
-    info_table_path = 'static/reporter/csv/'
+    info_table_path = os.path.join(settings.STATIC_ROOT,'reporter/csv/')
     info_tables = {
         'area': csv_loader(info_table_path + 'area.csv'),
         'temp': csv_loader(info_table_path + 'temp.csv'),
@@ -145,74 +149,79 @@ def index(request):
     report = Report.objects.get(id=projectID)
     state_path = report.location_state
     report_path = report.location
-    main_data = {}
-    with open(state_path) as json_file:
-        main_data = json.load(json_file)
+    # main_data = {}
+    # with open(state_path) as json_file:
+    #     main_data = json.load(json_file)
 
-    dra = DrawingClass(fileName=settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_"+str(main_data.get("projectID")), drawing_scale_factor=1, type=main_data.get('orientation'))
+    # dra = DrawingClass(fileName=settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_" +
+    #                    str(main_data.get("projectID")), drawing_scale_factor=1, type=main_data.get('orientation'))
 
-    if main_data.get('orientation') == 'horizontal':
-        print("i am here")
-        starting_y = 600
-        main_array,length_of_left_head,length_of_right_head,total_length = dra.arrange_data(main_data)
-        dra.draw_main_horizontal(data=main_array,
-                                starting_x=length_of_left_head+10,
-                                starting_y=starting_y,
-                                total_length=total_length,
-                                length_of_left_head=length_of_left_head,
-                                length_of_right_head=length_of_right_head
-                                )
+    # if main_data.get('orientation') == 'horizontal':
+    #     print("i am here")
+    #     starting_y = 600
+    #     main_array, length_of_left_head, length_of_right_head, total_length = dra.arrange_data(
+    #         main_data)
+    #     dra.draw_main_horizontal(data=main_array,
+    #                              starting_x=length_of_left_head+10,
+    #                              starting_y=starting_y,
+    #                              total_length=total_length,
+    #                              length_of_left_head=length_of_left_head,
+    #                              length_of_right_head=length_of_right_head
+    #                              )
 
-    elif main_data.get('orientation') == 'vertical':
-        print("i am not avaliable")
-        starting_x = 600
-        main_array,length_of_bottom_head,length_of_top_head,total_length = dra.arrange_data(main_data)
-        dra.draw_main_vertical(data=main_array,
-                            starting_x=starting_x,
-                            starting_y=length_of_top_head + 10,
-                            total_length=total_length,
-                            length_of_top_head=length_of_top_head,
-                            length_of_bottom_head=length_of_bottom_head
-                            )
+    # elif main_data.get('orientation') == 'vertical':
+    #     print("i am not avaliable")
+    #     starting_x = 600
+    #     main_array, length_of_bottom_head, length_of_top_head, total_length = dra.arrange_data(
+    #         main_data)
+    #     dra.draw_main_vertical(data=main_array,
+    #                            starting_x=starting_x,
+    #                            starting_y=length_of_top_head + 10,
+    #                            total_length=total_length,
+    #                            length_of_top_head=length_of_top_head,
+    #                            length_of_bottom_head=length_of_bottom_head
+    #                            )
 
-    ############################ DRAWING PURPOSE END ##############
+    # ############################ DRAWING PURPOSE END ##############
 
-    # cylinder_img_path = pygame.do_task(settings.MEDIA_ROOT + 'images/')
-    cylinder_img_path = settings.MEDIA_ROOT + 'images/'+main_data.get('projectName') + "_"+str(main_data.get("projectID"))+".png"
-    print(cylinder_img_path)
-    # fig = plt.figure()
-    img_in_memory = io.BytesIO()
-    # img = plt.imread(cylinder_img_path)
-    # plt.imshow(img, interpolation='bicubic')
-    # plt.xticks([]), plt.yticks([])
+    # # cylinder_img_path = pygame.do_task(settings.MEDIA_ROOT + 'images/')
+    # cylinder_img_path = settings.MEDIA_ROOT + 'images/' + \
+    #     main_data.get('projectName') + "_" + \
+    #     str(main_data.get("projectID"))+".png"
+    # print(cylinder_img_path)
+    # # fig = plt.figure()
+    # img_in_memory = io.BytesIO()
+    # # img = plt.imread(cylinder_img_path)
+    # # plt.imshow(img, interpolation='bicubic')
+    # # plt.xticks([]), plt.yticks([])
 
-    def display_image_in_actual_size(im_path, img_in_memory):
-        dpi = 1000
-        im_data = plt.imread(im_path)
-        height, width, depth = im_data.shape
+    # def display_image_in_actual_size(im_path, img_in_memory):
+    #     dpi = 1000
+    #     im_data = plt.imread(im_path)
+    #     height, width, depth = im_data.shape
 
-        # What size does the figure need to be in inches to fit the image?
-        figsize = width / float(dpi), height / float(dpi)
+    #     # What size does the figure need to be in inches to fit the image?
+    #     figsize = width / float(dpi), height / float(dpi)
 
-        # Create a figure of the right size with one axes that takes up the
-    #   full figure
-        fig = plt.figure(figsize=figsize)
-        ax = fig.add_axes([0, 0, 1, 1])
+    #     # Create a figure of the right size with one axes that takes up the
+    # #   full figure
+    #     fig = plt.figure(figsize=figsize)
+    #     ax = fig.add_axes([0, 0, 1, 1])
 
-        # Hide spines, ticks, etc.
-        ax.axis('off')
+    #     # Hide spines, ticks, etc.
+    #     ax.axis('off')
 
-        # Display the image.
-        ax.imshow(im_data, cmap='gray')
+    #     # Display the image.
+    #     ax.imshow(im_data, cmap='gray')
 
-        plt.savefig(img_in_memory, format='png')
-    display_image_in_actual_size(cylinder_img_path, img_in_memory)
-    # plt.savefig(img_in_memory, format='png')
-    # print('****************')
-    # print(img_in_memory.getvalue())
-    image = base64.b64encode(img_in_memory.getvalue())
-    # image = base64.b64encode(img)
-    image = image.decode('utf-8')
+    #     plt.savefig(img_in_memory, format='png')
+    # display_image_in_actual_size(cylinder_img_path, img_in_memory)
+    # # plt.savefig(img_in_memory, format='png')
+    # # print('****************')
+    # # print(img_in_memory.getvalue())
+    # image = base64.b64encode(img_in_memory.getvalue())
+    # # image = base64.b64encode(img)
+    # image = image.decode('utf-8')
     # image=str(image)
     # print(image)
     context = {
@@ -224,7 +233,7 @@ def index(request):
         # bring out createdat from report table
         'createdAt': '2019-02-21',
         'infoTables': info_tables,
-        'image': image,
+        # 'image': image,
         'cylinderParams': cylinder_params,
         'nozzleParams': nozzle_params,
         'headParams': head_params,
@@ -234,16 +243,27 @@ def index(request):
     }
     # print(Report.objects.get(id=87))
     html_out = template.render(context, request)
-    google_css = CSS(filename='static/reporter/google2.css')
-    typo_css = CSS(filename='static/reporter/typography.css')
+    file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/google2.css'))
+    file_buf = BytesIO(file_bytes)
+    google_css = CSS(file_buf)
+    file_buf.close()
+    file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/typography.css'))
+    file_buf = BytesIO(file_bytes)
+    typo_css = CSS(file_buf)
+    file_buf.close()
     # print(css)
     # print(request.build_absolute_uri())
     html = HTML(string=html_out, base_url=request.build_absolute_uri())
-    # html.write_pdf(settings.MEDIA_ROOT+'report3.pdf',
-    #                stylesheets=[google_css, typo_css])
-    pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+    if settings.PRODUCTION:
+        pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+        file_utils.create_file(report_path, pdf)
+    else:
+        html.write_pdf(report_path,
+                   stylesheets=[google_css, typo_css])
+    # pdf= ''
+    # pdf = base64.decode(pdf)
 
-    file_utils.create_file(report_path, pdf)
+    
     # fs = FileSystemStorage(location=str(Report.objects.get(id=87))[:-10])
     # fs.save(content='hello', name='report.pdf')
     # with open(str(Report.objects.get(id=87)), 'w') as f:
@@ -275,11 +295,20 @@ def index(request):
     page viewed to solve problem
     https://stackoverflow.com/questions/48287623/pythonconversion-of-pdf-to-blob-and-back-to-pdf-leads-to-corrupt
     '''
-    file_content = file_utils.read_file(report_path)
-    blob = base64.b64encode(file_content)
-    response = HttpResponse(blob, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment;filename=report.pdf'
-    return response
+    if settings.PRODUCTION:
+        file_content = file_utils.read_file(report_path)
+        blob = base64.b64encode(file_content)
+        response = HttpResponse(blob, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment;filename=report.pdf'
+        return response
+    else:
+        with open(report_path, 'rb') as file_content:
+            blob = base64.b64encode(file_content.read())
+            response = HttpResponse(blob, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment;filename=report.pdf'
+            return response
+
+    
     # report_url = settings.MEDIA_URL+'report3.pdf'
     # return HttpResponse(report_url)
     # return HttpResponse(html_out)
