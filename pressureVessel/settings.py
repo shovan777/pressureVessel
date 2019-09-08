@@ -22,6 +22,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = os.environ['DEBUG'] == 'True'
 
+PRODUCTION = os.environ['PRODUCTION'] == 'True'
+
 SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT'] == 'True'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -167,7 +169,10 @@ USE_TZ = True
 STATIC_URL = os.environ['STATIC_URL'] # /static/ if DEBUG else Google Cloud bucket url
 
 # collectstatic directory (located OUTSIDE the base directory)
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'vesselexpress-backend')
+if PRODUCTION:
+    STATIC_ROOT = 'static'
+else:
+    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'vesselexpress-backend')
 # STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = [
@@ -233,5 +238,3 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 GS_BUCKET_NAME = 'vesselexpress-backend.appspot.com'
-
-PRODUCTION = os.getenv('GAE_APPLICATION', True)
