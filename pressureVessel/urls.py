@@ -41,6 +41,7 @@ urlpatterns = [
     path('user/', include('userapp.urls')),
     path('admin', admin.site.urls),
     path('auth/', include('authenticationapp.urls')),
+    path('reporter/',include('ReporterApp')),
     path('ticketing/', views.eticketing),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         funcs.activate, name='activate'),

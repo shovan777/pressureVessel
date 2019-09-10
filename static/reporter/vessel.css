@@ -1,0 +1,286 @@
+.table000 {
+  margin-left: 90px;
+  width: 80%;
+  /* color:white; */
+  /* background-color: rgb(0,0,50); */
+  border: darkblue 2px solid;
+  text-align: center;
+}
+
+.table000 th {
+  background: #191970;
+  color: white;
+}
+
+.table000 td {
+  background: #fff;
+}
+
+#table5 {
+  /* border: 1px solid black; */
+  border-collapse: collapse;
+  border: "0";
+}
+
+body {
+  font-size: 75%;
+  color: #222;
+
+
+  margin: 40px;
+  /* font-size: 20px; */
+  text-align: center;
+  /* display: inline-block; */
+
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Symbol"; */
+}
+
+.calcgen {
+  /* margin-left: 80px;
+  margin-right: 70px; */
+  border: 1px solid;
+  /* margin: 0 auto; */
+  width: 80%;
+  margin-left: 90px;
+  margin-bottom: 150px;
+
+
+
+}
+
+.calcgen2 {
+  margin-left: 8px;
+}
+
+.CR {
+  text-align: center;
+  /* margin-left: 540px; */
+}
+
+.h1 {
+  color: red;
+}
+
+.img {
+  width: 25px;
+  height: 50px;
+  background: #fffff0;
+}
+
+.cp2 {
+  font-size: 2px;
+  text-align: center;
+  background: #f5f5dc;
+  padding: 10px;
+}
+
+#d1 {
+  background: #b0c4de;
+  padding: 5px;
+}
+
+.pgof {
+  background: #f0ffff;
+
+  padding: 5px;
+}
+
+#ve {
+  background: #191970;
+  text-align: center;
+  color: white;
+  border: 1px solid darkblue;
+}
+
+.table-header {
+  text-align: center;
+}
+
+.table-second {
+  margin-right: 115px;
+  margin-left: 75px;
+}
+
+.table-second th,
+.table-second td {
+  border: 1px solid black;
+}
+
+/* table 3  */
+
+.t3-head thead tr {
+  text-align: center;
+  background: #f5f5dc;
+}
+
+/* 
+.toc {
+  text-align: center;
+} */
+
+#toc12 {
+  font-size: 20px;
+  color: #191970;
+  /* margin-left: 30px; */
+  /* margin-right: 25px; */
+}
+
+#table5 {
+  /* margin-left: 100px; */
+  margin-left: 90px;
+  width: 80%;
+}
+
+#table5 td {
+  text-align: center;
+  background-color: #ffffff;
+  border-color: black;
+}
+
+#table5 th {
+  padding: 15px;
+  /* border: 0; */
+
+  /* color: black; */
+  /* background-color: #b0e0e6; */
+  background: #191970;
+
+  color: #ffffff;
+  text-align: center;
+  background-clip: padding-box;
+  /* marginleft: 700px; */
+}
+
+.ns-td {
+  color: black;
+}
+
+#img-nozzle {
+  width: 20px;
+}
+
+#hello555 {
+  font-size: 40px;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.vc3 {
+  color: darkblue;
+  font-size: 20px;
+  text-align: center;
+  background-color: #00ced1;
+  margin-bottom: 8px;
+  margin-right: 20px;
+}
+
+.vc4 {
+  color: darkblue;
+  font-size: 20px;
+  text-align: center;
+  background-color: #00ced1;
+  margin-right: 20px;
+}
+
+.cy1 {
+  padding-top: 10px;
+}
+
+.repeat-heading {
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+
+  /* margin-right: 80px; */
+  /* margin: auto; */
+}
+
+.table-max th {
+  padding: 5px;
+  /* margin: 2px 5px; */
+  background-color: #00008b;
+  color: #f5f5dc;
+  width: 2px;
+  height: 12px;
+  border: 1px solid blue;
+}
+
+/* 
+.table-max {
+  max-width: 120px;
+  width: auto;
+  border: 1px solid;
+  padding: 0.2rem;
+} */
+.th-small {
+  border: 1px solid black;
+  padding: 0px;
+  font-size: 10px;
+  margin-right: 200px;
+}
+
+.max-1 tr {
+  /* margin-left: 50px; */
+  font-size: 10px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.max-1 th {
+  background-color: #00008b;
+  color: white;
+}
+
+.repeat-heading h3 {
+  float: left;
+}
+
+#hello555 h3 {
+  float: left;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  border: 1px solid;
+  margin: 0 auto;
+  width: 70%;
+  margin: 0px 30px 0px 30px;
+}
+
+td,
+th {
+  text-align: center;
+  border: 1px solid;
+}
+
+.revi {
+  border: 1px solid;
+  margin: 0 auto;
+  width: 70%;
+}
+
+.revi th {
+  background-color: #000080;
+  color: white;
+}
+@media print{
+  @page{
+      #tablenew #pagescounter::after {
+        display: inline;
+        content: counter(page);
+      }
+
+      #tablenew #pagescounterof::after {
+        display: inline-block;
+        content: counter(pages)
+      }
+  } 
+}   
+
+#tablenew {
+  /* background: #e6e6fa; */
+  padding-top: 50px;
+  /* margin-left: 20px; */
+}

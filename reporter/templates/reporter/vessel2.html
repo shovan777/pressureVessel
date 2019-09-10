@@ -1,320 +1,939 @@
 <!DOCTYPE html>
-
 <html>
-
-<head>
+  <head>
     {% load static %}
 
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <link rel="stylesheet" type="text/css" href="{% static 'reporter/google2.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'reporter/typography.css' %}">
-</head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'reporter/vessel.css' %}"
+    />
+    <style>
+      @charset "UTF-8";
+      @font-face {
+        font-family: 'Raleway';
+        src: local('resources/raleway/Raleway-Light.ttf') format('truetype');
+        font-weight: normal;
+      }
 
-<body class="c15">
+      @page {
+        margin-top: 10cm;
+        
+        
+        size: "A4";
+        /* counter-increment: page; */
+      
+        @bottom-right {
+          content: counter(page) " of " counter(pages);
+
+          /* background: url("assets://images/logo.svg"); */
+          /* content: 'Calcgen'; */
+          
+          /* font-size: 20px; */
+          /* margin-bottom: 5px; */
+          /* width: 1cm; */
+          /* width : 2px; */
+          /* height: 500px; */
+          /* background-size:3px; */
+          
+          /* vertical-align: bottom; */
+        
+        }
+        @top-center {
+
+          content: '';
+          display: block;
+          height: .05cm;
+          margin-bottom: 25px;
+      
+        @bottom-right {
+          content: counter(page) " of " counter(pages);
+        }
+    
+          
+          
+
+        
+        
+        /* #pagescounter::after {
+            display: inline;
+            content: counter(page);
+        }
+        #pagescounterof::after{
+          disp
+          lay: inline-block;
+          content: counter(pages)
+        }  */
+      }
+     
+    </style>
+  </head>
+<body class="body"
+  style="font-family: Georgia, 'Times New Roman', Times, serif;margin-top:20px;">
+  
+  <div class="container">
+    
+      <br>
+      <br>
+  <!-- table 2     -->
     <div>
-        <p class="c16"><span class="c5 c23">&nbsp;</span></p><a id="t.4e134c064bb8ad3e582d8b3bb39a9f856820e0c7"></a><a
-            id="t.2"></a>
-        {% include "reporter/header.html" %}
-        <p class="c40 c17"><span class="c5 c23"></span></p>
-    </div>
-    <p class="c40"><span class="c5 c4"></span></p>
-    <p class="c0 c28"><span class="c5 c9"></span></p><a id="t.55ab17f2800478382e15b0b2597cfa9cb83ca6bc"></a><a id="t.0"></a>
-    <table class="c46">
+    <table  id="table5"   style="
+      color:white;
+      background-color: rgb(0,0,0);
+      border: darkblue 2px solid;
+      ">
+        <thead>
+         
+          <tr>
+            <th></th>
+            <th>Prepared by</th>
+            <th>Reviewed by</th>
+            <th>Approved by</th>
+
+          </tr>
+        </thead>
         <tbody>
-            <tr class="c7">
-                <td class="c32" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c4"></span></p>
-                </td>
-                <td class="c47" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c4">Prepared by:</span></p>
-                </td>
-                <td class="c47" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c4">Reviewed by:</span></p>
-                </td>
-                <td class="c47" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c4">Approved by:</span></p>
-                </td>
-            </tr>
-            <tr class="c7">
-                <td class="c49" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c9">Name</span></p>
-                </td>
-                <td class="c31" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c4">{{ author }}</span></p>
-                </td>
-                <td class="c31" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c4"></span></p>
-                </td>
-                <td class="c31" colspan="1" rowspan="1">
-                    <p class="c0" id="h.gjdgxs"><span class="c4 c5"></span></p>
-                </td>
-            </tr>
-            <tr class="c7">
-                <td class="c29" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c9">Title</span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-            </tr>
-            <tr class="c7">
-                <td class="c29" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c9">Date</span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c4">{{ createdAt }}</span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c4"></span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c4"></span></p>
-                </td>
-            </tr>
+          <tr>
+            <td style="color: black">Name</td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+          </tr>
+          <tr>
+            <td style="color: black">Title</td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+          </tr>
+          <tr>
+            <td style="color: black">Date</td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+          </tr>
+          
         </tbody>
-    </table>
-    <p class="c0 c28"><span class="c5 c9"></span></p>
-
-    <p class="c6 c28"><span class="c5 c9">Revision Log</span></p><a id="t.0766a72a8b9144a3790154467eb772a7ecd1be92"></a><a
-        id="t.1"></a>
-    <table class="c46">
-        <tbody>
-            <tr class="c7">
-                <td class="c32" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c4">Rev. No</span></p>
-                </td>
-                <td class="c61" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c4">Description of Change</span></p>
-                </td>
-                <td class="c58" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c4">Date:</span></p>
-                </td>
-            </tr>
-            <tr class="c7">
-                <td class="c49" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c9">01</span></p>
-                </td>
-                <td class="c39" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c4">Initial Release</span></p>
-                </td>
-                <td class="c3" colspan="1" rowspan="1">
-                    <p class="c6"><span class="c5 c4">2019-Feb-02</span></p>
-                </td>
-            </tr>
-            <tr class="c7">
-                <td class="c29" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-                <td class="c37" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-                <td class="c26" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-            </tr>
-            <tr class="c7">
-                <td class="c29" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c9"></span></p>
-                </td>
-                <td class="c37" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c4"></span></p>
-                </td>
-                <td class="c26" colspan="1" rowspan="1">
-                    <p class="c0"><span class="c5 c4"></span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <p style='page-break-after: always'></p>
-    <div>
-        <p class="c16"><span class="c5 c23">&nbsp;</span></p><a id="t.4e134c064bb8ad3e582d8b3bb39a9f856820e0c7"></a><a
-            id="t.2"></a>
-        {% include "reporter/header.html" %}
-
-        <p class="c40 c17"><span class="c5 c23"></span></p>
-    </div>
-    <p class="c6 c17"><span class="c9 c45">TABLE OF CONTENTS</span></p>
-    <p class="c0 c17"><span class="c5 c4"></span></p>
-    <p class="c24"><span class="c9"><a class="c8" href="#h.30j0zll">DEFICIENCIES SUMMARY</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.30j0zll">3</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.1fob9te">DEFINITION</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.1fob9te">3</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#nozzlesum">NOZZLE SUMMARY</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#nozzlesum">3</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.rqag0rqyom4i">PIPE AND FLANGE DATA NEEDED</a></span><span
-            class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c9"><a class="c8" href="#h.rqag0rqyom4i">5</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.x1eqdwniihkq">COMPONENTS REQUIRED</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.x1eqdwniihkq">5</a></span></p>
-    <p class="c55 c56"><span class="c4"><a class="c8" href="#h.yde53jdys1c5">ASME 2:1 Ellip. Head</a></span><span class="c4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c4"><a class="c8" href="#h.yde53jdys1c5">5</a></span></p>
-    <p class="c55 c56"><span class="c4"><a class="c8" href="#h.kcq5kvsqr22">Cylinder</a></span><span class="c4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c4"><a class="c8" href="#h.kcq5kvsqr22">5</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.xwm57u59s2x7">OUTPUT REQUIRED</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.xwm57u59s2x7">6</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.pq53tjvaj1j6">VESSEL CALCULATIONS</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.pq53tjvaj1j6">6</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.9n1fc2s568b5">MAWP</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.9n1fc2s568b5">6</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.5fdg0nobh1a5">Weight of Pressure Vessel (entire Weight)</a></span><span
-            class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c9"><a class="c8" href="#h.5fdg0nobh1a5">6</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.fmrh1jvut3ut">Center of Gravity with Fluid or without fluid</a></span><span
-            class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c9"><a class="c8" href="#h.fmrh1jvut3ut">6</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.pzsgk1blpfzf">Nozzle Schedule Table</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.pzsgk1blpfzf">6</a></span></p>
-    <p class="c25"><span class="c9"><a class="c8" href="#h.lom5bxby69e">An outline drawing</a></span><span class="c9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
-            class="c9"><a class="c8" href="#h.lom5bxby69e">6</a></span></p>
-    <p class="c0 c17"><span class="c5 c4"></span></p>
-    <p class="c0 c17"><span class="c5 c4"></span></p>
-    <hr style="page-break-before:always;display:none;">
-    <p class="c40"><span class="c5 c4"></span></p>
-    <ol class="c18 lst-kix_list_3-0 start" start="1">
-        <li class="c6 c14">
-            <h1 id="h.30j0zll" style="display:inline"><span class="c9 c13">Deficiencies Summary</span></h1>
-        </li>
-    </ol>
-    <p class="c6 c17"><span class="c5 c4"><b>No Deficiencies were found.</b> </span></p>
-    <p class="c0 c17"><span class="c5 c4"></span></p>
-    <ol class="c18 lst-kix_list_3-0" start="2">
-        <li class="c6 c14">
-            <h1 id="h.1fob9te" style="display:inline"><span class="c13 c9">DEFINITION</span></h1>
-        </li>
-    </ol>
-    <p class="c6 c36"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 714.00px; height: 582.67px;"><img
-                alt="" src="{% static 'reporter/images/image1.png' %}" style="width: 500.00px; height: 582.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                title=""></span></p>
-    <p class="c6 c36"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 610.15px; height: 865.50px;"><img
-                alt="" src="{% static 'reporter/images/image2.png' %}" style="width: 500.15px; height: 865.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                title=""></span></p>
-    <h4 class="c6 c38"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 714.00px; height: 456.00px;"><img
-                alt="" src="{% static 'reporter/images/image3.png' %}" style="width: 500.00px; height: 456.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                title=""></span></h4>
-    <p class="c0 c17"><span class="c5 c4"></span></p>
-    <ol class="c18 lst-kix_list_3-0" start="2">
-        <li class="c6 c14">
-            <h1 id="nozzlesum" style="display:inline"><span class="c13 c9">Nozzle Summary</span></h1>
-        </li>
-    </ol>
-    {% include 'reporter/nozzleSummary.html' %}
-    <ol class="c18 lst-kix_list_3-0" start="3">
-        <li class="c6 c14">
-            <h1 id="h.rqag0rqyom4i" style="display:inline"><span class="c13 c9">PIPE AND FLANGE DATA NEEDED</span></h1>
-        </li>
-    </ol>
-    <p class="c6 c36"><span>Pipe data should come from a pipe chart. A pipe chart like &nbsp;</span><span class="c50"><a
-                class="c8" href="https://www.google.com/url?q=https://www.tiogapipe.com/assets/files/pipe-chart.pdf&amp;sa=D&amp;ust=1550490886204000">this(link)</a></span><span>&nbsp;needs
-            to be available to pull the property based on the pipe and selected pipe schedule. For VesselExpress, we
-            will only use ASME B16.5 welding neck flanges. The flange data is also available on</span><span class="c50"><a
-                class="c8" href="https://www.google.com/url?q=https://www.engineeringtoolbox.com/flanges-bolts-dimensions-d_464.html&amp;sa=D&amp;ust=1550490886204000">&nbsp;this
-                link</a></span><span class="c5 c12">. All classes (150, 300, 400, 600, 900, 1500 and 2500) classes of
-            flange data shall be available. The flange dimensions should also be stored on database. The pipe and
-            flange data do not change frequently so it should be on read only database for the users. Admins should be
-            able to modify the information if required. Many other application need to pull these information as well.
-        </span></p>
-    <p class="c0 c36"><span class="c5 c12"></span></p>
-    <p class="c0 c17"><span class="c5 c4"></span></p>
-    <ol class="c18 lst-kix_list_3-0" start="4">
-        <li class="c6 c14">
-            <h1 id="h.x1eqdwniihkq" style="display:inline"><span class="c13 c9">COMPONENTS REQUIRED</span></h1>
-        </li>
-    </ol>
-    <h2 class="c6 c38 c17" id="h.yde53jdys1c5"><span class="c5 c4">ASME 2:1 Ellip. Head</span></h2>
-    <h2 class="c6 c38 c17" id="h.kcq5kvsqr22"><span class="c5 c4">Cylinder(s)</span></h2>
-    <img src="data:image/png;base64,{{image}}" alt="bombombhole" />
-
-    <p class="c6 c17"><span class="c5 c12">Nozzles (Built with Pipe and Flange)</span></p>
-    <p class="c6 c17"><span class="c5 c12">Skirt (Applicable to Vertical Vessel Only)</span></p>
-    <p class="c6 c17"><span class="c5 c12">Saddle (Applicable to Horizontal Vessel Only)</span></p>
-    <p class="c0"><span class="c2"></span></p>
-    <p class="c0"><span class="c5 c12"></span></p>
-    <ol class="c18 lst-kix_list_3-0" start="5">
-        <li class="c6 c14">
-            <h1 id="h.xwm57u59s2x7" style="display:inline"><span class="c13 c9">OUTPUT REQUIRED</span></h1>
-        </li>
-    </ol>
-    <ol class="c18 lst-kix_list_3-0" start="5">
-        <li class="c6 c14">
-            <h1 id="h.pq53tjvaj1j6" style="display:inline"><span class="c13 c9">VESSEL CALCULATIONS</span></h1>
-        </li>
-    </ol>
-    {% for cylinder in cylinderParams %}
-    <p class="c6 c36">
-        <span class="c5 c12">Cylinder{{ forloop.counter }}
-            <br>
-            {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
-        </span>
-    </p>
-    <br><br>
-    {% endfor %}
-
-    <p><b>Nozzle Calculations</b></p>
-    {% for nozzle in nozzleParams %}
-    <p class="c6 c36">
-        <span class="c5 c12">Nozzle{{ forloop.counter }}
-            <br>
-            {% include 'reporter/nozzleCalc.html' with nozzleParams=nozzle %}
-        </span>
-    </p>
-    <br><br>
-    {% endfor %}
-
-    <p><b>Head Calculations</b></p>
-    {% for head in headParams %}
-    <p class="c6 c36">
-        <span class="c5 c12">Head{{ forloop.counter }}
-            <br>
-            {% include 'reporter/headCalc.html' with headParams=head %}
-        </span>
-    </p>
-    <br><br>
-    {% endfor %}
-
-    <p><b>Skirt Calculations</b></p>
-    {% for skirt in skirtParams %}
-    <p class="c6 c36">
-        <span class="c5 c12">Skirt{{ forloop.counter }}
-            <br>
-            {% include 'reporter/skirtCalc.html' with skirtParams=skirt %}
-        </span>
-    </p>
-    <br><br>
-    {% endfor %}
-
-    <p><b>Lifting Lug Calculations</b></p>
-    {% for lug in lugParams %}
-    <p class="c6 c36">
-        <span class="c5 c12">#LiftingLug {{ forloop.counter }}
-            <br>
-            {% include 'reporter/lugCalc.html' with lugParams=lug %}
-        </span>
-    </p>
-    <br><br>
-    {% endfor %}
-
+      </table>
+    </div> 
+    <!-- <div class="CR"><h3>Calcgen Report</h3></div>
     
 
-    <h1 class="c6 c19" id="h.9n1fc2s568b5"><span class="c13 c33">MAWP</span></h1>
-    <h1 class="c6 c19" id="h.5fdg0nobh1a5"><span class="c13 c33">Weight of Pressure Vessel (entire Weight)</span></h1>
-    <h1 class="c6 c19" id="h.fmrh1jvut3ut"><span class="c13 c33">Center of Gravity with Fluid or without fluid</span></h1>
-    <h1 class="c6 c19" id="h.pzsgk1blpfzf"><span class="c13 c33">Nozzle Schedule Table</span></h1>
-    <h1 class="c6 c19" id="h.lom5bxby69e"><span class="c13 c33">An outline drawing</span></h1>
-    <p class="c0"><span class="c5 c12"></span></p>
-    <p class="c0"><span class="c5 c12"></span></p>
+    
+      <br />
+     
+     
+      </div>
+      <br>
+      <br>
+     
+
+      <!-- third table -->
+          
+    
     <div>
-        <p class="c17 c43"><span class="c23 c52 c57"></span></p>
-    </div>
+    <br>
+    <br>  
+    <br>
+    <br>        
+
+    <!-- <h2>Revision log one</h2>  -->
+    <table class="table000">
+          <thead>
+            <!-- <tr>
+              <th colspan="9" id="spec"> specifications</th>
+            </tr> -->
+            <tr>
+              <th>Rev.No</th>
+              <th>Description of change</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td></td>
+              <td></td>
+              
+
+            </tr>
+            <tr>
+              <td>02</td>
+              <td></td>
+              <td></td>
+  
+            </tr>
+            <tr>
+              <td>02</td>
+              <td></td>
+              <td></td>
+  
+            </tr>
+            
+          </tbody>
+    </table>  
+
+    <!-- fourth table      -->
+    <br>
+    <br>
+    
+    
+    <br>
+    <br>
+    <div style="page-break-before: always;">
+    
+        <br>
+        <br>
+  
+      <h2  class="toc" style="text-align: center">Table of Contents</h2>
+      <div id="toc12" >
+        <p class="t1">1. Deficiencies Summary........................................................................................................................................1</p>
+        <p style="padding-left: 50px;">1.1 Shows errors/warnings/suggestions...................................................................................................4.1</pre></p>
+        <p class="t1">2. Vessel Inputs.......................................................................................................................................................2</p>
+        <p style="padding-left: 50px;">2.1 Design Temperature............................................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">2.2 Design Pressure.................................................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">2.3 Elements with dimension and properties ...........................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">2.4 Details with specifications and properties..........................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">2.5 other parts and inputs............................................................................................................................1</pre></p>
+        <p class="t1">3. Component table/trees.........................................................................................................................................3</p>
+        <p style="padding-left: 50px;">3.1 element list-->element sublists-->quantity ...........................................................................................4.1</pre></p>        
+        <p class="t1">4. Vessel Calculations(Internal).................................................................................................................................4</p>
+        <p style="padding-left: 50px;">4.1 strength under internal design P/T.........................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">4.2 calculations and result summary...........................................................................................................4.2</p>
+        <p class="t1">5. Vessel Calculations(External)......................................................................................................................................5</p>
+        <p style="padding-left: 50px;">5.1 strength under internal design P/T...........................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">5.2calculations and result summary .............................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">5.3 vessel support system.................................................................................s...........................................4.1</pre></p>   
+        <p class="t1">6. Nozzle calculations ..................................................................................................................................................6</p>
+        <p style="padding-left: 50px;">6.1 Nozzle MOWP..........................................................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">6.2 NOzzle inputs..........................................................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">6.3 NOzzle design outputs.............................................................................................................................4.1</pre></p>
+        <p style="padding-left: 50px;">6.4 Nozzle schedule table.............................................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">6.5 sub list of individual nuzzle calculations.................................................................................................4.1</pre></p>                         
+        <p class="t1">7. Weight Summary...................................................................................................................................................7</p>
+        <p style="padding-left: 50px;">7.1 details weights under condition/criteria basis.........................................................................................4.1</pre></p>              
+        <p style="padding-left: 50px;">7.2 showing in tabular form.........................................................................................................................4.1</pre></p>               
+        <p class="t1">8. XY co-ordiante and CG..........................................................................................................................................8</p>
+        <p style="padding-left: 50px;">8.1 all element details height from darum....................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">8.2 all element details angle from darum.....................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">8.3  CG calculations. ..................................................................................................................................4.1</pre></p>         
+        <p class="t1">9.Vessel design summary........................................................................................................................................11</p>
+        <p style="padding-left: 50px;">9.1 MDMT summary .................................................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">9.1 MAWP summary..................................................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">9.1 EQ/wind design summary  ....................................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">9.1 Weight Summary..................................................................................................................................4.1</pre></p>      
+        <p style="padding-left: 50px;">9.1 Liquid/Internals/Insulation summary.....................................................................................................4.1</pre></p>             
+        <p style="padding-left: 50px;">9.2 all element details height from darum.................................................................................................4.1</pre></p>             
+        <p style="padding-left: 50px;">9.1 MAWP summary...................................................................................................................................4.1</pre></p>              
+        <p class="t1">10. 2D outline of vessel..............................................................................................................................................12</p>
+        <p style="padding-left: 50px;">10.1 2D Drawings of different views .............................................................................................................13</p>
+      
+      </div>   
+      
+      <br>
+      <br>
+      
+      <div class="#">
+        <!-- deficincies summary -->
+        <div style="page-break-before: always" class="repeat-heading">
+          <h3><b>1. Deficiencies Summary</b></h3>
+          <br>
+          <br>
+          <p style="text-align:center">No summary yet</p>
+        </div>
+        <br>
+        <br>
+        <!-- Definition -->
+        <!-- <div class="repeat-heading">
+          <h3><b>2.0 Definition</b></h3>
+          <p id="img-nozzle" ><img width="1000px" height="700px;" alt="img-nozzle" src="{% static 'PressureVesselApp/images/image1.png' %}"></p>
+          <p id="img-nozzle" ><img width="1000px" height="700px; alt="img-nozzle" src="{% static 'PressureVesselApp/images/image3.png' %}" width="70px;" height="60px;"></p>
+          <p id="img-nozzle"><img width="1000px" height="700px; alt="img-nozzle" src="{% static 'PressureVesselApp/images/image2.png' %}" width="70px;" height="80px;"></p>
+        </div> -->
+        <br>
+        <br>
+        <!-- <pipe and flange data needed -->
+        <div class="paf">
+          <div style="page-break-before: always;" class="repeat-heading">
+              <div class="#">
+                 
+                  <br>
+                  <br>
+              </div>  
+            <h3><b>2.Vessel Inputs</b></h3>
+          </div>
+            <br>
+            <br>
+         
+        <br>
+        <br>
+        <div style="page-break-before: always;">
+            <div class="#">
+        
+                <br>
+                <br>
+            </div>  
+          <div id="hello555">
+            <h3><b>3.Component table/trees</b></h3>
+          </div>  
+          <br>
+          <br>
+          <!-- <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASME 2:1 Ellip. Head</span></h2>
+          <h5><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cylinder(s)</span></h2>
+          <h5><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nozzles(Built with Pipe and Flange) </span></h2>
+          <h5><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skirt(Applicable to vertical Vessel only) </span></h2>
+          <h5><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saddle(Applicable to Horizontal Vessel Only) </span></h2> -->
+
+        </div>
+        <br>
+        <br>
+        <!-- output required -->
+
+        <!-- vessel calculations internal -->
+        <div style="page-break-before: always;" class="or">
+            <div class="#">
+                
+                <br>
+                <br>
+            </div>  
+           <div class="repeat-heading"><h3><b>4.Vessel Calculations(Internal)</b></h3></div>
+
+        </div>
 
 
-    {% for k, v in infoTables.items %}
-    <h3>{{ k|upper }}</h3>
-    <table class='c42'>{{ v|safe }}</table>
-    {% endfor %}
+         <!-- vessel calculations external-->
+        <div style="page-break-before: always;" class="or">
+             <div class="#">
+                
+                <br>
+                <br>
+            </div>  
+          <div class="repeat-heading"><h3><b>5.Vessel Calculations(External)</b></h3></div>
+
+        </div>
+
+        <br>
+        <br>
+         <div style="page-break-before: always;" class="#">
+            <div class="#">
+               
+                <br>
+                <br>
+            </div>  
+            <!-- <h3><b>6.0 Vessel Calculations</b></h3><br> -->
+
+            <div  class="repeat-heading"><h3><b>6. Nozzle Calculations  </b></h3></div>
+            <br>
+            <br>
+
+            <div class="vc3">
+              <h5 class="cy1"><u>Cylinder 1</u></h5>
+              <p>For Internal Pressure<br></p>
+              <p style="color: darkblue;">Thickness of Cylindrical shell as per UG-27</p>
+              <p style="color:darkblue;">t = (P*R)/(S*E-0.6*P) &nbsp;= &nbsp;(40.0^25.0)/(20.1.0-0.6^40) &nbsp;= &nbsp;250.0<br>
+                t = -250.0+corrosion Allowance&nbsp; = -250+30.0 &nbsp;= &nbsp;-220.0 in</p>
+              <br>
+              <br>
+
+            </div>
+            <div class="vc4">
+                <h5 class="cy1"><u>Cylinder 2</u></h5>
+                <p>For Internal Pressure<br></p>
+                <p style="color: darkblue">Thickness of Cylindrical shell as per UG-27</p>
+                <p style="color:darkblue">t = (P*R)/(S*E-0.6*P) &nbsp;= &nbsp;(480.0^25.0)/(20.1.0-0.6^40) &nbsp;= &nbsp;250.0<br>
+                  t = -250.0+corrosion Allowance&nbsp; = -250+30.0 &nbsp;= &nbsp;-2880.0 in</p>
+                <br>
+                <br>  
+            </div>
+        </div>
+        <br>
+        <br>
+        <!-- Mawp -->
+        <div style="page-break-before: always;" class="repeat-heading">
+            <div class="#">
+               
+                <br>
+                <br>
+            </div>  
+            <!-- <h3><b>7.0 MAWP</b></h3> -->
+            <div class="repeat-heading" class="repeat-heading"><h3><b>7. Weight Summary</b></h3></div>
+
+            
+        </div>
+        <br>
+        <br>
+        <!-- xy co-ordinate and cg --> 
+        <div style="page-break-before: always;" class="repeat-heading">
+            <div class="#">
+                <br>
+                <br>
+            </div>  
+            <!-- <h3><b>7.0 MAWP</b></h3> -->
+            <div class="repeat-heading" class="repeat-heading"><h3><b>8. XY co-ordinate and CG</b></h3></div>
+
+            
+        </div>
+        <br>
+        <br>
+        <!-- vessel design summary -->
+        <div style="page-break-before: always;" class="repeat-heading">
+            <div class="#">
+      
+                <br>
+                <br>
+            </div>  
+            <!-- <h3><b>7.0 MAWP</b></h3> -->
+            <div class="repeat-heading" class="repeat-heading"><h3><b>9. Vessel Design Summary </b></h3></div>
+
+            
+        </div>
+        <br>
+        <br>
+        
+        
+        <br>
+        <br>
+        <!-- 2D outline draw of vessel -->
+        <div style="page-break-before: always;" class="repeat-heading">
+            <div class="#">
+                
+                <br>
+                <br>
+            </div>  
+            <!-- <h3><b>7.0 MAWP</b></h3> -->
+            <div class="repeat-heading" class="repeat-heading"><h3><b>10. 2D outline of Vessel</b></h3></div>
+
+            
+        </div>
+        <br>
+        <br>
+       
+        <br>
+        <!-- An outline drawing -->
+        <div style="page-break-before: always;" class="repeat-heading">
+            <h3><b>11.0 An Outline Draw</b></h3>
+        </div>
+        <br>
+        <br>
+          
+        <!-- Area -->
+ 
+  <div  class="ns">
+          <h5 style="text-align: center;color: black;">Area</h5>
+          <div>
+            <table style=" border: darkblue 2px solid;" class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <!-- Temperature -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">Temperature</h5>
+          <div>
+            <table style=" border: darkblue 2px solid;" class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- Angle -->
+        <div class="ns">
+          <h5 style="text-align:center;color:black;">Angle</h5>
+          <div>
+            <table style=" border: darkblue 2px solid;" class="table000">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- Distance -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">Distance</h5>
+          <div>
+            <table class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- Frequency -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">Frequency</h5>
+          <div>
+            <table  class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- max -->
+      
+
+        <br />
+        <br />        
+
+      
+        <!-- pipe-->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">Pipe</h5>
+          <div>
+            <table  class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>4</th>
+                    <th>0.125</th>
+                    <th>0.405</th>
+                    <th>0.307</th>
+                    <th>10S</th>
+                    <th>0.409</th>
+                    <th>0.1863</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <!-- Pressure -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">Pressure</h5>
+          <div>
+            <table style="border: darkblue 2px solid;" class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- weight -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">weight</h5>
+          <div>
+            <table style="border: darkblue 2px solid;" class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- speed -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">speed</h5>
+          <div>
+            <table style="border: darkblue 2px solid;" class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+              <br>
+              <br>
+        </div>
+        <br>
+        <br>
+        <!-- Volume -->
+        <div class="ns">
+          <h5 style="text-align: center;color: black;">Volume</h5>
+          <div>
+            <table" style = "border: darkblue 2px solid;" class="table000 table-sm table-hover">
+                <thead>
+                  <!-- <tr>
+                    <th colspan="9" id="spec"> specifications</th>
+                  </tr> -->
+                  <tr>
+                    <th>S.N</th>
+                    <th>Abbreviation</th>
+                    <th>Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ns-td">1</td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">2</td>
+                    <td></td>
+                    <td></td>
+                   
+                    
+
+                  </tr>
+                  <tr>
+                    <td class="ns-td">3</td>
+                    <td></td>
+                    <td></td>
+  
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>  
+              <br>
+              <br>
+        
+        <br>
+    </div> 
+      </div>   
+      
+    
+  </div>      
+  </div>
+      
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+
+
+

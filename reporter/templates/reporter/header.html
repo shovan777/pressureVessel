@@ -1,32 +1,61 @@
-{% load static %}
-<table class="c46">
-    <tbody>
-        <tr class="c54">
-            <td class="c41" colspan="1" rowspan="2">
-                <p class="c6"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 170.00px; height: 48.00px;"><img
-                            alt="" src="{% static 'reporter/images/image4.png' %}" style="width: 170.00px; height: 48.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
-                            title=""></span></p>
+  {% load static %}
+  <head>
+  <style>
+    @page {
+    @top-left {
+        content: element(#pagescounter);
+    }
+  }
+  @media print {
+    #divHeader{
+        position: running(#pagescounterof);
+    }
+  }
+  </style> 
+  </head>
+  <body>
+  <div
+    class="headerone"
+    style="font-family: Georgia, 'Times New Roman', Times, serif";
+  >
+
+    <p style="border-bottom:3px solid blue;"><img class="header-image" src="{% static 'reporter/images/latest1.png' %}"></p>
+    
+    <div class="container">
+      <div id="tablenew">
+        <!-- {{allblogs.Title}} -->
+        <table class="calcgen">
+          {% comment %} <h1 class="CR">Calcgen Report</h1> {% endcomment %}
+          <tr>
+            <th class="img" colspan="2" rowspan="2">
+            <img class="img1" width="120px" height="80px" src="{% static 'reporter/images/image4.png' %}">
+            </th>
+            <th colspan="1" rowspan="2" class="cp2">
+              <h2 style="font-size: 20px;">Calcgen Solutions</h2>
+              <h2 style="font-size:20px;">Project Specifications</h2>
+            </th>
+
+            <th rowspan="1" colspan="4" id="d1">Document No:</th>
+          </tr>
+          <tr style="padding: 5px" class="pgof">
+            <th colspan="1" rowspan="1">
+              <span id="pagescounter">Project id&nbsp;:&nbsp;</span>
+            </th>
+            <th colspan="3" rolspan="1">
+              <span id="pagescounterof">Project Name&nbsp;:&nbsp;</span>
+            </th>
+          </tr>
+          <tr>
+            <td colspan="7" rowspan="1" id="ve">
+              <strong>vessel express</strong>
             </td>
-            <td class="c51" colspan="1" rowspan="2">
-                <h3 class="c20" id="h.i6lyjb5k7lzk"><span class="c5 c22"> Calcgen Solutions</span></h3>
-                <h3 class="c20" id="h.i6lyjb5k7lzk-1"><span class="c5 c22">Project Specifications</span></h3>
-            </td>
-            <td class="c21" colspan="2" rowspan="1">
-                <p class="c6"><span class="c27 c52">Document No.: {{ projectID }}</span></p>
-            </td>
-        </tr>
-        <tr class="c34">
-            <td class="c10" colspan="1" rowspan="1">
-                <p class="c6"><span class="c5 c23">Page:</span></p>
-            </td>
-            <td class="c35" colspan="1" rowspan="1">
-                <p class="c30"><span class="c23">&nbsp;of </span></p>
-            </td>
-        </tr>
-        <tr class="c7">
-            <td class="c44" colspan="4" rowspan="1">
-                <h3 class="c20" id="h.4cz19aw652tp"><span class="c5 c22">VesselExpress</span></h3>
-            </td>
-        </tr>
-    </tbody>
-</table>
+          </tr>
+        </table>
+        <br>
+   
+      </div>
+    </div>
+    
+  
+  </div>
+  </body>

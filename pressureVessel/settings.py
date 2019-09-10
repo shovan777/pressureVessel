@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+from google.oauth2 import service_account
 import os
 import json
 import datetime
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
     'state',
 
     'oidc_rp',
+    'ReporterApp',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,7 @@ AUTH_USER_MODEL = 'userapp.User'
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'exceptionapp.exceptions.core_exception_handler',
-    'NON_FIELD_ERRORS_KEY':'error',
+    'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
@@ -166,17 +168,20 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = os.environ['STATIC_URL'] # /static/ if DEBUG else Google Cloud bucket url
+# /static/ if DEBUG else Google Cloud bucket url
+STATIC_URL = os.environ['STATIC_URL']
 
 # collectstatic directory (located OUTSIDE the base directory)
 if PRODUCTION:
     STATIC_ROOT = 'static'
 else:
-    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'vesselexpress-backend')
+    STATIC_ROOT = os.path.join(os.path.dirname(
+        BASE_DIR), 'vesselexpress-backend')
 # STATIC_ROOT = 'static'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'), # static directory (in the top level directory) for local testing
+    # static directory (in the top level directory) for local testing
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -195,9 +200,9 @@ CORS_ALLOW_HEADERS = default_headers + (
 # except ImportError:
 #     pass
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 
-#email
+# email
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
@@ -229,7 +234,6 @@ OIDC_RP_AUTHENTICATION_REDIRECT_URI = '/'
 OIDC_RP_SCOPES = 'openid email profile'
 OIDC_RP_USE_AJAX = True
 # OIDC Provider configuration
-from google.oauth2 import service_account
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, 'vesselexpress-backend-2efff124d8a9.json')
