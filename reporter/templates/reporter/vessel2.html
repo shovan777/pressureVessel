@@ -97,21 +97,21 @@
         <tbody>
           <tr>
             <td style="color: black">Name</td>
-            <td></td>
+            <td>{{ author }}</td>
             <td></td>
             <td></td>
 
           </tr>
           <tr>
             <td style="color: black">Title</td>
-            <td></td>
+            <td>{{ title }}</td>
             <td></td>
             <td></td>
 
           </tr>
           <tr>
             <td style="color: black">Date</td>
-            <td></td>
+            <td>{{ createdAt }}</td>
             <td></td>
             <td></td>
 
@@ -300,8 +300,16 @@
                 
                 <br>
                 <br>
-            </div>  
-           <div class="repeat-heading"><h3><b>4.Vessel Calculations(Internal)</b></h3></div>
+            </div>   
+            {% for cylinder in cylinderParams %}
+            <div style="text-align: center;" class="repeat-heading"><h3><b>4.Vessel Calculations(Internal)</b></h3>
+              <span class="c5 c12">Cylinder{{ forloop.counter }}
+                <br>
+                {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
+                
+              </span>
+            </div>
+            {% endfor %} 
 
         </div>
 
@@ -326,30 +334,16 @@
                 <br>
             </div>  
             <!-- <h3><b>6.0 Vessel Calculations</b></h3><br> -->
-
-            <div  class="repeat-heading"><h3><b>6. Nozzle Calculations  </b></h3></div>
+            {% for nozzle in nozzleParams %}                    
+            <div style="text-align: center" class="repeat-heading"><h3><b>6. Nozzle Calculations  </b></h3></div>
             <br>
             <br>
-
-            <div class="vc3">
-              <h5 class="cy1"><u>Cylinder 1</u></h5>
-              <p>For Internal Pressure<br></p>
-              <p style="color: darkblue;">Thickness of Cylindrical shell as per UG-27</p>
-              <p style="color:darkblue;">t = (P*R)/(S*E-0.6*P) &nbsp;= &nbsp;(40.0^25.0)/(20.1.0-0.6^40) &nbsp;= &nbsp;250.0<br>
-                t = -250.0+corrosion Allowance&nbsp; = -250+30.0 &nbsp;= &nbsp;-220.0 in</p>
-              <br>
-              <br>
-
-            </div>
-            <div class="vc4">
-                <h5 class="cy1"><u>Cylinder 2</u></h5>
-                <p>For Internal Pressure<br></p>
-                <p style="color: darkblue">Thickness of Cylindrical shell as per UG-27</p>
-                <p style="color:darkblue">t = (P*R)/(S*E-0.6*P) &nbsp;= &nbsp;(480.0^25.0)/(20.1.0-0.6^40) &nbsp;= &nbsp;250.0<br>
-                  t = -250.0+corrosion Allowance&nbsp; = -250+30.0 &nbsp;= &nbsp;-2880.0 in</p>
+              <span class="c5 c12">Cylinder{{ forloop.counter }}
                 <br>
-                <br>  
+                {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
+              </span>                  
             </div>
+            {% endfor %} 
         </div>
         <br>
         <br>
@@ -438,29 +432,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for k, v in infoTables.items %}
                   <tr>
                     <td class="ns-td">1</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ k|upper }}</td>
+                    <td>{{ v|safe }}</td>
                     
-                    
-
                   </tr>
-                  <tr>
-                    <td class="ns-td">2</td>
-                    <td></td>
-                    <td></td>
-                   
-                    
-
-                  </tr>
-                  <tr>
-                    <td class="ns-td">3</td>
-                    <td></td>
-                    <td></td>
-  
-                  </tr>
-                  
+                  {% endfor %} 
                 </tbody>
               </table>
             </div>
