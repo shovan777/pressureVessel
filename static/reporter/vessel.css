@@ -41,7 +41,7 @@ body {
   border: 1px solid;
   /* margin: 0 auto; */
   width: 80%;
-  margin-left: 90px;
+  margin-left: 110px;
   margin-bottom: 150px;
 
 
@@ -265,19 +265,20 @@ th {
   background-color: #000080;
   color: white;
 }
-@media print{
-  @page{
-      #tablenew #pagescounter::after {
-        display: inline;
-        content: counter(page);
-      }
 
-      #tablenew #pagescounterof::after {
-        display: inline-block;
-        content: counter(pages)
-      }
-  } 
-}   
+@media print {
+  @page {
+    #tablenew #pagescounter::after {
+      display: inline;
+      content: counter(page);
+    }
+
+    #tablenew #pagescounterof::after {
+      display: inline-block;
+      content: counter(pages)
+    }
+  }
+}
 
 #tablenew {
   /* background: #e6e6fa; */
