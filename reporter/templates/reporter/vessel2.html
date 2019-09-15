@@ -301,15 +301,16 @@
                 <br>
                 <br>
             </div>   
+            <div style="text-align: center;" class="repeat-heading"><h3><b>4.Vessel Calculations(Internal)</b></h3>
             {% for cylinder in cylinderParams %}
-            <div style="text-align: center;" class="repeat-heading"></h3>
               <span class="c5 c12">Cylinder{{ forloop.counter }}
                 <br>
                 {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
                 
               </span>
-            </div>
             {% endfor %} 
+            </div>
+
 
         </div>
 
