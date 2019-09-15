@@ -231,9 +231,6 @@ body {
   color: white;
 }
 
-.repeat-heading h3 {
-  float: left;
-}
 
 #hello555 h3 {
   float: left;
@@ -275,9 +272,9 @@ th {
   /* margin-left: 20px; */
 }
 
-.cycalc{
-  padding : 0px 0px 0px 0px;
+.cycalc {
+  padding: 0px 0px 0px 0px;
   margin-left: 0px;
-  
+
 
 }
