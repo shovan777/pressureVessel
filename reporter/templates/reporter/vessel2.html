@@ -192,7 +192,7 @@
   
       <h2  class="toc" style="text-align: center">Table of Contents</h2>
       <div id="toc12" >
-        <p class="t1">1. Deficiencies Summary........................................................................................................................................1</p>
+        <p class="t1"><a>1. Deficiencies Summary</a>........................................................................................................................................1</p>
         <p style="padding-left: 50px;">1.1 Shows errors/warnings/suggestions...................................................................................................4.1</pre></p>
         <p class="t1">2. Vessel Inputs.......................................................................................................................................................2</p>
         <p style="padding-left: 50px;">2.1 Design Temperature............................................................................................................................4.1</pre></p>
@@ -303,7 +303,7 @@
             </div>   
             <div style="text-align: center;" class="repeat-heading"><h3><b>4.Vessel Calculations(Internal)</b></h3>
             {% for cylinder in cylinderParams %}
-              <span class="c5 c12">Cylinder{{ forloop.counter }}
+              <span style="font-size:20px;" class="c5 c12">Cylinder{{ forloop.counter }}
                 <br>
                 {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
                 
