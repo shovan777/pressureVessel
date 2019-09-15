@@ -267,22 +267,17 @@ th {
   color: white;
 }
 
-@media print {
-  @page {
-    #tablenew #pagescounter::after {
-      display: inline;
-      content: counter(page);
-    }
 
-    #tablenew #pagescounterof::after {
-      display: inline-block;
-      content: counter(pages)
-    }
-  }
-}
 
 #tablenew {
   /* background: #e6e6fa; */
   padding-top: 50px;
   /* margin-left: 20px; */
+}
+
+.cycalc{
+  padding : 0px 0px 0px 0px;
+  margin-left: 0px;
+  
+
 }
