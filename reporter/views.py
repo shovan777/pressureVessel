@@ -51,7 +51,7 @@ from drawing.drawingcopy import DrawingClass
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
-
+import datetime
 
 # def index(request):
 #     # return HttpResponse("Hello, world. You're at the reporter index.")
@@ -72,15 +72,23 @@ def csv_loader(filename):
         print(str(e))
 
 
+def get_page_body(boxes):
+    for box in boxes:
+        if box.element_tag == 'body':
+            return box
+
+        return get_page_body(box.all_children())
+
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny, ))
 def index(request):
     # print(request.data)
+    font_config = FontConfiguration()
     material_list = MaximumAllowableStress.objects.all()
     template = loader.get_template('reporter/vessel2.html')
     # header_tempalate = loader.get_template('')
     list_array = [p.spec_num for p in material_list]
-    info_table_path = os.path.join(settings.STATIC_ROOT,'reporter/csv/')
+    info_table_path = os.path.join(settings.STATIC_ROOT, 'reporter/csv/')
     info_tables = {
         'area': csv_loader(info_table_path + 'area.csv'),
         'temp': csv_loader(info_table_path + 'temp.csv'),
@@ -147,6 +155,7 @@ def index(request):
 
     ########################### FOR DRAWING PURPOSE ONLY ########
     report = Report.objects.get(id=projectID)
+    project_name = report.projectName
     state_path = report.location_state
     report_path = report.location
     # main_data = {}
@@ -224,14 +233,16 @@ def index(request):
     # image = image.decode('utf-8')
     # image=str(image)
     # print(image)
+    today = datetime.datetime.today()
     context = {
-        'title': 'Calcgen Reports',
+        'projectName': project_name,
+        'title': 'Pressure Vessel Analysis Report',
         'material_spec_num': list_array[0],
         'author': request.user.username if request.user.username else 'Shovan Raj Shrestha',
         # 'projectID': request.data['projectID'],
         'projectID': projectID,
         # bring out createdat from report table
-        'createdAt': '2019-02-21',
+        'createdAt': '{}-{}-{}'.format(today.year, today.month, today.day),
         'infoTables': info_tables,
         # 'image': image,
         'cylinderParams': cylinder_params,
@@ -243,23 +254,88 @@ def index(request):
     }
     # print(Report.objects.get(id=87))
     html_out = template.render(context, request)
-    file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/google2.css'))
+    file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/vessel.css'))
     file_buf = BytesIO(file_bytes)
     google_css = CSS(file_buf)
     file_buf.close()
-    file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/typography.css'))
+    file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/bootstrap.min.css'))
     file_buf = BytesIO(file_bytes)
     typo_css = CSS(file_buf)
     file_buf.close()
     # print(css)
     # print(request.build_absolute_uri())
-    html = HTML(string=html_out, base_url=request.build_absolute_uri())
+
+
+    ############ this code is added new report generation
+    html_template = loader.get_template('reporter/vessel2.html')
+    header_template = loader.get_template('reporter/header.html')
+    vessel_css = google_css
+    bootstrap_css = typo_css
+
+    html_out = html_template.render(context, request)
+    html_header = header_template.render(context, request)
+
+    pdf_header = HTML(string=html_header, base_url=request.build_absolute_uri())
+
+    pdf = HTML(string=html_out, base_url=request.build_absolute_uri())
+
+
+    header = pdf_header.render(stylesheets=[vessel_css, bootstrap_css], presentational_hints=True, font_config=font_config)
+    doc = pdf.render(stylesheets=[vessel_css, bootstrap_css], presentational_hints=True, font_config=font_config)
+    
+    
+    
+    exists_links = False
+    print(header.pages)
+    header_page = header.pages[0]
+    exists_links = exists_links or header_page.links
+    header_body = get_page_body(header_page._page_box.all_children())
+    header_body = header_body.copy_with_children(header_body.all_children())
+    
+    
+    
+    
+    
+    # Insert header and footer in main doc
+    for i, page in enumerate(doc.pages):
+        # if not i:
+        #     continue
+
+        page_body = get_page_body(page._page_box.all_children())
+
+        page_body.children += header_body.all_children()
+
+        if exists_links:
+            page.links.extend(header_page.links)
+    
+    
+    
+    
+    pdf_file = doc
     if settings.PRODUCTION:
-        pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+        pdf = pdf_file.write_pdf()
         file_utils.create_file(report_path, pdf)
     else:
-        html.write_pdf(report_path,
-                   stylesheets=[google_css, typo_css])
+        print('*************')
+        print("I am in local")
+        print(report_path)
+        file_utils.create_file(report_path, 'abc')
+        pdf_file.write_pdf(report_path)
+    # pdf_file = pdf.write_pdf(
+    #     stylesheets=[vessel_css, bootstrap_css], presentational_hints=True,font_config=font_config)
+    
+
+    ################## this code is added new report generation
+
+
+
+    # html = HTML(string=html_out, base_url=request.build_absolute_uri())
+    # if settings.PRODUCTION:
+    #     pdf = html.write_pdf(stylesheets=[google_css, typo_css])
+    #     file_utils.create_file(report_path, pdf)
+    # else:
+    #     html.write_pdf(report_path,
+    #                stylesheets=[google_css, typo_css])
     # pdf= ''
     # pdf = base64.decode(pdf)
 
@@ -376,8 +452,8 @@ class ReportViewSet(viewsets.ModelViewSet):
     # override the list action
     def list(self, *args, **kwargs):
         username = self.request.user.username
-        print('****************')
-        print(username)
+        # print('****************')
+        # print(username)
         temp_query = self.queryset
         self.queryset = self.queryset.filter(author=username)
         # print(self.queryset)

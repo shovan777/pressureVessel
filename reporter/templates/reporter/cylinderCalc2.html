@@ -1,11 +1,15 @@
-<p># Cylinder {{ cylinderParams.component_id }}</p>
-<b>Thickness of Cylindrical Shell as per UG-27</b>
 <br>
-t = (P*R)/(S*E-0.6*P)
-= ({{ cylinderParams.P }}*{{ cylinderParams.R }})/({{ cylinderParams.S }}*{{ cylinderParams.E }}
-- 0.6*{{ cylinderParams.P }})
-= {{ cylinderParams.t_inter }}in
 <br>
-t = {{ cylinderParams.t_inter }} + Corrosion Allowance
-= {{ cylinderParams.t_inter }} + {{ cylinderParams.C_A }}
-= {{ cylinderParams.t }}in
+<div style="padding-left:30px;">
+    <p style="font-size:26px"><u><b># Cylinder {{ cylinderParams.component_id }}</b></u></p>
+    <b>Thickness of Cylindrical Shell as per UG-27</b>
+    <br>
+    t = (P*R)/(S*E-0.6*P)
+    = ({{ cylinderParams.P }}*{{ cylinderParams.R }})/({{ cylinderParams.S }}*{{ cylinderParams.E }}
+    - 0.6*{{ cylinderParams.P }})
+    = {{ cylinderParams.t_inter }}in
+    <br>
+    t = {{ cylinderParams.t_inter }} + Corrosion Allowance
+    = {{ cylinderParams.t_inter }} + {{ cylinderParams.C_A }}
+    = {{ cylinderParams.t }}in
+</div>

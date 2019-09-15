@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     'state',
 
     'oidc_rp',
-    'ReporterApp',
+    # 'ReporterApp',
 ]
 
 MIDDLEWARE = [
