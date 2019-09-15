@@ -166,10 +166,10 @@ body {
 }
 
 .vc3 {
-  color: darkblue;
+  color: black;
   font-size: 20px;
-  text-align: center;
-  background-color: #00ced1;
+  /* text-align: center; */
+  /* background-color: #00ced1; */
   margin-bottom: 8px;
   margin-right: 20px;
 }
