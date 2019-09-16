@@ -1,48 +1,30 @@
-.table000 {
-  margin-left: 90px;
-  width: 80%;
-  /* color:white; */
-  /* background-color: rgb(0,0,50); */
-  border: darkblue 2px solid;
-  text-align: center;
-}
-
-.table000 th {
-  background: #191970;
-  color: white;
-}
-
-.table000 td {
-  background: #fff;
-}
-
-#table5 {
-  /* border: 1px solid black; */
-  border-collapse: collapse;
-  border: "0";
-}
-
 body {
-  font-size: 75%;
+  margin: 0px 20px 0px 20px;
+  font-size: 10px;
   color: #222;
+  font-family: Georgia, 'Times New Roman';margin-top:20px;
 
-
-  margin: 40px;
-  /* font-size: 20px; */
-  text-align: center;
-  /* display: inline-block; */
-
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Symbol"; */
 }
+
+/* border-collapse: separate; */
+/* border-spacing: 2px; */
 
 .calcgen {
   /* margin-left: 80px;
   margin-right: 70px; */
-  border: 1px solid;
+  border: 0px solid black;
   /* margin: 0 auto; */
-  width: 80%;
-  margin-left: 110px;
+  width: 90%;
+  margin-left: 30px;
   margin-bottom: 150px;
+  /* background: black; */
+  /* border-right: #000; */
+  /* background-clip: padding-box; */
+  /* display: block; */
+  /* white-space: nowrap; */
+  /* clear: both; */
+  /* visibility: hidden; */
+
 
 
 
@@ -65,6 +47,9 @@ body {
   width: 25px;
   height: 50px;
   background: #fffff0;
+  /* background: yellow; */
+
+
 }
 
 .cp2 {
@@ -77,12 +62,16 @@ body {
 #d1 {
   background: #b0c4de;
   padding: 5px;
+  font-size: 15px;
+
+
 }
 
 .pgof {
   background: #f0ffff;
+  font-size: 15px;
 
-  padding: 5px;
+
 }
 
 #ve {
@@ -90,191 +79,283 @@ body {
   text-align: center;
   color: white;
   border: 1px solid darkblue;
+  font-size: 15px;
+
+
+
 }
 
 .table-header {
   text-align: center;
 }
 
-.table-second {
-  margin-right: 115px;
-  margin-left: 75px;
-}
-
-.table-second th,
-.table-second td {
-  border: 1px solid black;
-}
-
-/* table 3  */
-
-.t3-head thead tr {
-  text-align: center;
-  background: #f5f5dc;
-}
-
-/* 
-.toc {
-  text-align: center;
-} */
-
-#toc12 {
-  font-size: 20px;
-  color: #191970;
-  /* margin-left: 30px; */
-  /* margin-right: 25px; */
-}
-
 #table5 {
-  /* margin-left: 100px; */
-  margin-left: 90px;
-  width: 80%;
+  /* border: "1"; */
+  margin-left: 30px;
+  width: 90%;
+  color: white;
+  border: 2px solid darkblue;
 }
 
 #table5 td {
   text-align: center;
-  background-color: #ffffff;
-  border-color: black;
+  background-color: white;
+  border: 1px solid darkblue;
+  padding: 5px;
+  font-size: 15px;
 }
 
 #table5 th {
   padding: 15px;
-  /* border: 0; */
-
-  /* color: black; */
-  /* background-color: #b0e0e6; */
-  background: #191970;
-
+  border: 1px solid white;
+  background: darkblue;
   color: #ffffff;
   text-align: center;
   background-clip: padding-box;
-  /* marginleft: 700px; */
+  font-size: 15px;
 }
 
 .ns-td {
   color: black;
 }
 
-#img-nozzle {
-  width: 20px;
-}
-
-#hello555 {
-  font-size: 40px;
-  color: black;
-  font-family: "Times New Roman", Times, serif;
-}
-
-.vc3 {
-  color: black;
-  font-size: 20px;
-  /* text-align: center; */
-  /* background-color: #00ced1; */
-  margin-bottom: 8px;
-  margin-right: 20px;
-}
-
-.vc4 {
-  color: darkblue;
-  font-size: 20px;
-  text-align: center;
-  background-color: #00ced1;
-  margin-right: 20px;
-}
-
-.cy1 {
-  padding-top: 10px;
-}
-
-.repeat-heading {
-  color: black;
-  margin: 0px 0px 0px 0px;
-  font-family: "Times New Roman", Times, serif;
-
-  /* margin-right: 80px; */
+#toc12 {
+  /* font-size: 20px; */
+  color: #191970;
   /* margin: auto; */
+  font-size: 20px;
+  width: 120%;
+  /* margin-left: 30px; */
+  /* margin-right: 25px; */
 }
 
-.table-max th {
-  padding: 5px;
-  /* margin: 2px 5px; */
-  background-color: #00008b;
-  color: #f5f5dc;
-  width: 2px;
-  height: 12px;
-  border: 1px solid blue;
-}
-
-/* 
-.table-max {
-  max-width: 120px;
-  width: auto;
-  border: 1px solid;
-  padding: 0.2rem;
-} */
-.th-small {
-  border: 1px solid black;
-  padding: 0px;
-  font-size: 10px;
-  margin-right: 200px;
-}
-
-.max-1 tr {
-  /* margin-left: 50px; */
-  font-size: 10px;
-  overflow: hidden;
+.page31 {
   margin: auto;
+  width: 90%;
+  color: #222;
+  font-size: 20px;
 }
 
-.max-1 th {
-  background-color: #00008b;
+.page41 {
+  margin: auto;
+  width: 90%;
+  color: #222;
+  font-size: 15px;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.page42 {
+  margin: auto;
+  width: 90%;
+  /* color: #222; */
+  font-size: 15px;
+}
+
+#table4 {
+  /* border: "1"; */
+  /* margin-left: 30px; */
+  width: 100%;
   color: white;
+  border: 2px solid darkblue;
 }
 
-
-#hello555 h3 {
-  float: left;
-}
-
-h1 {
+#table4 td {
   text-align: center;
+  color: #222;
+  /* background-color: #ffffff; */
+  /* border: 0px solid black; */
+  padding: 5px;
 }
 
-table {
-  border: 1px solid;
-  margin: 0 auto;
-  width: 70%;
-  margin: 0px 30px 0px 30px;
-}
-
-td,
-th {
+#table4 th {
+  padding: 15px;
+  /* border: 0px solid darkblue; */
+  background: #191970;
+  color: #ffffff;
   text-align: center;
-  border: 1px solid;
+  background-clip: padding-box;
 }
 
-.revi {
-  border: 1px solid;
-  margin: 0 auto;
-  width: 70%;
+.page51 {
+  margin: auto;
+  width: 90%;
+  color: #222;
+  font-size: 20px;
 }
 
-.revi th {
-  background-color: #000080;
+.page52 {
+  margin: auto;
+  width: 90%;
+  /* color: #222; */
+  font-size: 15px;
+}
+
+#table6 {
+  /* border: "1"; */
+  margin-left: 30px;
+  width: 90%;
   color: white;
+  border: 2px solid black;
+  /* border-collapse: collapse; */
+  /* border-style: hidden; */
 }
 
+#table6 td {
+  text-align: center;
+  /* background-color: darkblue; */
+  border: 0.5px solid black;
+  padding: 10px;
+  margin: 0px;
+  color: black;
+  font-size: 15px;
+}
 
+.content {
+  margin-left: 30px;
+  width: 90%;
+  font-size: 20px;
+}
 
-#tablenew {
-  /* background: #e6e6fa; */
-  padding-top: 50px;
+.content sub {
+  /* vertical-align: sub; */
+  font-size: 13px;
+}
+
+.content sup {
+  /* vertical-align: sub; */
+  font-size: 13px;
+}
+
+.page121 {
+  margin: auto;
+  width: 90%;
+  /* color: #222; */
+  font-size: 15px;
+}
+
+#table51 {
+  /* border: "1"; */
   /* margin-left: 20px; */
+  width: 100%;
+  color: white;
+  border: 0px solid darkblue;
 }
 
-.cycalc {
-  padding: 0px 0px 0px 0px;
-  margin-left: 0px;
-
-
+#table51 td {
+  text-align: center;
+  background-color: #e6e6fa;
+  border: 0px solid darkblue;
+  padding: 5px;
+  font-size: 15px;
 }
+
+#table51 th {
+  padding: 15px;
+  border: 0px solid darkblue;
+  background: #191970;
+  color: #ffffff;
+  text-align: center;
+  background-clip: padding-box;
+  font-size: 15px;
+}
+
+/* #table51 #na{
+  background-color: red;
+
+} */
+
+#table51 #passed {
+  color: darkblue;
+}
+
+#table51 #npassed {
+  color: red;
+}
+
+#table51 #apassed {
+  color: green;
+}
+
+
+
+/* table of contents */
+ol {
+  counter-reset: list-counter;
+}
+
+li span,
+li:after {
+  /* display: table; */
+  vertical-align: bottom;
+  padding: 0 14em 0em 0;
+}
+
+li span.line {
+  width: 100%;
+  /* border-bottom: 2px dotted #000; */
+}
+
+li:after {
+  counter-increment: list-counter;
+  content: counter(list-counter);
+  float: right;
+}
+p span,
+p:after {
+  /* display: table; */
+  vertical-align: bottom;
+  padding: 0 14em 0em 0;
+}
+
+h3{
+  text-decoration: underline;
+}
+
+/* ol.toc12 a::after {
+  content: leader(".") target-counter(attr(href), page);
+}  */
+/* ul.toc12 a::after {
+  content: leader('.') target-counter(attr(href), page);
+} */
+/* .pageref {
+  counter-reset: pagecounter;
+}
+
+.pageref:before {
+  content: " on page " counter(pagecounter);
+  counter-increment: pagecounter;
+} */
+/* .pageref a::after {
+  content: leader(".") target-counter(attr(href url), page, lower-roman);
+} */
+/* .bodymatter a::after { content: leader('.') target-counter(attr(href url), page, decimal) } */
+
+
+  {
+  % load static %
+}
+
+<head><style></style></head><body class="headerone"
+style="font-family: Georgia, 'Times New Roman', Times, serif"
+
+><div><p style="border-bottom:3px solid blue;margin-top:10px;"><img class="header-image"src="{% static 'flangeapp/images/latest1.png' %}"></p><div class="container"><br /><br /><br />< !-- {
+    {
+    allblogs.Title
+  }
+}
+
+--><table class="calcgen"style="background-color: black;overflow:hidden;">< !-- <h1 class="CR">Calcgen Report</h1>--><tr><th class="img"colspan="5"rowspan="2"><img class="img1"
+width="75px"
+height="128px"
+src="{% static 'flangeapp/images/image4.png' %}"
+
+/></th><th colspan="#"rowspan="2"class="cp2"style="height:20%"><h2 style="font-size: 20px;">Calcgen Solutions</h2><h2 style="font-size:20px;">Project Specifications</h2></th><th rowspan="1"colspan="4"id="d1">Document No {
+    {
+    name
+  }
+}
+
+</th></tr><tr class="pgof"><th colspan="2"rowspan="1"><span id="pagescounter"style="font-size:15px;">Project ID&nbsp;
+:&nbsp;
+</span></th><th colspan="2"rolspan="1"><span id="pagescounterof"style="font-size:15px;">Project name:<br>hahahahaha</span></th></tr><tr><td colspan="10"rowspan="2"id="ve"><strong>Flange Calculator</strong></td></tr></table></div></div></body>
