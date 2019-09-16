@@ -256,11 +256,11 @@ def index(request):
     html_out = template.render(context, request)
     file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/vessel.css'))
     file_buf = BytesIO(file_bytes)
-    google_css = CSS(file_buf)
+    vessel_css = CSS(file_buf)
     file_buf.close()
     file_bytes = file_utils.read_file(os.path.join(settings.STATIC_ROOT, 'reporter/bootstrap.min.css'))
     file_buf = BytesIO(file_bytes)
-    typo_css = CSS(file_buf)
+    bootstrap_css = CSS(file_buf)
     file_buf.close()
     # print(css)
     # print(request.build_absolute_uri())
@@ -269,8 +269,7 @@ def index(request):
     ############ this code is added new report generation
     html_template = loader.get_template('reporter/vessel2.html')
     header_template = loader.get_template('reporter/header.html')
-    vessel_css = google_css
-    bootstrap_css = typo_css
+    
 
     html_out = html_template.render(context, request)
     html_header = header_template.render(context, request)

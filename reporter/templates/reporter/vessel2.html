@@ -399,44 +399,19 @@
             <br>
             <!-- output required -->
 
-            <!-- vessel calculations internal -->
-            <div style="page-break-before: always;" class="or">
-              <div class="repeat-heading">
-                <h3 id="id4"><b>4.Vessel Calculations(Internal)</b></h3>
-              </div>
-              <span style="font-size:20px;margin-left:0px;" class="c5 c12">Cylinder{{ forloop.counter }}</span>
-              <br>
-              <div class="cycalc">
-                {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit veniam, eius inventore animi non
-                  velit consequatur ducimus repellendus et sunt ullam natus magni excepturi, quidem aliquam accusamus
-                  vel. Consequatur, qui.</p>
-              </div>
+        <!-- vessel calculations internal -->
+        <div style="page-break-before: always;" class="or">
+            
+           <div class="repeat-heading"><h3 id="id4"><b>4.Vessel Calculations(Internal)</b></h3></div>   
+           <span style="font-size:20px;margin-left:0px;" class="c5 c12">Cylinder{{ forloop.counter }}</span>     
+           <br><div class="vc3">
+                  {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}              
+            
+           </div>
 
 
             </div>
-            {% comment %} <div style="page-break-before: always;" class="or">
-
-              <div class="repeat-heading">
-                <h3><b>4.Vessel Calculations(Internal)</b></h3>
-              </div>
-              {% for cylinder in cylinderParams %}
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              <span style="font-size:20px;margin-left:0px;" class="c5 c12">Cylinder{{ forloop.counter }}
-                <br>
-                {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
-
-              </span>
-              {% endfor %}
-
-
-
-            </div> {% endcomment %}
+            
 
 
             <!-- vessel calculations external-->

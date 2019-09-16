@@ -166,21 +166,19 @@ body {
 }
 
 .vc3 {
-  color: darkblue;
+  color:red;
   font-size: 20px;
-  text-align: center;
-  background-color: #00ced1;
   margin-bottom: 8px;
-  margin-right: 20px;
+  /* margin-right: px; */
 }
 
-.vc4 {
+/* .vc4 {
   color: darkblue;
   font-size: 20px;
   text-align: center;
   background-color: #00ced1;
   margin-right: 20px;
-}
+} */
 
 .cy1 {
   padding-top: 10px;
