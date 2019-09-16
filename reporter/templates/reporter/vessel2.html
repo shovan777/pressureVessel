@@ -1,132 +1,80 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    {% load static %}
 
-<head>
-  {% load static %}
-
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="{% static 'reporter/vessel.css' %}" />
-  <style>
-    @charset "UTF-8";
-
-    @font-face {
-      font-family: 'Raleway';
-      src: local('resources/raleway/Raleway-Light.ttf') format('truetype');
-      font-weight: normal;
-    }
-
-    @page {
-      margin-top: 10cm;
-
-
-      size: "A4";
-      /* counter-increment: page; */
-
-      @bottom-right {
-        content: counter(page) " of "counter(pages);
-
-        /* background: url("assets://images/logo.svg"); */
-        /* content: 'Calcgen'; */
-
-        /* font-size: 20px; */
-        /* margin-bottom: 5px; */
-        /* width: 1cm; */
-        /* width : 2px; */
-        /* height: 500px; */
-        /* background-size:3px; */
-
-        /* vertical-align: bottom; */
-
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'reporter/vessel.css' %}"
+    />
+    <style>
+      @charset "UTF-8";
+      @font-face {
+        font-family: "Raleway";
+        src: local("resources/raleway/Raleway-Light.ttf") format("truetype");
+        font-weight: normal;
       }
 
-      @top-center {
+      @page {
+        margin-top: 10cm;
+        /* margin: 2cm 2cm; */
+        size: "A4";
+        @bottom-center {
+          /* content: counter(page) " of " counter(pages); */
+          content: counter(page)
 
-        content: '';
-        display: block;
-        height: .05cm;
-        margin-bottom: 25px;
-
-        @bottom-right {
-          content: counter(page) " of "counter(pages);
         }
 
+        /* @bottom-right {
+          content: "Page " counter(page) " of " counter(pages); 
+        } */
+      
 
-
-
-
-
-        /* #pagescounter::after {
-            display: inline;
-            content: counter(page);
-        }
-        #pagescounterof::after{
-          disp
-          lay: inline-block;
-          content: counter(pages)
-        }  */
-      }
-  </style>
-</head>
-
-<body class="body" style="font-family: Georgia, 'Times New Roman', Times, serif;margin-top:20px;">
-
-  <div class="container">
-
-    <br>
-    <br>
-    <!-- table 2     -->
-    <div>
-      <table id="table5" style="
-      color:white;
-      background-color: rgb(0,0,0);
-      border: darkblue 2px solid;
-      ">
-        <thead>
-
-          <tr>
-            <th></th>
-            <th>Prepared by</th>
-            <th>Reviewed by</th>
-            <th>Approved by</th>
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="color: black">Name</td>
-            <td>{{ author }}</td>
-            <td></td>
-            <td></td>
-
-          </tr>
-          <tr>
-            <td style="color: black">Title</td>
-            <td>{{ title }}</td>
-            <td></td>
-            <td></td>
-
-          </tr>
-          <tr>
-            <td style="color: black">Date</td>
-            <td>{{ createdAt }}</td>
-            <td></td>
-            <td></td>
-
-
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-    <!-- <div class="CR"><h3>Calcgen Report</h3></div>
+    </style>
+  </head>
+  
+  <body style="font-family: Georgia, 'Times New Roman';margin-top:20px;">
     
-
-    
+    <div class="page1">
       <br />
-     
-     
+      <br />
+      <div class="preparedby">
+        <table
+          id="table5">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Prepared by</th>
+              <th>Reviewed by</th>
+              <th>Approved by</th>
+            </tr>
+          </thead>
+          <tbody style="color: black">
+            <tr>
+              <td style="color: black">Name</td>
+              <td style="color: black"></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Title</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="color: black">Date</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+<<<<<<< HEAD
       <br>
       <br>
      
@@ -1018,3 +966,134 @@
 </body>
 
 </html>
+=======
+
+      <br />
+      <br />
+      <div>
+        <h2 style = "text-align: center">Revision log</h2>
+        <table
+          id="table5"
+          style="
+            color:#90EE90;
+            border: dark#90EE90 0px solid;
+            "
+        >
+          <thead>
+            <tr>
+              <th>Rev.No</th>
+              <th>Description of Change</th>
+              <th>Date:</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="color: black">
+              <td>01</td>
+              <td></td>
+              <td></td>
+              
+            </tr>
+            <tr style="color: black">
+              <td>02</td>
+              <td></td>
+              <td></td>
+              
+            </tr>
+            <tr style="color: black">
+              <td>03</td>
+              <td></td>
+              <td></td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="page2" style="page-break-before: always" >     
+      
+      <br>
+      {% include 'reporter/toc.html' %}
+    </div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id1">1. Deficiencies Summary</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id2">2. Vessel Inputs</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id3">3. Component table/trees</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id4">4. Vessel calculation(Internal)</h3>
+           <div class="content">
+                {% include 'reporter/nozzleCalc.html' %}
+
+            </div>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+      
+      <div class="page31">        
+        <h3 id="id5">5. Vessel calculation(External)</h3>
+      </div>      
+    <div>
+    
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id6">6. Nozzle Calculations</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id7">7. Weight summary</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id8">8. XY co-ordinate and cg</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id9">9. Vessel design Summary</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+        
+        <div class="page31">        
+          <h3 id="id10">10. 2D outline of Vessel</h3>
+        </div>      
+    <div>
+    <div class="page3" style="page-break-before: always">
+    
+      <div class="page31">        
+               
+        <p>{% include "reporter/abbreviatiom.html" %}</p>
+      </div>      
+    <div>
+
+
+    
+
+    
+
+    
+</body>
+</html>
+>>>>>>> 7a4d6d66998d8899a214c9a3b485acd7e6de2856
