@@ -55,7 +55,7 @@
           <tbody style="color: black">
             <tr>
               <td style="color: black">Name</td>
-              <td style="color: black"></td>
+              <td>{{ author }}</td>
               <td></td>
               <td></td>
             </tr>
@@ -117,7 +117,7 @@
         </table>
       </div>
     </div>
-    <div class="page2" style="page-break-before: always" >     
+    <div class="page2" style="#" >     
       
       <br>
       {% include 'reporter/toc.html' %}
@@ -144,10 +144,13 @@
         
         <div class="page31">        
           <h3 id="id4">4. Vessel calculation(Internal)</h3>
+          {% for cylinder in cylinderParams %}
+           <h4>>cylinder {{ forloop.counter }}</h4>
            <div class="content">
-                {% include 'reporter/nozzleCalc.html' %}
+                {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
 
             </div>
+          {% endfor %}  
         </div>      
     <div>
     <div class="page3" style="page-break-before: always">
@@ -158,10 +161,15 @@
     <div>
     
     <div class="page3" style="page-break-before: always">
-        
+        {% for nozzle in nozzleParams %}        
         <div class="page31">        
           <h3 id="id6">6. Nozzle Calculations</h3>
-        </div>      
+          <div class="content">
+              {% include 'reporter/nozzleSummary.html' with nozzleParams=nozzle %}
+
+          </div>
+        </div>   
+        {% endfor %}   
     <div>
     <div class="page3" style="page-break-before: always">
         
