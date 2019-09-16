@@ -154,6 +154,9 @@ def index(request):
     # pygame = PyGame()
 
     ########################### FOR DRAWING PURPOSE ONLY ########
+    # read the file
+    # string json content
+    # convert json to python object
     report = Report.objects.get(id=projectID)
     project_name = report.projectName
     state_path = report.location_state
