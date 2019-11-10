@@ -142,10 +142,11 @@
     <div>
     <div class="page3" style="page-break-before: always">
         
-        <div class="page31">        
+        <div class="page31">     
+             
           <h3 id="id4">4. Vessel calculation(Internal)</h3>
           {% for cylinder in cylinderParams %}
-           <h4>>cylinder {{ forloop.counter }}</h4>
+           <h4 class="content">cylinder {{ forloop.counter }}</h4>           
            <div class="content">
                 {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
 
@@ -161,11 +162,12 @@
     <div>
     
     <div class="page3" style="page-break-before: always">
+      <h3 id="id6">6. Nozzle Calculations</h3>
         {% for nozzle in nozzleParams %}        
         <div class="page31">        
-          <h3 id="id6">6. Nozzle Calculations</h3>
+          
           <div class="content">
-              {% include 'reporter/nozzleSummary.html' with nozzleParams=nozzle %}
+              {% include 'reporter/nozzleCalc.html' with nozzleParams=nozzle %}
 
           </div>
         </div>   
