@@ -78,6 +78,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'oidc_rp.middleware.OIDCRefreshIDTokenMiddleware',
+    'oidc_rp.middleware.OIDCRefreshIDTokenMiddlewareRF',
+    
 ]
 
 AUTH_USER_MODEL = 'userapp.User'
@@ -87,7 +89,7 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oidc_rp.contrib.rest_framework.authentication.BearerTokenAuthentication',
@@ -230,7 +232,7 @@ LOGOUT_REDIRECT_URL = os.environ['LOGOUT_REDIRECT_URL']
 
 OIDC_RP_USE_NONCE = False
 OIDC_RP_USE_STATE = True
-OIDC_RP_AUTHENTICATION_REDIRECT_URI = '/'
+OIDC_RP_AUTHENTICATION_REDIRECT_URI = os.environ['OIDC_RP_AUTHENTICATION_REDIRECT_URI']
 OIDC_RP_SCOPES = 'openid email profile'
 OIDC_RP_USE_AJAX = True
 # OIDC Provider configuration

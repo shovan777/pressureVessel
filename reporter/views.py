@@ -80,7 +80,7 @@ def get_page_body(boxes):
         return get_page_body(box.all_children())
 
 @api_view(['GET', 'POST'])
-@permission_classes((permissions.AllowAny, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def index(request):
     # print(request.data)
     font_config = FontConfiguration()
@@ -397,7 +397,7 @@ class ReportViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
