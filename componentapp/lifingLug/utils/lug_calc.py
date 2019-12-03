@@ -201,7 +201,7 @@ def lug_calc(
         raise newError({
             "database":["Component cannot be found Please Create the component"]
             })
-
+    print(report_id)
     lug_state = LiftingLugState.objects.filter(
         report__id=report_id,
         component__id=component.id).update(
@@ -246,8 +246,6 @@ def lug_calc(
             M=M,
             Hght=Hght,
             c=c,
-            h=h,
-            l=l,
             tau_b=tau_b,
             tau_allowable=tau_allowable,
             tau_ratio=tau_ratio,
@@ -304,8 +302,6 @@ def lug_calc(
             M=M,
             Hght=Hght,
             c=c,
-            h=h,
-            l=l,
             tau_b=tau_b,
             tau_allowable=tau_allowable,
             tau_ratio=tau_ratio,

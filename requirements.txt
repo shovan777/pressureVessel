@@ -18,7 +18,7 @@ defusedxml==0.6.0
 Django==2.1.2
 django-cors-headers==2.4.0
 django-debug-toolbar==1.11
-git+git://github.com/Grunze1s/django-oidc-rp.git@master
+git+git://github.com/Grunze1s/django-oidc-rp.git@test
 django-storages==1.7.1
 djangorestframework==3.9.0
 djangorestframework-jwt==1.11.0
