@@ -27,6 +27,8 @@ class CylinderState(models.Model):
     E = models.FloatField(default=0.0)
     t_inter = models.FloatField(default=0.0)
     t = models.FloatField(default=0.0)
+    weight = models.FloatField(default=0.0)
+    
 
     def __str__(self):
         # return self.id or something like that
@@ -60,6 +62,7 @@ class NozzleState(models.Model):
     R_o = models.FloatField(default=0.0)
     A_r = models.FloatField(default=0.0)
     A_a = models.FloatField(default=0.0)
+    weight = models.FloatField(default=0.0)
     msg = models.TextField()
 
     def __str__(self):
@@ -85,6 +88,7 @@ class HeadState(models.Model):
     E = models.FloatField(default=0.0)
     C_A = models.FloatField(default=0.0)
     t = models.FloatField(default=0.0)
+    weight = models.FloatField(default=0.0)
 
     def __str__(self):
         # return self.id or something like that
