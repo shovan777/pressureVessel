@@ -23,7 +23,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = os.environ['DEBUG'] == 'True'
 
-PRODUCTION = os.environ['PRODUCTION'] == 'True'
+# PRODUCTION = os.environ['PRODUCTION'] == 'True'
+PRODUCTION = True
 
 SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT'] == 'True'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -181,10 +182,10 @@ else:
         BASE_DIR), 'vesselexpress-backend')
 # STATIC_ROOT = 'static'
 
-STATICFILES_DIRS = [
-    # static directory (in the top level directory) for local testing
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     # static directory (in the top level directory) for local testing
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = 'media/'
