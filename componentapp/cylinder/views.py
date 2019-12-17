@@ -38,30 +38,21 @@ class ThicknessData(APIView):
             })
 
         max_stress = max_stress_calculator(row_dict, data1.get('temp1'))
-        P = data1.get('ip')
-        S = max_stress
-        D = data1.get('sd')
-        C_A = data1.get('ic')
-        density = row_dict['density']
-        projectID = data1.get('projectID')
-        component_react_id = data1.get('componentID')
         one_feet_to_inch = 12
-        length = data1.get('length') * one_feet_to_inch
 
         kwargs = {
-            P: data1.get('ip'),
-            S: max_stress,
-            D: data1.get('sd'),
-            C_A: data1.get('ic'),
-            projectID: data1.get('projectID'),
-            component_react_id: data1.get('componentID'),
-            length: data1.get('length') * one_feet_to_inch,
-            density: row_dict['density']
+            'P': data1.get('ip'),
+            'S': max_stress,
+            'D': data1.get('sd'),
+            'C_A': data1.get('ic'),
+            'report_id': data1.get('projectID'),
+            'component_react_id': data1.get('componentID'),
+            'cylinderLength': data1.get('length') * one_feet_to_inch,
+            'density': row_dict['density']
         }
 
-        thickness = cylinder_t(P, S, D, C_A, projectID, component_react_id)
-        weight_cylinder = center_of_gravity(
-            D, length, density, thickness - C_A)
+        thickness, weight_cylinder = cylinder_t(**kwargs)
+
         newdict = {
             'thickness': thickness,
             'weight': weight_cylinder
