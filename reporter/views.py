@@ -184,7 +184,7 @@ def index(request):
     # closing the file object
 
     # ############################ DRAWING PURPOSE END ##############
-
+    print("I image drawn")
     cylinder_img_path = os.path.join(os.path.dirname(report_path), 'abc.png')
     img_in_memory = io.BytesIO()
     img_bytes = io.BytesIO(file_utils.read_file(cylinder_img_path))
@@ -216,7 +216,7 @@ def index(request):
     plt.savefig(img_in_memory, format='png')
     image = base64.b64encode(img_in_memory.getvalue())
     image = image.decode('utf-8')
-    
+    print("Image extracted")
     # get current time to display report its time of
     # generation
     today = datetime.datetime.today()
