@@ -2,7 +2,7 @@
 from asme.models import MaximumAllowableStress
 from .serializers import HeadSerializer
 from .renderers import HeadJSONRenderer
-from .utils.thickness_calc import head_t,center_of_gravity
+from .utils.thickness_calc import head_t, center_of_gravity
 
 # django-rest modules
 from rest_framework.views import APIView
@@ -14,6 +14,7 @@ from exceptionapp.exceptions import newError
 
 from asme.utils.calculators import max_stress_calculator
 
+
 class ThicknessData(APIView):
     """
     Determine thickness for provided cylinder params
@@ -24,19 +25,20 @@ class ThicknessData(APIView):
     def post(self, request, format=None):
 
         data = request.data.get('headParam', {})
-        data['projectID'] = request.data.get('projectID',None)
+        data['projectID'] = request.data.get('projectID', None)
         serializer = self.serializer_classes(data=data)
         serializer.is_valid(raise_exception=True)
-        
+
         data1 = serializer.data
         try:
-            row_dict = MaximumAllowableStress.objects.filter(spec_num=data1.get('spec_num')).filter(type_grade=data1.get('type_grade')).values()[0]
+            row_dict = MaximumAllowableStress.objects.filter(spec_num=data1.get(
+                'spec_num')).filter(type_grade=data1.get('type_grade')).values()[0]
         except:
             raise newError({
-                "database":["Data cannot be found incorrect data"]
-                })
-                
-        max_stress = max_stress_calculator(row_dict,data1.get('temp1'))
+                "database": ["Data cannot be found incorrect data"]
+            })
+
+        max_stress = max_stress_calculator(row_dict, data1.get('temp1'))
         hrAll = data1.get('hr').split(":")
         hrUpperPart = int(hrAll[0])
         hrLowerPart = int(hrAll[1])
@@ -53,16 +55,27 @@ class ThicknessData(APIView):
         if data1.get('position') == 1:
             position = "top"
         else:
-            position ="bottom"
+            position = "bottom"
 
-        thickness = head_t(P, S, D, C_A,position,projectID,component_react_id)
-        weightData = center_of_gravity(D,density,thickness[0]-C_A,srl)
+        kwargs = {
+            'P': P,
+            'S': S,
+            'diameterWithOutCorrosion': D,
+            'corrosionAllowance': C_A,
+            'position': position,
+            'report_id': projectID,
+            'component_react_id': component_react_id,
+            'density': density,
+            'srl': srl
+        }
+
+        thickness = head_t(**kwargs)
 
         newdict = {
-            'thickness':thickness[0],
-            'MAWP':thickness[1],
-            'MAWPResponse':thickness[2],
-            'weight':weightData
+            'thickness': thickness[0],
+            'MAWP': thickness[1],
+            'MAWPResponse': thickness[2],
+            'weight': thickness[3]
         }
         newdict.update(serializer.data)
-        return Response(newdict,status=status.HTTP_200_OK)
+        return Response(newdict, status=status.HTTP_200_OK)

@@ -1,215 +1,210 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    {% load static %}
 
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'reporter/vessel.css' %}"
-    />
-    <style>
-      @charset "UTF-8";
-      @font-face {
-        font-family: "Raleway";
-        src: local("resources/raleway/Raleway-Light.ttf") format("truetype");
-        font-weight: normal;
+<head>
+  {% load static %}
+
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="{% static 'reporter/vessel.css' %}" />
+  <style>
+    @charset "UTF-8";
+
+    @font-face {
+      font-family: "Raleway";
+      src: local("resources/raleway/Raleway-Light.ttf") format("truetype");
+      font-weight: normal;
+    }
+
+    @page {
+      margin-top: 10cm;
+      /* margin: 2cm 2cm; */
+      size: "A4";
+
+      @bottom-center {
+        /* content: counter(page) " of " counter(pages); */
+        content: counter(page)
       }
 
-      @page {
-        margin-top: 10cm;
-        /* margin: 2cm 2cm; */
-        size: "A4";
-        @bottom-center {
-          /* content: counter(page) " of " counter(pages); */
-          content: counter(page)
-
-        }
-
-        /* @bottom-right {
-          content: "Page " counter(page) " of " counter(pages); 
+      /* @bottom-right {
+          content: "Page " counter(page) " of " counter(pages);
         } */
-      
+  </style>
+</head>
 
-    </style>
-  </head>
-  
-  <body style="font-family: Georgia, 'Times New Roman';margin-top:20px;">
-    
-    <div class="page1">
-      <br />
-      <br />
-      <div class="preparedby">
-        <table
-          id="table5">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Prepared by</th>
-              <th>Reviewed by</th>
-              <th>Approved by</th>
-            </tr>
-          </thead>
-          <tbody style="color: black">
-            <tr>
-              <td style="color: black">Name</td>
-              <td>{{ author }}</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Title</td>
-              <td>Vessel Analysis Report</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td style="color: black">Date</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<body style="font-family: Georgia, 'Times New Roman';margin-top:20px;">
 
-      <br />
-      <br />
-      <div>
-        <h2 style = "text-align: center">Revision log</h2>
-        <table
-          id="table5"
-          style="
+  <div class="page1">
+    <br />
+    <br />
+    <div class="preparedby">
+      <table id="table5">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Prepared by</th>
+            <th>Reviewed by</th>
+            <th>Approved by</th>
+          </tr>
+        </thead>
+        <tbody style="color: black">
+          <tr>
+            <td style="color: black">Name</td>
+            <td>{{ author }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>Vessel Analysis Report</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td style="color: black">Date</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br />
+    <br />
+    <div>
+      <h2 style="text-align: center">Revision log</h2>
+      <table id="table5" style="
             color:#90EE90;
             border: dark#90EE90 0px solid;
-            "
-        >
-          <thead>
-            <tr>
-              <th>Rev.No</th>
-              <th>Description of Change</th>
-              <th>Date:</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="color: black">
-              <td>01</td>
-              <td></td>
-              <td></td>
-              
-            </tr>
-            <tr style="color: black">
-              <td>02</td>
-              <td></td>
-              <td></td>
-              
-            </tr>
-            <tr style="color: black">
-              <td>03</td>
-              <td></td>
-              <td></td>
-              
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            ">
+        <thead>
+          <tr>
+            <th>Rev.No</th>
+            <th>Description of Change</th>
+            <th>Date:</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color: black">
+            <td>01</td>
+            <td></td>
+            <td></td>
+
+          </tr>
+          <tr style="color: black">
+            <td>02</td>
+            <td></td>
+            <td></td>
+
+          </tr>
+          <tr style="color: black">
+            <td>03</td>
+            <td></td>
+            <td></td>
+
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="page2" style="#" >     
-      
-      <br>
-      {% include 'reporter/toc.html' %}
+  </div>
+  <div class="page2" style="#">
+
+    <br>
+    {% include 'reporter/toc.html' %}
+  </div>
+  <div class="page3" style="page-break-before: always">
+
+    <div class="page31">
+      <h3 id="id1">1. Deficiencies Summary</h3>
     </div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
-          <h3 id="id1">1. Deficiencies Summary</h3>
-        </div>      
     <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
+      <div class="page3" style="page-break-before: always">
+
+        <div class="page31">
           <h3 id="id2">2. Vessel Inputs</h3>
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
-          <h3 id="id3">3. Component table/trees</h3>
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">     
-             
-          <h3 id="id4">4. Vessel calculation(Internal)</h3>
-          {% for cylinder in cylinderParams %}
-           <h4 class="content">cylinder {{ forloop.counter }}</h4>           
-           <div class="content">
-                {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
+        </div>
+        <div>
+          <div class="page3" style="page-break-before: always">
 
+            <div class="page31">
+              <h3 id="id3">3. Component table/trees</h3>
             </div>
-          {% endfor %}  
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-      
-      <div class="page31">        
-        <h3 id="id5">5. Vessel calculation(External)</h3>
-      </div>      
-    <div>
-    
-    <div class="page3" style="page-break-before: always">
-      <h3 id="id6">6. Nozzle Calculations</h3>
-        {% for nozzle in nozzleParams %}        
-        <div class="page31">        
-          
-          <div class="content">
-              {% include 'reporter/nozzleCalc.html' with nozzleParams=nozzle %}
+            <div>
+              <div class="page3" style="page-break-before: always">
 
-          </div>
-        </div>   
-        {% endfor %}   
-    <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
-          <h3 id="id7">7. Weight summary</h3>
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
-          <h3 id="id8">8. XY co-ordinate and cg</h3>
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
-          <h3 id="id9">9. Vessel design Summary</h3>
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-        
-        <div class="page31">        
-          <h3 id="id10">10. 2D outline of Vessel</h3>
-        </div>      
-    <div>
-    <div class="page3" style="page-break-before: always">
-    
-      <div class="page31">        
-               
-        <p>{% include "reporter/abbreviation.html" %}</p>
-      </div>      
-    <div>
+                <div class="page31">
+
+                  <h3 id="id4">4. Vessel calculation(Internal)</h3>
+                  {% for cylinder in cylinderParams %}
+                  <h4 class="content">cylinder {{ forloop.counter }}</h4>
+                  <div class="content">
+                    {% include 'reporter/cylinderCalc2.html' with cylinderParams=cylinder %}
+
+                  </div>
+                  {% endfor %}
+                </div>
+                <div>
+                  <div class="page3" style="page-break-before: always">
+
+                    <div class="page31">
+                      <h3 id="id5">5. Vessel calculation(External)</h3>
+                    </div>
+                    <div>
+
+                      <div class="page3" style="page-break-before: always">
+                        <h3 id="id6">6. Nozzle Calculations</h3>
+                        {% for nozzle in nozzleParams %}
+                        <div class="page31">
+
+                          <div class="content">
+                            {% include 'reporter/nozzleCalc.html' with nozzleParams=nozzle %}
+
+                          </div>
+                        </div>
+                        {% endfor %}
+                        <div>
+                          <div class="page3" style="page-break-before: always">
+
+                            <div class="page31">
+                              <h3 id="id7">7. Weight summary</h3>
+                            </div>
+                            <div>
+                              <div class="page3" style="page-break-before: always">
+
+                                <div class="page31">
+                                  <h3 id="id8">8. XY co-ordinate and cg</h3>
+                                </div>
+                                <div>
+                                  <div class="page3" style="page-break-before: always">
+
+                                    <div class="page31">
+                                      <h3 id="id9">9. Vessel design Summary</h3>
+                                    </div>
+                                    <div>
+                                      <div class="page3" style="page-break-before: always">
+
+                                        <div class="page31">
+                                          <h3 id="id10">10. 2D outline of Vessel</h3>
+                                          <img src="data:image/png;base64,{{ image }}" alt="Red dot" />
+
+                                        </div>
+                                        <div>
+                                          <div class="page3" style="page-break-before: always">
+
+                                            <div class="page31">
+
+                                              <p>{% include "reporter/abbreviation.html" %}</p>
+                                            </div>
+                                            <div>
 
 
-    
 
-    
 
-    
+
+
+
 </body>
+
 </html>

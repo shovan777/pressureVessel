@@ -6,7 +6,9 @@ from componentapp.component.models import Component
 
 from exceptionapp.exceptions import newError
 
-def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
+
+def cylinder_t(P, S, D, C_A, report_id,
+               component_react_id, cylinderLength, density, E=1.0):
     """Calculate thickness as per ASME DIV I
 
     Parameters
@@ -45,16 +47,19 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
         report = Report.objects.get(id=report_id)
     except:
         raise newError({
-            "database":["Report cannot be found Please Create the report"]
-            })
-    
+            "database": ["Report cannot be found Please Create the report"]
+        })
+
     try:
         component = Component.objects.filter(
             report__id=report_id, react_component_id=component_react_id)[0]
     except:
         raise newError({
-            "database":["Component cannot be found Please Create the component"]
-            })
+            "database": ["Component cannot be found Please Create the component"]
+        })
+    
+    # calculate weight of cylinder
+    weight = center_of_gravity(D, cylinderLength, density, t - C_A)
 
     cylinder_state = CylinderState.objects.filter(
         report__id=report_id,
@@ -66,8 +71,9 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
             S=S,
             E=E,
             t_inter=t_inter,
-            t=t
-        )
+            t=t,
+            weight=weight
+    )
     if not cylinder_state:
         calc_steps = CylinderState(
             report=Report.objects.get(id=report_id),
@@ -79,18 +85,18 @@ def cylinder_t(P, S, D, C_A, report_id, component_react_id, E=1.0):
             S=S,
             E=E,
             t_inter=t_inter,
-            t=t
+            t=t,
+            weight=weight
         )
         calc_steps.save()
+
     
-    
-    return t
+
+    return t, weight
     # return (upper_part/lower_part) + C_A
 
 
 def conical_t(P, S, D_l, D_s, L_c, CA, report_id, E=1.0):
-    
-    
 
     D_l += 2 * CA
     D_s += 2 * CA
@@ -99,14 +105,15 @@ def conical_t(P, S, D_l, D_s, L_c, CA, report_id, E=1.0):
     return t_wo_allowance + CA
 
 
-def center_of_gravity(cylinderDiameter, cylinderLength, density,thicknessCylinder):
-    cylinderVolumeOuter = (m.pi*m.pow((cylinderDiameter/2.0), 2)*cylinderLength)
+def center_of_gravity(cylinderDiameter, cylinderLength, density, thicknessCylinder):
+    cylinderVolumeOuter = (
+        m.pi*m.pow((cylinderDiameter/2.0), 2)*cylinderLength)
     # sum of inidividual CG, S.F. of ellipsoidal head, height of skirt
-    cylinderVolumeInner = (m.pi*(m.pow(((float(cylinderDiameter)-float(thicknessCylinder))/2.0), 2.0)*cylinderLength))
+    cylinderVolumeInner = (
+        m.pi*(m.pow(((float(cylinderDiameter)-float(thicknessCylinder))/2.0), 2.0)*cylinderLength))
 
     netVolumeOfCylinder = cylinderVolumeOuter-cylinderVolumeInner
 
     newWeight = netVolumeOfCylinder*density
-
 
     return newWeight

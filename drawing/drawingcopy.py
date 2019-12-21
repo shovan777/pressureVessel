@@ -11,14 +11,14 @@ class DrawingClass:
         elif type == 'vertical':
             self.WIDTH,self.HEIGHT,self.PIXEL = 1, 1.41, 3508
         self.fileName = fileName
-        surface = self.create_surface(fileName+".svg",self.WIDTH,self.HEIGHT,self.PIXEL)
+        surface = self.create_surface(None,self.WIDTH,self.HEIGHT,self.PIXEL)
         self.surface = surface
         self.cr = self.create_context(surface,self.WIDTH,self.HEIGHT,self.PIXEL)
         self.drawingScaleFactor = drawing_scale_factor
         self.line_width = 10
 
     def create_surface(self,fileName,width,height,pixel):
-        surface = cairo.SVGSurface(fileName, width*pixel, height*pixel)
+        surface = cairo.SVGSurface(None, width*pixel, height*pixel)
 #         surface.set_document_unit(4)
         return surface
 
@@ -266,7 +266,7 @@ class DrawingClass:
                         self.line_width
                     )
 
-        self.surface.write_to_png(self.fileName+".png")  # Output to PNG
+        self.surface.write_to_png(self.fileName)  # Output to PNG
         self.surface.finish()
         
     def draw_main_vertical(self,data,starting_x,starting_y,total_length,length_of_top_head,length_of_bottom_head):
@@ -348,5 +348,5 @@ class DrawingClass:
                         self.line_width
                     )
 
-        self.surface.write_to_png(self.fileName+".png")  # Output to PNG
+        self.surface.write_to_png(self.fileName)  # Output to PNG
         self.surface.finish()
