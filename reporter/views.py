@@ -27,7 +27,7 @@ from weasyprint.fonts import FontConfiguration
 
 # pandas - data manipulator
 import pandas as pd
-
+from PIL import Image
 
 from pressureVessel import settings, file_utils
 
@@ -49,6 +49,7 @@ from drawing.drawingcopy import DrawingClass
 
 # matplotlib modules
 import matplotlib.pyplot as plt
+import numpy as np
 import base64
 from io import BytesIO
 import datetime
@@ -192,7 +193,9 @@ def index(request):
     def display_image_in_actual_size(img_bytes, img_in_memory):
         dpi = 1000
         # im_buff = plt.read
-        im_data = plt.imread(img_bytes)
+        # im_data = plt.imread(img_bytes)
+        im_data = Image.open(img_bytes)
+        im_data = np.array(im_data)
         height, width, depth = im_data.shape
 
         # What size does the figure need to be in inches to fit the image?
