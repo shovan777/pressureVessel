@@ -51,6 +51,8 @@ class TokenVerify(APIView):
                 'access_token':user_token.access_token,
                 'refresh_token':user_token.refresh_token,
                 'exp_time':user_token.exp_time,
+                'user_name':request.user.username,
+                'user_id': request.user.pk,
             },
             status=status.HTTP_200_OK
         )

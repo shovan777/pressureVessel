@@ -27,18 +27,18 @@ class NozzleSerializer(serializers.ModelSerializer):
     designPressure = serializers.FloatField(
         required=True,
     )
-    cylinderDiameter = serializers.FloatField(
-        required=True,
-    )
+    # cylinderDiameter = serializers.FloatField(
+    #     required=True,
+    # )
     corrosionAllowance = serializers.FloatField(
         required=True,
     )
-    cylinderThickness = serializers.FloatField(
-        required=True,
-    )
-    nozzleDiameter = serializers.FloatField(
-        required=True,
-    )
+    # cylinderThickness = serializers.FloatField(
+    #     required=True,
+    # )
+    # nozzleDiameter = serializers.FloatField(
+    #     required=True,
+    # )
     externalNozzleProjection = serializers.FloatField(
         required=True,
     )
@@ -54,4 +54,5 @@ class NozzleSerializer(serializers.ModelSerializer):
     class Meta:
         model = NozzleData
         # fields = ['nominal_pipe_size','type_name','class_value','projectID']
-        fields = ['type_name','nominal_pipe_size','class_value','spec_num','type_grade','temp1','designPressure','cylinderDiameter','corrosionAllowance','cylinderThickness','nozzleDiameter','externalNozzleProjection','internalNozzleProjection','projectID','componentID']
+        # fields = ['type_name','nominal_pipe_size','class_value','spec_num','type_grade','temp1','designPressure','cylinderDiameter','corrosionAllowance','cylinderThickness','nozzleDiameter','externalNozzleProjection','internalNozzleProjection','projectID','componentID']
+        fields = ['type_name','nominal_pipe_size','class_value','spec_num','type_grade','temp1','designPressure','corrosionAllowance','externalNozzleProjection','internalNozzleProjection','projectID','componentID']

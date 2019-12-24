@@ -45,8 +45,10 @@ class NozzleAPIView(APIView):
             row_dict_stress, data1.get('temp1'))
 
         yieldStrength = row_dict_stress['min_yield_strength']
-        cylinderInsideDiameter = data1.get('cylinderDiameter')
-        cylinderThickness = data1.get('cylinderThickness')
+        # cylinderInsideDiameter = data1.get('cylinderDiameter')
+        cylinderInsideDiameter = 1
+        # cylinderThickness = data1.get('cylinderThickness')
+        cylinderThickness = 2
         # nozzleOutsideDiameter = data1.get('nozzleDiameter')
         nozzleThickness = row_dict_nozzle['neck_thickness']
         externalNozzleProjection = data1.get('externalNozzleProjection')
