@@ -17,5 +17,4 @@ htmlcov/
 .coverage
 cloud_sql_proxy
 app.yaml
-vesselexpress-backend-2efff124d8a9.json
 user_*

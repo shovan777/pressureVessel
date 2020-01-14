@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "vesselexpress-backend",
+  "private_key_id": "2efff124d8a9a3a8447e87ae156b82eff716b808",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDdJRgnVBuH2rpG\naGDOjUKsODwOjKug0ozR5CtfQuAk7PnVG4yRf2oc7Xy0kCP2eFYhRUttjIrzdjkP\nIpFAhbwQQi/y3DgUNcr0yPE1TdMdH0alIvxtf+0nb87oWwwfXoXW+wFownpUCEC1\nrkkagSSNDqhbvjEJtQ5mDi8K5sBlg4IWwZvoeh2PK7msI7RmJRFHyhWs0tl+ju6d\n+NLIzJM2yJuWWh9HGWxQJSgHBvfdOkpnXbRuBp51R9IRX6IrD62EGQbY1LZHmTI3\nfLLi++bkrM4DkQWu3kTp9LbnS6/ZYjgCQsHDdHvdcG7XU1Rq9QFwSosnq8FhNx4I\nF7Y7H/6PAgMBAAECggEAB2YZpscznJn+0s2PNO9DpHYahvTB5pbkyz5Ht9+JlvKu\nxn3YzXgRLs1AojHoYh396Q25IP3WGvXWTDarMW4dWqs8O3M5am5aT1JMb6zI5sKI\ndIyfxsdu7HuF1VRRKtjYwCvpt32PkNwt02ZKCoRORWyQyXEAPFjoaxWyZo+jLuzl\ngP6m7QRVVrNXlHdA/D4enwob3IEUSi0FTOAHVnwq1KuSY8FF0EBhMSkMB438Jiur\nyPmldABAktqKOvfaKaGgR+djLY6npa2dTrmuTfhNLX8FNJyn1txnYUMvVbixbrD7\nDugXM78cTCRGQWr9hQCSCYV9wY9ETGA/Z8qHmUdrUQKBgQD9G3cz9gmjrFMeQPOP\nwtnL/TN9tspDwxTrlGLHil1J8j7+mVw7N4FHn0csleLrZUnx0/p7jSYhgvmJiKQ+\nqq0VhmCXPQhTpDwoV2NeIXMGy4hk9RlafnB/0KJ8b9RWHHErfWy+DWUHtJfhXiA3\njPV0IpgRON+hyNgq3alXta/w6wKBgQDfrB0xbFaD9jm2cy+BtbCWzh9SnbyGaG3a\nV3/p8sJCtam2mMeI0NYqRVlKOAIRvj67MgEZjVD4f15soRWzf6GmhfiGEgyxNnr3\nxyd0ZdoURXw0U8HLAJwNwhRvccfuUcrIgQspyqZy7HT0fD7Vki0esF6TktUXTvyD\ni6emOtSf7QKBgQCDQHfrMR5Eivs7SBFFrpSEzNOj0GNJCmPR2kvzD9RaoU17d4m1\nh4351yXwf/WBfi//QJ627TYl0KaYZIxPlvBUpi92ngawYQ11GgQEbzIYBvm+6L7y\nB3lNPqLUBqXE1dD17X+zeny2pzbPfqEUTXuHct0KqUSGwAEhEXtcaXJIawKBgD1I\nRudXq4yUVdOrU4TSZwOqjeJw3UpmKlL8Tkum+5qTc2BYE7NkpIkIXyJ6nfaGjWF0\nneCGW3z6SMCykeOQQJYDdsglAd079A0XP7Qgg9OyBgnAOQSJsjgCyN6P6htdxZWR\n5aEZqOkr6A9kS0LwvfP+lqsQO9obBgx0owZkcAUxAoGBAL91a7+F56Rod/OAoAoJ\nbKM9HNFceMCGfTI7t8oFnbpgo63et83xQ413jy5psQrkCDiTiPF1JMVzQ2ouxJ8t\nQ2JXRrm6ayufWi0DfouuhAhSvEiqi635jOvNaQYtxVrLZQcDdZKbs6D+HC+pV6lm\nG6vuXXFjDKw+Zy4ooeOrDH0X\n-----END PRIVATE KEY-----\n",
+  "client_email": "vesselexpress-backend@appspot.gserviceaccount.com",
+  "client_id": "114973912884890637186",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vesselexpress-backend%40appspot.gserviceaccount.com"
+}
