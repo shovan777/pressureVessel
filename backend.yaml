@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: vessel-backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: vessel-backend
+    spec:
+      containers:
+        - name: vessel-backend-container
+          image: "gcr.io/kuber-test-263901/vessel-backend:20.01.13.v2.0"
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+              name: vessel-env
