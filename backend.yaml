@@ -15,5 +15,6 @@ spec:
           ports:
             - containerPort: 8000
           envFrom:
-            configMapRef:
-              name: vessel-env
+            - name: "jpt-back"
+              configMapRef:
+                name: vessel-env
