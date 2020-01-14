@@ -15,5 +15,5 @@ spec:
           ports:
             - containerPort: 8000
           envFrom:
-            - configMapRef:
+            configMapRef:
               name: vessel-env
