@@ -13,7 +13,7 @@ spec:
         - name: vessel-backend-container
           image: "gcr.io/kuber-test-263901/vessel-backend:20.01.14.v1.0"
           ports:
-            - containerPort: 8000
+            - containerPort: 8080
           envFrom:
             - configMapRef:
                 name: vessel-env

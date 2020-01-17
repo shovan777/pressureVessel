@@ -18,3 +18,4 @@ htmlcov/
 cloud_sql_proxy
 app.yaml
 user_*
+config_map_local.yaml
