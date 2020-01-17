@@ -8,7 +8,7 @@ ENV VIRTUAL_ENV /env
 ENV PATH /env/bin:$PATH
 ADD requirements.txt /app/
 RUN apt-get update
-RUN apt-get install -y software-properties-common 
+RUN apt-get install -y software-properties-common
 RUN apt-add-repository ppa:ricotz/testing
 RUN apt-get update
 RUN apt-get install -y libcairo2-dev
@@ -17,3 +17,4 @@ RUN apt install -y pkg-config
 RUN pip install -r requirements.txt
 ADD . /app/
 CMD exec gunicorn -b :$PORT pressureVessel.wsgi
+EXPOSE 8080
