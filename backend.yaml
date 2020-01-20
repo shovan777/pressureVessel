@@ -17,4 +17,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: vessel-env
-          
