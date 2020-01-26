@@ -16,5 +16,4 @@ RUN apt-get install -y build-essential python3-dev python3-pip python3-setuptool
 RUN apt install -y pkg-config
 RUN pip install -r requirements.txt
 ADD . /app/
-
 CMD gunicorn -b :$PORT pressureVessel.wsgi

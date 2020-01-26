@@ -50,7 +50,6 @@ spec:
             # [END cloudsql_secrets]
         ports:
         - containerPort: 8080
-          hostPort: 8080
 # [END kubernetes_deployment]
 
 ---
