@@ -131,11 +131,11 @@ WSGI_APPLICATION = 'pressureVessel.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
+        'HOST': '127.0.0.1',
+        'PORT': '5423',
         'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD']
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD')
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite',
