@@ -17,3 +17,38 @@ spec:
           envFrom:
             - configMapRef:
                 name: vessel-env
+          env:
+            # [START cloudsql_secrets]
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-vessel
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-vessel
+                  key: password
+            # [END cloudsql_secrets]
+        - image: gcr.io/cloudsql-docker/gce-proxy:1.16
+          name: cloudsql-proxy
+          command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                    "-instances=calcgen:us-central1:calcgen-db=tcp:5432",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          volumeMounts:
+            - name: cloudsql-oauth-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+            - name: ssl-certs
+              mountPath: /etc/ssl/certs
+            - name: cloudsql
+              mountPath: /cloudsql
+          volumes:
+            - name: cloudsql-oauth-credentials
+              secret:
+                secretName: cloudsql-oauth-credentials
+            - name: ssl-certs
+              hostPath:
+                path: /etc/ssl/certs
+            - name: cloudsql
+              emptyDir:
