@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: vessel-backend-container
-          image: "gcr.io/kuber-test-263901/vessel-backend:20.01.27.v3.0"
+          image: "gcr.io/kuber-test-263901/vessel-backend:latest"
           ports:
             - containerPort: 8080
           resources:
