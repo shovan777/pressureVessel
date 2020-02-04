@@ -15,7 +15,7 @@ spec:
         app: vessel-backend
     spec:
       containers:
-        - name: vessel-backend-container
+        - name: vessel-backend
           image: "gcr.io/kuber-test-263901/vessel-backend:latest"
           ports:
             - containerPort: 8080
