@@ -46,7 +46,7 @@ spec:
       volumes:
         - name: cloudsql-oauth-credentials
           secret:
-            secretName: cloudsql-oauth-credentials
+            secretName: cloudsql-vessel
         - name: ssl-certs
           hostPath:
             path: /etc/ssl/certs
