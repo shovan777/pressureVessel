@@ -26,7 +26,7 @@ data:
   OIDC_RP_CLIENT_SECRET: "299b2addc696d30f3db8313db4ae05e8f1e2fcce619ad84f55dbcd88"
   OIDC_RP_PROVIDER_END_SESSION_ENDPOINT: "https://calcgen.appspot.com/auth/end-session/"
   OIDC_RP_PROVIDER_ENDPOINT: "https://calcgen.appspot.com/auth/"
-  OIDC_RP_AUTHENTICATION_REDIRECT_URI: "https://ve-dot-calcgen.appspot.com/builder"
+  OIDC_RP_AUTHENTICATION_REDIRECT_URI: "http://104.154.114.59/builder"
   LOGOUT_REDIRECT_URL: "https://calcgen.appspot.com"
   PRODUCTION: "True"
     # with torch.no_grad(): output = model.forward(data)
