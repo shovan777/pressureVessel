@@ -58,7 +58,7 @@ Pyphen==0.9.5
 pypugjs==5.7.2
 python-dateutil==2.8.0
 pytz==2018.7
-PyYAML==3.13
+PyYAML==5.4
 redis==3.0.1
 reportlab==3.5.12
 requests==2.21.0
