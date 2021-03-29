@@ -48,7 +48,7 @@ ptyprocess==0.6.0
 pycodestyle==2.5.0
 pycparser==2.19
 pygame==1.9.4
-Pygments==2.3.1
+Pygments==2.7.4
 PyJWT==1.6.4
 pylint==2.2.2
 pylint-django==2.0.6
