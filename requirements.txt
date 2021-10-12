@@ -34,7 +34,7 @@ MarkupSafe==1.1.0
 matplotlib==3.0.2
 mccabe==0.6.1
 numpy==1.16.1
-opencv-python==4.0.0.21
+opencv-python==4.1.1.26
 pandas==0.24.1
 parso==0.3.2
 pdf-reports==0.2.3
