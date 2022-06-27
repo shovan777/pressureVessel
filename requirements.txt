@@ -60,7 +60,7 @@ python-dateutil==2.8.0
 pytz==2018.7
 PyYAML==3.13
 redis==3.0.1
-reportlab==3.5.12
+reportlab==3.5.55
 requests==2.21.0
 six==1.12.0
 soupsieve==1.8
